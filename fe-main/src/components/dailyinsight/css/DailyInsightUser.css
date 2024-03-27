@@ -1,0 +1,16 @@
+.daily-insight-title {
+  font-size: 36px; /* Adjust the font size as needed */
+}
+
+.daily-insight-card {
+  margin-bottom: 20px;
+}
+
+.daily-insight-card-title {
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold;
+}
+
+.daily-insight-card-content {
+  font-size: 18px; /* Adjust the font size as needed */
+}
