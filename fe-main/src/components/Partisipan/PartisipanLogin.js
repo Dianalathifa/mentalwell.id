@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/partisipan/login', {
+      const response = await axios.post('http://localhost:8080/partisipan/login', {
         email_partisipan: email,
         password_partisipan: password
       });
@@ -24,7 +24,7 @@ const Login = () => {
       localStorage.setItem('partisipan_nama', partisipan_nama);
       localStorage.setItem('partisipan_email', partisipan_email);
 
-      history.push('/dashboard');
+      history.push('/');
     } catch (error) {
       if (error.response) {
         // Kesalahan dari server (status code bukan 2xx)

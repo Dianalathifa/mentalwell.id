@@ -24,7 +24,7 @@ $routes->match(['post', 'options'], 'admin/login', 'AdminLogin::login');
 $routes->match(['post', 'options'], 'admin/register', 'AdminRegister::register');
 
 $routes->get('api/partisipan', 'Partisipan::index', ['filter' => 'cors']);
-$routes->post('api/partisipan/register', 'Partisipan::create', ['filter' => 'cors']);
+$routes->post('api/partisipan', 'Partisipan::create', ['filter' => 'cors']);
 $routes->get('api/partisipan/(:num)', 'Partisipan::show/$1', ['filter' => 'cors']);
 $routes->post('api/partisipan/update/(:num)', 'Partisipan::update/$1', ['filter' => 'cors']);
 $routes->get('api/partisipan/delete/(:num)', 'Partisipan::delete/$1', ['filter' => 'cors']);

@@ -16,7 +16,7 @@ const RegisterPage = () => {
   const savePartisipan = async (e) => {
     try {
       e.preventDefault();
-      await axios.post("http://localhost:8080/partisipan/register", {
+      await axios.post("http://localhost:8080/api/partisipan", {
         // Menggunakan path relatif
         nama_partisipan: nama_partisipan,
         email_partisipan: email_partisipan,

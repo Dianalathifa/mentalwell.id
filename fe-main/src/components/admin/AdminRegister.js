@@ -21,7 +21,7 @@ const RegisterPage = () => {
         email_admin: email_admin,
         password_admin: password_admin
       });
-      history.push("/admin/login");
+      history.push("/admin-login");
     } catch (error) {
       console.error("Error saving user:", error);
     }
@@ -97,7 +97,7 @@ const RegisterPage = () => {
 
         <div className="my-3 text-center">
           <p>
-            Already have an account? <a href="/admin/login">Login</a>
+            Already have an account? <a href="/admin-login">Login</a>
           </p>
         </div>
       </Col>

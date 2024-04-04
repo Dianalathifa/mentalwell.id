@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AdminAuthProvider } from './components/admin/AdminAuthContext';
+import { PartisipanAuthProvider } from './components/Partisipan/PartisipanAuthContext';
 
 const Landing = lazy(() => import("./components/Home"));
 const AboutUs = lazy(() => import("./components/landing/AboutUs"));
@@ -35,36 +37,40 @@ function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/about-us" component={AboutUs} />
-          <Route path="/register" component={Register} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/psikolog" component={Psikolog} />
-          <Route exact path="/psikolog/add" component={AddPsikolog} />
-          <Route exact path="/psikolog/edit/:id" component={EditPsikolog} />
-          <Route exact path="/kategoritest" component={KategoriTest} />
-          <Route exact path="/kategoritest/add" component={AddKategori} />
-          <Route exact path="/kategoritest/edit/:id" component={EditKategori} />
-          <Route exact path="/kuisioner" component={Kuisioner} />
-          <Route exact path="/kuisioner/add" component={AddKuisioner} />
-          <Route exact path="/kuisioner/edit/:id" component={EditKuisioner} />
-          <Route exact path="/psikolog-list" component={PsikologList} />
-          <Route exact path="/dailyinsight" component={DailyInsight} />
-          <Route exact path="/dailyinsight/add" component={AddDailyInsight} />
-          <Route exact path="/dailyinsight/edit/:id" component={EditDailyInsight} />
-          <Route exact path="/dailyinsight-user" component={DailyInsightUser} />
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/admin-register" component={AdminRegister} />
-          <Route exact path="/admin-login" component={AdminLogin} />
-          <Route exact path="/admin/profile" component={AdminProfile} />
-          <Route exact path="/admin/edit/:id" component={EditAdmin} />
-          <Route exact path="/partisipan" component={Partisipan} />
-          <Route exact path="/partisipan-register" component={PartisipanRegister} />
-          <Route exact path="/partisipan-login" component={PartisipanLogin} />
-          <Route exact path="/partisipan/profile" component={PartisipanProfile} />
-          <Route exact path="/partisipan/edit/:id" component={EditPartisipan} />
-        </Switch>
+        <AdminAuthProvider>
+          <PartisipanAuthProvider>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route path="/about-us" component={AboutUs} />
+              <Route path="/register" component={Register} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/psikolog" component={Psikolog} />
+              <Route exact path="/psikolog/add" component={AddPsikolog} />
+              <Route exact path="/psikolog/edit/:id" component={EditPsikolog} />
+              <Route exact path="/kategoritest" component={KategoriTest} />
+              <Route exact path="/kategoritest/add" component={AddKategori} />
+              <Route exact path="/kategoritest/edit/:id" component={EditKategori} />
+              <Route exact path="/kuisioner" component={Kuisioner} />
+              <Route exact path="/kuisioner/add" component={AddKuisioner} />
+              <Route exact path="/kuisioner/edit/:id" component={EditKuisioner} />
+              <Route exact path="/psikolog-list" component={PsikologList} />
+              <Route exact path="/dailyinsight" component={DailyInsight} />
+              <Route exact path="/dailyinsight/add" component={AddDailyInsight} />
+              <Route exact path="/dailyinsight/edit/:id" component={EditDailyInsight} />
+              <Route exact path="/dailyinsight-user" component={DailyInsightUser} />
+              <Route exact path="/admin" component={Admin} />
+              <Route exact path="/admin-register" component={AdminRegister} />
+              <Route exact path="/admin-login" component={AdminLogin} />
+              <Route exact path="/admin/profile" component={AdminProfile} />
+              <Route exact path="/admin/edit/:id" component={EditAdmin} />
+              <Route exact path="/partisipan" component={Partisipan} />
+              <Route exact path="/partisipan-register" component={PartisipanRegister} />
+              <Route exact path="/partisipan-login" component={PartisipanLogin} />
+              <Route exact path="/partisipan/profile" component={PartisipanProfile} />
+              <Route exact path="/partisipan/edit/:id" component={EditPartisipan} />
+            </Switch>
+          </PartisipanAuthProvider>
+        </AdminAuthProvider>
       </Suspense>
     </Router>
   );
