@@ -97,6 +97,15 @@ const AdminLayout = ({ children }) => {
             >
               Admin
             </Nav.Link>
+            
+            <Nav.Link
+              href="/partisipan"
+              className={`sidebar-link ${
+                location.pathname.startsWith("/partisipan") ? "active" : ""
+              } mt-2`}
+            >
+              Partisipan
+            </Nav.Link>
             {/* <Nav.Link
               href="/users"
               className={`sidebar-link ${
@@ -105,6 +114,24 @@ const AdminLayout = ({ children }) => {
             >
               Users
             </Nav.Link> */}
+            <Nav.Link
+              href="/kategoritest"
+              className={`sidebar-link ${
+                location.pathname.startsWith("/kategori_test") ? "active" : ""
+              } mt-2`}
+            >
+              Kategori Test
+            </Nav.Link>
+
+            <Nav.Link
+              href="/kuisioner"
+              className={`sidebar-link ${
+                location.pathname.startsWith("/kategori_test") ? "active" : ""
+              } mt-2`}
+            >
+              Kuisioner
+            </Nav.Link>
+            
             <Nav.Link
               href="/dailyinsight"
               className={`sidebar-link ${

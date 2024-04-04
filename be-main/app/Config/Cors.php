@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use CodeIgniter\Config\BaseConfig;
+
 
 /**
  * --------------------------------------------------------------------------

@@ -41,7 +41,7 @@ const Header = () => {
           <Nav.Link as={Link} to="/psikolog-list" className={currentPath === "/psikolog-list" ? "active" : ""}>
             Psikolog List
           </Nav.Link>
-          <Button variant="light" as={Link} to="/login" type="button" class="btn btn-outline-info" style={{ backgroundColor: "#FFFFF", borderColor: "#239BB2", borderWidth: "3px" }}>
+          <Button variant="light" as={Link} to="/partisipan-login" type="button" class="btn btn-outline-info" style={{ backgroundColor: "#FFFFF", borderColor: "#239BB2", borderWidth: "3px" }}>
             Login
           </Button>
         </Nav>

@@ -24,46 +24,59 @@ const PsikologList = () => {
 
   return (
     <div>
-      <ConNav /> {/* Use ConNav component here */}
+      <Header />
+      
+      <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-56px", paddingTop: "200px" }}>
+        <div className="container text-center">
+          <h6 className="section-title mb-2 tfonts">Psikolog List<br></br></h6>
+          <h6 className="subtitle" style={{ fontSize: "28px" }}><br></br>Menyediakan informasi tenaga medis terdekat<br></br>
+          guna penanganan tepat oleh ahli ketika kesehatan mental<br></br>
+          yang anda alami dalam kondisi yang perlu dilakukan rujukan<br></br><br></br><br></br><br></br><br></br></h6>
+
+        </div>
+      </section>
+
       <section id="about" className="section before-content">
         <div className="container text-center">
           <div>
             <h6 className="subtitle">Prioritaskan Kesehatan Mentalmu</h6>
-            <h6 className="section-title mb-2 tfonts">Temui Ahli Konsultan Kami!</h6>
-            <p className="mb-5 pb-4">Dapatkan Pencerahan dan Panduan yang Tepat untuk Meninggalkan Pola Pikir Negatif Anda Melalui Sesi Konsultasi Online Bersama Psikolog Profesional.</p>
+            <h6 className="section-title mb-2 tfonts">Temui Ahli Rekomendasi Kami!</h6>
+            <p className="mb-5 pb-4">Dapatkan Pencerahan dan Panduan yang Tepat untuk Meninggalkan Pola Pikir Negatif Anda Melalui Sesi Konsultasi Bersama Psikolog Profesional.</p>
           </div>
         </div>
 
-        <div className="container mt-0">
-          <Row xs={1} md={2} lg={3} className="g-4">
+        <Container fluid>
+          <Row className="justify-content-center">
             {psikologs.map((psikolog) => (
-              <Col key={psikolog.id_psikolog}>
+              <Col key={psikolog.id_psikolog} xs={12} md={6} lg={4}>
                 <Link to={`/psikolog/${psikolog.id_psikolog}`} className="psikolog-card-link">
-                  <Card className="psikolog-card" style={{ height: "100%" }}>
-                    <Row>
-                      <Col md={6}>
-                        <Card.Img variant="top" src={`http://localhost:8080/images/psikolog/${psikolog.image_psikolog}`} style={{ objectFit: "cover", height: "100%" }} />
-                      </Col>
-                      <Col md={6}>
-                        <Card.Body>
+                  <Card className="psikolog-card" style={{ width: "100%", height: "100%" }}>
+                    <Card.Body>
+                      <Row>
+                        <Col md={6} className="text-center">
+                          <Card.Img src={`http://localhost:8080/images/psikolog/${psikolog.image_psikolog}`} alt="Psikolog Image" style={{ width: "100%", height: "auto" }} />
+                        </Col>
+                        <Col md={6}>
                           <Card.Title className="psikolog-card-title">{psikolog.nama_psikolog}</Card.Title>
-                          <Card.Text className="psikolog-card-content">
+                          <Card.Text className="psikolog-card-content" style={{ fontSize: "16px", lineHeight: "1.5" }}>
                             {psikolog.deskripsi_psikolog.length > 100 ? psikolog.deskripsi_psikolog.substring(0, 100) + "..." : psikolog.deskripsi_psikolog}
                           </Card.Text>
                           <p>Lokasi: {psikolog.lokasi_psikolog}</p>
                           <p>Telephone: {psikolog.telephone_psikolog}</p>
                           <Link to={`/psikolog/${psikolog.id_psikolog}`}>
-                            <Button variant="primary">Lihat Profil</Button>
+                            <Button variant="light" style={{ backgroundColor: "#25B7D3", borderColor: "#25B7D3", color: "white", fontWeight: "bold" }}>Lihat Profil</Button>
                           </Link>
-                        </Card.Body>
-                      </Col>
-                    </Row>
+                        </Col>
+                      </Row>
+                    </Card.Body>
                   </Card>
                 </Link>
               </Col>
             ))}
           </Row>
-        </div>
+        </Container>
+
+        
       </section>
       <Footer />
     </div>

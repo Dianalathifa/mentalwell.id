@@ -4,6 +4,8 @@ import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "./images/logo.png";
 import illustrasi from "./images/illustrasi-1.png";
+import Header from "./landing/Header";
+import Footer from "./landing/Footer";
 
 const RegisterPage = () => {
   const [nama, setNama] = useState("");
@@ -22,13 +24,15 @@ const RegisterPage = () => {
         password: password,
         email: email,
       });
-      history.push("/login");
+      history.push("/partisipan-login");
     } catch (error) {
       console.error("Error saving user:", error);
     }
   };
 
   return (
+    <>
+    <Header/>
     <Row className="d-flex justify-content-between">
       {/* Gambar di sisi kanan */}
       <Col md={5}>
@@ -110,11 +114,14 @@ const RegisterPage = () => {
 
         <div className="my-3 text-center">
           <p>
-            Already have an account? <a href="/login">Login</a>
+            Already have an account? <a href="/partisipan-login">Login</a>
           </p>
         </div>
       </Col>
     </Row>
+    <Footer />
+
+    </>
   );
 };
 

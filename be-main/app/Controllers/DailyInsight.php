@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Models\DailyInsightModel;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\RESTful\ResourceController;
 
-class DailyInsight extends BaseController
+class DailyInsight extends ResourceController
 {
     use ResponseTrait;
 
@@ -36,8 +37,7 @@ class DailyInsight extends BaseController
         $rules = [
             'judul_content' => 'required',
             'deskripsi' => 'required',
-            'image' => 'uploaded[image]|max_size[image,1024]|mime_in[image,image/jpg,image/jpeg,image/png]',
-            'video' => 'uploaded[video]|max_size[video,10240]|mime_in[video,video/mp4,video/mpeg,video/quicktime]',
+            'image' => 'uploaded[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,1024]',
             'tanggal_upload' => 'required',
         ];
 
@@ -46,22 +46,18 @@ class DailyInsight extends BaseController
         }
 
         $image = $this->request->getFile('image');
-        $video = $this->request->getFile('video');
+        $newImageName = null;
 
-        // Upload image
-        $newImageName = $image->getRandomName();
-        $image->move('images/daily_insight/', $newImageName);
-
-        // Upload video
-        $newVideoName = $video->getRandomName();
-        $video->move('videos/daily_insight/', $newVideoName);
+        if ($image && $image->isValid() && !$image->hasMoved()) {
+            $newImageName = $image->getRandomName();
+            $image->move('images/daily_insight/', $newImageName);
+        }
 
         $data = [
             'judul_content' => $this->request->getVar('judul_content'),
             'deskripsi' => $this->request->getVar('deskripsi'),
-            'tanggal_upload' => $this->request->getVar('tanggal_upload'),
             'image' => $newImageName,
-            'video' => $newVideoName,
+            'tanggal_upload' => $this->request->getVar('tanggal_upload'),
         ];
 
         $model = new DailyInsightModel();
@@ -88,10 +84,8 @@ class DailyInsight extends BaseController
             'tanggal_upload' => 'required',
         ];
 
-        // Validasi hanya jika gambar atau video diunggah
-        if ($this->request->getFile('image') || $this->request->getFile('video')) {
-            $rules['image'] = 'max_size[image,1024]|mime_in[image,image/jpg,image/jpeg,image/png]';
-            $rules['video'] = 'max_size[video,10240]|mime_in[video,video/mp4,video/mpeg,video/quicktime]';
+        if ($this->request->getFile('image')) {
+            $rules['image'] = 'mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,1024]';
         }
 
         if (!$this->validate($rules)) {
@@ -105,22 +99,19 @@ class DailyInsight extends BaseController
             return $this->failNotFound('No Data Found');
         }
 
-        // Update image if uploaded
-        if ($this->request->getFile('image')) {
-            $image = $this->request->getFile('image');
-            $newImageName = $image->getRandomName();
-            $image->move('images/daily_insight/', $newImageName);
-        } else {
-            $newImageName = $dailyInsight['image'];
-        }
+        $newImageName = $dailyInsight['image'];
 
-        // Update video if uploaded
-        if ($this->request->getFile('video')) {
-            $video = $this->request->getFile('video');
-            $newVideoName = $video->getRandomName();
-            $video->move('videos/daily_insight/', $newVideoName);
-        } else {
-            $newVideoName = $dailyInsight['video'];
+        $image = $this->request->getFile('image');
+
+        if ($image) {
+            if ($image->isValid() && !$image->hasMoved()) {
+                if ($newImageName && file_exists('images/daily_insight/' . $newImageName)) {
+                    unlink('images/daily_insight/' . $newImageName);
+                }
+
+                $newImageName = $image->getRandomName();
+                $image->move('images/daily_insight/', $newImageName);
+            }
         }
 
         $data = [
@@ -128,7 +119,6 @@ class DailyInsight extends BaseController
             'deskripsi' => $this->request->getVar('deskripsi'),
             'tanggal_upload' => $this->request->getVar('tanggal_upload'),
             'image' => $newImageName,
-            'video' => $newVideoName,
         ];
 
         $model->update($id, $data);
@@ -153,16 +143,10 @@ class DailyInsight extends BaseController
             return $this->failNotFound('No Data Found');
         }
 
-        // Delete image
         $imagePath = 'images/daily_insight/' . $dailyInsight['image'];
+
         if ($dailyInsight['image'] && file_exists($imagePath)) {
             unlink($imagePath);
-        }
-
-        // Delete video
-        $videoPath = 'videos/daily_insight/' . $dailyInsight['video'];
-        if ($dailyInsight['video'] && file_exists($videoPath)) {
-            unlink($videoPath);
         }
 
         $model->delete($id);

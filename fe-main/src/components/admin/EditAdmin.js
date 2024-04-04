@@ -13,7 +13,7 @@ const EditAdmin = () => {
 
   const updateAdmin = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:8080/api/admin/${id}`, {
+    await axios.post(`http://localhost:8080/api/admin/update/${id}`, {
       nama_admin: nama_admin,
       password_admin: password_admin,
       email_admin: email_admin,

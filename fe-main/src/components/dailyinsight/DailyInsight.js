@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Breadcrumb, Button, Card, Table } from "react-bootstrap";
+import { Breadcrumb, Button, Card, Table, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import AdminLayout from "../layouts/AdminLayout";
 
 const DailyInsight = () => {
   const [dailyInsights, setDailyInsights] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getDailyInsights();
@@ -18,6 +19,7 @@ const DailyInsight = () => {
       const response = await axios.get("http://localhost:8080/api/dailyinsight");
       setDailyInsights(response.data);
     } catch (error) {
+      setError("Error fetching daily insights. Please try again later.");
       console.error("Error fetching daily insights:", error);
     }
   };
@@ -31,6 +33,7 @@ const DailyInsight = () => {
         getDailyInsights();
       }
     } catch (error) {
+      setError("Error deleting daily insight. Please try again later.");
       console.error("Error deleting daily insight:", error);
     }
   };
@@ -53,14 +56,14 @@ const DailyInsight = () => {
                 <Button variant="success" style={{ backgroundColor: "#FEA503", borderColor: "#FEA503" }}>+ Tambah</Button>
               </Link>
             </div>
+            {error && <Alert variant="danger">{error}</Alert>}
             <div className="table-responsive" style={{ overflowY: "auto", maxHeight: "450px" }}>
               <Table striped bordered hover width={"100%"}>
                 <thead>
                   <tr>
                     <th width={"5%"}>#</th>
-                    <th width={"15%"}>Image</th>
-                    <th width={"15%"}>Video</th>
                     <th width={"16%"}>Content Name</th>
+                    <th width={"15%"}>Image</th>
                     <th width={"30%"}>Description</th>
                     <th width={"13%"}>Date</th>
                     <th width={"15%"}>Action</th>
@@ -70,6 +73,7 @@ const DailyInsight = () => {
                   {dailyInsights.map((dailyInsight, index) => (
                     <tr key={dailyInsight.id_daily_insight}>
                       <td>{index + 1}</td>
+                      <td>{dailyInsight.judul_content}</td>
                       <td>
                         <img
                           src={`http://localhost:8080/images/daily_insight/${dailyInsight.image}`}
@@ -77,13 +81,6 @@ const DailyInsight = () => {
                           style={{ maxWidth: "200px", maxHeight: "200px" }}
                         />
                       </td>
-                      <td>
-                        <video width="200" height="200" controls>
-                          <source src={`http://localhost:8080/videos/daily_insight/${dailyInsight.video}`} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </td>
-                      <td>{dailyInsight.judul_content}</td>
                       <td>{dailyInsight.deskripsi}</td>
                       <td>{dailyInsight.tanggal_upload}</td>
                       <td>

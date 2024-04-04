@@ -9,10 +9,10 @@ const EditDailyInsight = () => {
   const history = useHistory();
 
   const [judul_content, setJudulContent] = useState("");
-  const [image, setImage] = useState(null);
-  const [oldImage, setOldImage] = useState(""); // Initialize with the existing image URL
   const [deskripsi, setDeskripsi] = useState("");
-  const [tanggalUpload, setTanggalUpload] = useState("");
+  const [tanggal_upload, setTanggalUpload] = useState("");
+  const [image, setImage] = useState(null);
+  const [oldImage, setOldImage] = useState("");
 
   useEffect(() => {
     getDailyInsight();
@@ -21,11 +21,11 @@ const EditDailyInsight = () => {
   const getDailyInsight = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/dailyinsight/${id}`);
-      const { judul_content, image, deskripsi, tanggal_upload } = response.data;
+      const { judul_content, deskripsi, tanggal_upload, image } = response.data;
       setJudulContent(judul_content);
-      setOldImage(image);
       setDeskripsi(deskripsi);
       setTanggalUpload(tanggal_upload);
+      setOldImage(image);
     } catch (error) {
       console.error("Error fetching daily insight:", error);
     }
@@ -36,9 +36,9 @@ const EditDailyInsight = () => {
     try {
       const formData = new FormData();
       formData.append("judul_content", judul_content);
-      formData.append("image", image);
       formData.append("deskripsi", deskripsi);
-      formData.append("tanggal_upload", tanggalUpload);
+      formData.append("tanggal_upload", tanggal_upload);
+      formData.append("image", image);
 
       await axios.post(`http://localhost:8080/api/dailyinsight/${id}`, formData, {
         headers: {
@@ -106,6 +106,21 @@ const EditDailyInsight = () => {
 
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">
+                  <Form.Label>Tanggal Upload</Form.Label>
+                </Col>
+                <Col md="8">
+                  <Form.Control
+                    type="date"
+                    name="tanggal_upload"
+                    value={tanggal_upload}
+                    onChange={(e) => setTanggalUpload(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+
+              <Row className="mb-3">
+                <Col md="2" className="d-flex justify-content-end">
                   <Form.Label>Current Image</Form.Label>
                 </Col>
                 <Col md="8">
@@ -120,7 +135,7 @@ const EditDailyInsight = () => {
               </Row>
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">
-                  <Form.Label>Gambar</Form.Label>
+                  <Form.Label>New Image</Form.Label>
                 </Col>
                 <Col md="8">
                   <Form.Control
@@ -133,7 +148,7 @@ const EditDailyInsight = () => {
               </Row>
 
               <Col md="10" className="d-flex justify-content-end">
-                <Button variant="success" type="submit">
+                <Button variant="light" style={{backgroundColor:"orange", color:"white"}} type="submit">
                   Submit
                 </Button>
               </Col>

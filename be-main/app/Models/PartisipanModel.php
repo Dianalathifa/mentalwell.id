@@ -12,7 +12,7 @@ class PartisipanModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'email', 'password', 'no_tlp', 'usia', 'created_at'];
+    protected $allowedFields    = ['nama_partisipan', 'email_partisipan', 'password_partisipan', 'usia', 'no_telp', 'created_at'];
 
     // Dates
     protected $useTimestamps = true;

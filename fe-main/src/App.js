@@ -1,154 +1,71 @@
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Landing from "./components/Home";
-import ReservationLanding from "./components/landing/Reservation";
-import Testimoni from "./components/landing/Testimoni";
-// import ContactUs from "./components/landing/ContactUs";
-import AboutUs from "./components/landing/AboutUs";
-import SRQTest from "./components/tes/SRQTest";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Admin from "./components/admin/Admin";
-import AddAdmin from "./components/admin/AddAdmin";
-import EditAdmin from "./components/admin/EditAdmin";
-import User from "./components/user/User";
-import AddUser from "./components/user/AddUser";
-import EditUser from "./components/user/EditUser";
-import Psikolog from "./components/psikolog/Psikolog";
-import AddPsikolog from "./components/psikolog/AddPsikolog";
-import EditPsikolog from "./components/psikolog/EditPsikolog";
-import PsikologList from "./components/landing/PsikologList";
-import DailyInsight from "./components/dailyinsight/DailyInsight";
-import AddDailyInsight from "./components/dailyinsight/AddDailyInsight";
-import EditDailyInsight from "./components/dailyinsight/EditDailyInsight";
-import Review from "./components/reviews/Review";
-import AddReview from "./components/reviews/AddReview";
-import EditReview from "./components/reviews/EditReview";
-import Dashboard from "./components/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DailyInsightUser from "./components/dailyinsight/DailyInsightUser";
-// import Contact from "./components/contact/Contact";
-// import AddContact from "./components/contact/AddContact";
-// import EditContact from "./components/contact/EditContact";
 
-
+const Landing = lazy(() => import("./components/Home"));
+const AboutUs = lazy(() => import("./components/landing/AboutUs"));
+const Register = lazy(() => import("./components/Register"));
+const Dashboard = lazy(() => import("./components/Dashboard"));
+const Psikolog = lazy(() => import("./components/psikolog/Psikolog"));
+const AddPsikolog = lazy(() => import("./components/psikolog/AddPsikolog"));
+const EditPsikolog = lazy(() => import("./components/psikolog/EditPsikolog"));
+const KategoriTest = lazy(() => import("./components/kategoritest/KategoriTest"));
+const AddKategori = lazy(() => import("./components/kategoritest/AddKategori"));
+const EditKategori = lazy(() => import("./components/kategoritest/EditKategori"));
+const Kuisioner = lazy(() => import("./components/Kuisioner/Kuisioner"));
+const AddKuisioner = lazy(() => import("./components/Kuisioner/AddKuisioner"));
+const EditKuisioner = lazy(() => import("./components/Kuisioner/EditKuisioner"));
+const PsikologList = lazy(() => import("./components/landing/PsikologList"));
+const DailyInsight = lazy(() => import("./components/dailyinsight/DailyInsight"));
+const AddDailyInsight = lazy(() => import("./components/dailyinsight/AddDailyInsight"));
+const EditDailyInsight = lazy(() => import("./components/dailyinsight/EditDailyInsight"));
+const DailyInsightUser = lazy(() => import("./components/dailyinsight/DailyInsightUser"));
+const Admin = lazy(() => import("./components/admin/Admin"));
+const AdminLogin = lazy(() => import("./components/admin/AdminLogin"));
+const AdminRegister = lazy(() => import("./components/admin/AdminRegister"));
+const AdminProfile = lazy(() => import("./components/admin/AdminProfile"));
+const EditAdmin = lazy(() => import("./components/admin/EditAdmin"));
+const Partisipan = lazy(() => import("./components/Partisipan/Partisipan"));
+const PartisipanLogin = lazy(() => import("./components/Partisipan/PartisipanLogin"));
+const PartisipanRegister = lazy(() => import("./components/Partisipan/PartisipanRegister"));
+const PartisipanProfile = lazy(() => import("./components/Partisipan/PartisipanProfile"));
+const EditPartisipan = lazy(() => import("./components/Partisipan/EditPartisipan"));
 
 function App() {
   return (
     <Router>
-      <Switch>
-        {/* HOME */}
-        <Route exact path="/">
-          <Landing />
-        </Route>
-        {/* <Route path="/reserv-user">
-          <ReservationLanding />
-        </Route>
-        <Route path="/testimoni">
-          <Testimoni />
-        </Route>
-        <Route path="/contact-us">
-          <ContactUs />
-        </Route> */}
-        <Route path="/about-us">
-          <AboutUs />
-        </Route>
-        
-
-        {/* AUTH */}
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/logout">
-          <Login />
-        </Route>
-
-        <Route exact path="/dashboard">
-          <Dashboard />
-        </Route>
-
-        {/* ADMIN */}
-        <Route exact path="/admin">
-          <Admin />
-        </Route>
-        <Route exact path="/admin/add">
-          <AddAdmin />
-        </Route>
-        <Route exact path="/admin/edit/:id">
-          <EditAdmin />
-        </Route>
-
-
-        {/* USER */}
-        <Route exact path="/users">
-          <User />
-        </Route>
-        <Route exact path="/users/add">
-          <AddUser />
-        </Route>
-        <Route exact path="/users/edit/:id">
-          <EditUser />
-        </Route>
-
-        {/* MENTALWELLTEST */}
-        <Route exact path="/mentalwelltest-user">
-          <SRQTest />
-        </Route>
-
-        {/* PSIKOLOG */}
-        <Route exact path="/psikolog">
-          <Psikolog />
-        </Route>
-        <Route exact path="/psikolog/add">
-          <AddPsikolog />
-        </Route>
-        <Route exact path="/psikolog/edit/:id">
-          <EditPsikolog />
-        </Route>
-        <Route exact path="/psikolog-list">
-          <PsikologList />
-        </Route>
-
-        {/* DAILYINSIGHT */}
-        <Route exact path="/dailyinsight">
-          <DailyInsight />
-        </Route>
-        <Route exact path="/dailyinsight/add">
-          <AddDailyInsight />
-        </Route>
-        <Route exact path="/dailyinsight/edit/:id">
-          <EditDailyInsight />
-        </Route>
-        <Route exact path="/dailyinsight-user">
-          <DailyInsightUser />
-        </Route>
-
-        {/* REVIEW */}
-        <Route exact path="/review">
-          <Review />
-        </Route>
-        <Route exact path="/review/add">
-          <AddReview />
-        </Route>
-        <Route exact path="/review/edit/:id">
-          <EditReview />
-        </Route>
-
-        {/* MESSAGE */}
-        {/* <Route exact path="/contact">
-          <Contact />
-        </Route>
-        <Route exact path="/contact/add">
-          <AddContact />
-        </Route>
-        <Route exact path="/contact/edit/:id">
-          <EditContact />
-        </Route> */}
-
-        
-      </Switch>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/about-us" component={AboutUs} />
+          <Route path="/register" component={Register} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/psikolog" component={Psikolog} />
+          <Route exact path="/psikolog/add" component={AddPsikolog} />
+          <Route exact path="/psikolog/edit/:id" component={EditPsikolog} />
+          <Route exact path="/kategoritest" component={KategoriTest} />
+          <Route exact path="/kategoritest/add" component={AddKategori} />
+          <Route exact path="/kategoritest/edit/:id" component={EditKategori} />
+          <Route exact path="/kuisioner" component={Kuisioner} />
+          <Route exact path="/kuisioner/add" component={AddKuisioner} />
+          <Route exact path="/kuisioner/edit/:id" component={EditKuisioner} />
+          <Route exact path="/psikolog-list" component={PsikologList} />
+          <Route exact path="/dailyinsight" component={DailyInsight} />
+          <Route exact path="/dailyinsight/add" component={AddDailyInsight} />
+          <Route exact path="/dailyinsight/edit/:id" component={EditDailyInsight} />
+          <Route exact path="/dailyinsight-user" component={DailyInsightUser} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/admin-register" component={AdminRegister} />
+          <Route exact path="/admin-login" component={AdminLogin} />
+          <Route exact path="/admin/profile" component={AdminProfile} />
+          <Route exact path="/admin/edit/:id" component={EditAdmin} />
+          <Route exact path="/partisipan" component={Partisipan} />
+          <Route exact path="/partisipan-register" component={PartisipanRegister} />
+          <Route exact path="/partisipan-login" component={PartisipanLogin} />
+          <Route exact path="/partisipan/profile" component={PartisipanProfile} />
+          <Route exact path="/partisipan/edit/:id" component={EditPartisipan} />
+        </Switch>
+      </Suspense>
     </Router>
   );
 }

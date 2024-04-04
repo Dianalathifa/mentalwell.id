@@ -2,208 +2,192 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Typewriter } from "react-simple-typewriter";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBrain, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
+import image6 from "./images/image6.png";
+import mentalwelltes from "./images/mw-tes.png";
+import daily from "./images/d-insight.png";
+import psikolist from "./images/psikolog-list.png";
 import illustrasi from "./images/illustrasi-1.png";
+import tes from "./images/tes.png";
+import dailyinsight from "./images/dailyinsight.png";
+import psikolog1 from "./images/psikolog1.png";
 import Footer from "./landing/Footer.js";
 import Header from "./landing/Header.js";
 import "./style/Home.css";
 
-const FoodCard = ({ image, foodName }) => {
+const PsikologCard = ({ image, nama_psikolog }) => {
   return (
     <Card style={{ width: "18rem" }}>
       <div className="card-image-container">
         <Card.Img
           variant="top"
-          src={`http://localhost:8080/images/menu/${image}`}
-          alt={foodName}
+          src={`http://localhost:8080/images/psikolog/${image}`}
+          alt={nama_psikolog}
           className="card-image"
         />
       </div>
       <Card.Body className="text-center">
-        <Card.Title className="my-3">{foodName}</Card.Title>
-        <Button variant="danger" className="my-3">
-          Book Now
+        <Card.Title className="my-3">{nama_psikolog}</Card.Title>
+        <Button variant="info" className="my-3">
+          Cek Sekarang
         </Button>
       </Card.Body>
     </Card>
   );
 };
 
-const MenuCard = ({ image, nama, description, restaurant, price }) => {
-  return (
-    <Card style={{ width: "22rem", height: "100%" }} className="mb-4">
-      <Row noGutters>
-        <Col md={4}>
-          <Card.Img
-            variant="top"
-            src={`http://localhost:8080/images/menu/${image}`}
-            className="rounded-left"
-            style={{ height: "100%", objectFit: "cover" }}
-          />
-        </Col>
-        <Col md={8}>
-          <Card.Body>
-            <Card.Title>{nama}</Card.Title>
-            <Card.Text style={{ fontSize: "10pt" }} className="mb-3">
-              {description}
-            </Card.Text>
-            <div className="d-flex justify-content-between">
-              <div>
-                <Card.Text className="text-muted">{restaurant}</Card.Text>
-              </div>
-              <div>
-                <Card.Text className="text-danger font-weight-bold">
-                  Rp {price}
-                </Card.Text>
-              </div>
-            </div>
-          </Card.Body>
-        </Col>
-      </Row>
-    </Card>
-  );
-};
-
-const ChefCard = ({ image, chefName }) => {
-  return (
-    <Card style={{ width: "18rem" }}>
-      <div>
-        <Card.Img
-          variant="top"
-          src={`http://localhost:8080/images/chef/${image}`}
-          alt={chefName}
-          style={{ objectFit: "contain", height: "100%" }}
-        />
-      </div>
-      <Card.Body className="text-center">
-        <Card.Title>{chefName}</Card.Title>
-      </Card.Body>
-    </Card>
-  );
-};
 
 const Home = () => {
-  const [menus, setMenu] = useState([]);
-  const [food, setFood] = useState([]);
-  const [chef, setChef] = useState([]);
+  const [psikolog, setPsikologs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      await getMenu();
-      await getFood();
-      await getChef();
+      await getPsikolog();
     };
 
     fetchData();
   }, []);
 
-  const getMenu = async () => {
-    const response = await axios.get(`http://localhost:8080/api/menu`);
-    setMenu(response.data);
+  const getPsikolog = async () => {
+    const response = await axios.get(`http://localhost:8080/api/psikolog`);
+    setPsikologs(response.data);
   };
 
-  const getFood = async () => {
-    const response = await axios.get(`http://localhost:8080/api/food`);
-    setFood(response.data);
-  };
-
-  const getChef = async () => {
-    const response = await axios.get(`http://localhost:8080/api/chef`);
-    setChef(response.data);
-  };
 
   return (
     <>
       <Header />
+      <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
+      <Col md={16} className="d-flex align-items-center justify-content">
+        <div className="container text-left">
+          <h6 className="section-title mb-2 tfonts">Mental Well</h6>
+          <h6 className="subtitle" style={{ fontSize: "28px" }}>adalah platform kesehatan mental yang dirancang sebagai solusi inovatif dalam meningkatkan kesehatan mental mahasiswa melalui  test dan pemahaman lebih dalam tentang kesejahteraan mental.</h6> 
+          <Button variant="light" style={{backgroundColor:"#FFD2DD", borderColor:"#FFD2DD",color:"black", fontWeight:"bold"}}>Baca Selengkapnya</Button>
 
-      <section className="mt-5 p-4">
-        <Row className="head align-items-center py-5 my-5">
-          <Col md={6}>
-            <h1 className="mb-5">
-              MENTALWELL
-            </h1>
-            <h2>
-              <span>
-                <Typewriter
-                  words={[" adalah platform kesehatan mental yang dirancang sebagai solusi inovatif dalam meningkatkan kesehatan mental mahasiswa melalui test dan pemahaman lebih dalam tentang kesejahteraan mental."]}
-                  loop
-                  cursor
-                  cursorStyle="|"
-                  typeSpeed={70}
-                  deleteSpeed={50}
-                  delaySpeed={1000}
-                />
-              </span>
-            </h2>
-            <Link to="/about-us">
-              <Button variant="light" className="font-weight-bold" style={{ backgroundColor: "#FFD2DD", borderColor: "#FFD2DD" }}>Baca Selengkapnya</Button>
-            </Link>          
+        </div>
+        <img src={illustrasi} alt="Logo" style={{ width: "700px", height: "700px", maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
+      </Col>
+      </section>
+      <section id="about" className="section before-content">
+        <div className="container text-center">
+          <div>
+            <h6 className="section-title mb-2 tfonts">Layanan Mental Well</h6>
+          </div>
+          <hr></hr>
+          <Row className="text-center align-items-center">
+          <Col>
+            <Card>
+              <Card.Body>
+                <img src={tes} size="4x" className="mb-6" />
+                <Card.Title>MentalWell Test</Card.Title>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col md={6}>
-            <img src={illustrasi} alt="Restaurant" className="img-fluid mb-1" />
+          <Col>
+            <Card>
+              <Card.Body>
+                <img src={dailyinsight} size="4x" className="mb-6" />
+                <Card.Title>Daily Insight</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            <Card>
+              <Card.Body>
+                <img src={psikolog1} size="4x" className="mb-6" />
+                <Card.Title>Psikolog List</Card.Title>
+              </Card.Body>
+              </Card>
           </Col>
         </Row>
+        </div>
+        </section>
 
-        <Container className="mt-5">
-          <div className="scrollable-cards-container py-5">
-            <Row className="flex-nowrap my-5">
-              {food.map((food) => (
-                <Col key={food.id} className="mr-3">
-                  <FoodCard image={food.image} foodName={food.nama} />
-                </Col>
-              ))}
-            </Row>
+
+      {/*LAYANAN 1*/}
+      <hr></hr>
+      <hr></hr>
+      <Container className="my-5">
+        <Row className="justify-content-center">
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+            <img src={mentalwelltes} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
+          </Col>
+          <Col md={8}>
+            <Card className="about-us-card">
+              <Card.Body>
+              <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Mental Well Test<br></br></h5>
+                <p style={{ fontSize: "25px" }}><br></br>Mental Health Test merupakan tes berupa skala psikologi. <br></br>
+                Skala psikologi sendiri adalah instrumen pengukuran untuk mengidentifikasi konstruk psikologis tertentu dalam diri seseorang.<br></br>
+                Hasil tes kurang lebih dapat digunakan sebagai screening awal kondisi psikologis individu, tetapi bukan sebagai diagnosis.<br></br><br></br></p>
+              </Card.Body>
+            </Card>
+          </Col>        
+        </Row>
+      </Container> 
+
+      {/*LAYANAN 2*/}
+       <hr></hr>
+      <hr></hr>
+      <Container className="my-5">
+        <Row className="justify-content-center">
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+            <img src={daily} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
+          </Col>
+          <Col md={8}>
+            <Card className="about-us-card">
+              <Card.Body>
+              <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Daily Insight<br></br></h5>
+                <p style={{ fontSize: "25px" }}><br></br>Daily Insight merupakan fitur yang dirancang untuk memberikan pengguna akses harian konten bermutu yang mendukung peningkatan kesehatan mental. Fitur ini menyediakan artikel, materi, dan panduan yang membahas berbagai aspek kesehatan mental, memberikan wawasan, dan memberikan dukungan untuk meningkatkan diri.</p>
+              </Card.Body>
+            </Card>
+          </Col>        
+        </Row>
+      </Container> 
+
+      {/*LAYANAN 3*/}
+      <hr></hr>
+      <hr></hr>
+      <Container className="my-5">
+        <Row className="justify-content-center">
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+            <img src={psikolist} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
+          </Col>
+          <Col md={8}>
+            <Card className="about-us-card">
+              <Card.Body>
+              <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Psikolog List<br></br></h5>
+                <p style={{ fontSize: "25px" }}><br></br>Psikolog List merupakan bentuk layanan yang berupa informasi psikologi ahli yakni berisi terkait nama, lokasi dan foto dari profile psikolog. Layanan ini sebagai rekomendasi rujukan bagi penderita yang butuh penanganan oleh ahli.</p>
+              </Card.Body>
+            </Card>
+          </Col>        
+        </Row>
+      </Container>  
+      <hr></hr> 
+      <hr></hr> 
+
+      <Container className="mt-5">
+        <div className="container text-center">
+          <div>
+            <h6 className="section-title mb-2 tfonts">Rekomendasi Psikolog </h6>
           </div>
-        </Container>
-
-        <Container className="my-5 py-5">
-          <h2 className="menu-title my-5">Layanan MentalWell</h2>
-          <Row className="text-center align-items-center">
-            <Col>
-              <Card>
-                <Card.Body>
-                  <FontAwesomeIcon icon={faBrain} size="2x" className="mb-3" />
-                  <Card.Title>MentalWell Test</Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <Card.Body>
-                  <FontAwesomeIcon icon={faSun} size="2x" className="mb-3" />
-                  <Card.Title>Daily Insight</Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <Card.Body>
-                  <FontAwesomeIcon icon={faUser} size="2x" className="mb-3" />
-                  <Card.Title>Psikolog List</Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-
-        <Container className="my-5 py-5">
-          <div className="scrollable-cards-container">
-            <Row className="flex-nowrap">
-              {chef.map((chef) => (
-                <Col key={chef.id} className="mr-3">
-                  <ChefCard image={chef.image} chefName={chef.nama} />
-                </Col>
-              ))}
-            </Row>
+          <div className="scrollable-cards-container py-5 d-flex flex-wrap justify-content-center">
+            {/* Menggunakan d-flex, flex-wrap, dan justify-content-center untuk styling */}
+            {psikolog.map((psikolog) => (
+              <Col key={psikolog.id_psikolog} className="mr-3 mb-3" style={{ flex: "0 0 auto", maxWidth: "300px" }}>
+                {/* Set flex ke auto agar lebar card menyesuaikan konten */}
+                <PsikologCard image={psikolog.image_psikolog} nama_psikolog={psikolog.nama_psikolog} />
+              </Col>
+            ))}
           </div>
-        </Container>
-      </section>
+        </div>
+      </Container>
 
-      <Footer />
-</>
-);
+     <Footer />
+      
+    </>
+  );
 };
 
 export default Home;
+

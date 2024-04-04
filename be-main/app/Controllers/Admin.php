@@ -3,10 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\AdminModel;
-use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
 
-class Admin extends ResourceController
+class Admin extends BaseController
 {
+    use ResponseTrait;
+
     protected $modelName = 'App\Models\AdminModel';
     protected $format    = 'json';
 
@@ -31,101 +33,59 @@ class Admin extends ResourceController
     }
 
     public function create()
-    {        $data = [
-            'nama_admin' => $this->request->getVar('nama_admin'),
-            'password_admin' => password_hash($this->request->getVar('password_admin'), PASSWORD_DEFAULT),
-            'email_admin' => $this->request->getVar('email_admin')
-        ];
-        $model = new AdminModel();
-        $model->save($data);
-        $response = [
-            'status' => 'success',
-            'messages' => 'Data berhasil ditambahkan',
-            'data' => $data,
+    {
+        $jsonData = $this->request->getJSON();
+        
+        $data = [
+            'nama_admin' => $jsonData->nama_admin,
+            'email_admin' => $jsonData->email_admin,
+            'password_admin' => password_hash($jsonData->password_admin, PASSWORD_DEFAULT)
         ];
 
-        return $this->respondCreated($data);
+        $model = new AdminModel();
+        $model->insert($data);
+
+        $response = [
+            'status' => 200,
+            'messages' => 'Data berhasil ditambahkan',
+            'data' => $data
+        ];
+
+        return $this->respondCreated($response);
     }
 
     public function update($id = null)
-{
-    // Membuat instance AdminModel
-    $model = new AdminModel();
+    {
+        $jsonData = $this->request->getJSON();
 
-    // Mencari data admin berdasarkan ID
-    $admin = $model->find($id);
+        $data = [
+            'nama_admin' => $jsonData->nama_admin,
+            'email_admin' => $jsonData->email_admin,
+            'password_admin' => password_hash($jsonData->password_admin, PASSWORD_DEFAULT)
+        ];
 
-    // Memeriksa apakah data admin ditemukan
-    if (!$admin) {
-        return $this->failNotFound('Data tidak ditemukan');
-    }
+        $model = new AdminModel();
+        $model->update($id, $data);
 
-    // Mendapatkan data yang dikirimkan melalui request
-    $data = [
-        'nama_admin' => $this->request->getVar('nama_admin'),
-        'password_admin' => password_hash($this->request->getVar('password_admin'), PASSWORD_DEFAULT),
-        'email_admin' => $this->request->getVar('email_admin')
-    ];
-
-    // Menggunakan metode update untuk mengubah data admin
-    $proses = $model->update($id, $data);
-
-    // Memeriksa apakah proses update berhasil
-    if ($proses) {
         $response = [
             'status' => 200,
             'messages' => 'Data berhasil diubah',
             'data' => $data
         ];
-    } else {
-        $response = [
-            'status' => 402,
-            'messages' => 'Gagal diubah',
-        ];
+
+        return $this->respond($response);
     }
 
-    // Mengembalikan respons
-    return $this->respond($response);
-}
+    public function delete($id = null)
+    {
+        $model = new AdminModel();
+        $model->delete($id);
 
-
-public function delete($id = null)
-{
-    // Memeriksa apakah ID admin yang diberikan tidak kosong
-    if (empty($id)) {
-        return $this->fail('ID tidak boleh kosong', 400);
-    }
-
-    // Mendapatkan instance AdminModel dari dependency injection
-    $model = new AdminModel();
-
-    // Mencari data admin berdasarkan ID
-    $admin = $model->find($id);
-
-    // Memeriksa apakah data admin ditemukan
-    if (!$admin) {
-        return $this->failNotFound('Data tidak ditemukan');
-    }
-
-    // Menghapus data admin berdasarkan ID
-    $deleted = $model->delete($id);
-
-    // Memeriksa apakah penghapusan berhasil
-    if ($deleted) {
-        // Jika berhasil, kirimkan respons berhasil
         $response = [
             'status' => 200,
-            'messages' => 'Data berhasil dihapus',
+            'messages' => 'Data berhasil dihapus'
         ];
-    } else {
-        // Jika gagal, kirimkan respons gagal menghapus
-        $response = [
-            'status' => 402,
-            'messages' => 'Gagal menghapus data',
-        ];
+
+        return $this->respondDeleted($response);
     }
-
-    return $this->respond($response);
-}
-
 }

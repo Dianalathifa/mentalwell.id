@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Row, Col, Form, Breadcrumb, Button, Card } from "react-bootstrap";
@@ -7,7 +7,6 @@ import AdminLayout from "../layouts/AdminLayout";
 const AddDailyInsight = () => {
   const [judul_content, setJudulContent] = useState("");
   const [image, setImage] = useState(null);
-  const [video, setVideo] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const [tanggalUpload, setTanggalUpload] = useState("");
   const history = useHistory();
@@ -15,10 +14,6 @@ const AddDailyInsight = () => {
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
   };
-  const handleVideoChange = (e) => {
-    setVideo(e.target.files[0]);
-  };
-  
 
   const saveDailyInsight = async (e) => {
     e.preventDefault();
@@ -27,7 +22,6 @@ const AddDailyInsight = () => {
       const formData = new FormData();
       formData.append("judul_content", judul_content);
       formData.append("image", image);
-      formData.append("video", video);
       formData.append("deskripsi", deskripsi);
       formData.append("tanggal_upload", tanggalUpload);
 
@@ -107,21 +101,6 @@ const AddDailyInsight = () => {
                   />
                 </Col>
               </Row>
-
-              <Row className="mb-3">
-              <Col md="2" className="d-flex justify-content-end">
-                <Form.Label>Video</Form.Label>
-              </Col>
-              <Col md="8">
-                <Form.Control
-                  type="file"
-                  name="video"
-                  onChange={handleFileChange}
-                  accept="video/*"
-                  required
-                />
-              </Col>
-            </Row>
 
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">

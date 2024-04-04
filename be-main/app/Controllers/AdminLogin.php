@@ -2,60 +2,73 @@
 
 namespace App\Controllers;
 
-use App\Models\AdminModel;
 use CodeIgniter\API\ResponseTrait;
+use App\Models\AdminModel;
 
 class AdminLogin extends BaseController
 {
     use ResponseTrait;
 
-    public function index()
-    {
-        helper(['form']);
-        // Tampilkan halaman login admin
-        echo view('admin_login');
-    }
+    protected $format = 'json';
 
-    public function auth()
+    public function login()
     {
-        $session = session();
-        $model = new AdminModel();
-        $username = $this->request->getVar('username');
-        $password = $this->request->getVar('password');
-        $data = $model->where('username', $username)->first();
-        
-        if($data){
-            // Jika data admin ditemukan
-            $pass = $data['password'];
-            $verify_pass = password_verify($password, $pass);
-            
-            if($verify_pass){
-                // Jika password cocok, set session data
-                $ses_data = [
-                    'id'        => $data['id'],
-                    'username'  => $data['username'],
-                    'logged_in' => TRUE
-                ];
-                $session->set($ses_data);
-                
-                // Redirect ke halaman admin
-                return redirect()->to('/admin/dashboard');
-            } else {
-                // Jika password tidak cocok, kirim pesan kesalahan
-                return $this->fail('Wrong Password', 401);
-            }
-        } else {
-            // Jika username tidak ditemukan, kirim pesan kesalahan
-            return $this->fail('Username not Found', 404);
+        // Ambil data JSON dari permintaan
+        $jsonData = $this->request->getJSON();
+
+        // Validasi apakah data JSON lengkap
+        if (!$jsonData || !isset($jsonData->email_admin) || !isset($jsonData->password_admin)) {
+            $response = [
+                'code' => 400,
+                'status' => 'failed',
+                'message' => 'Incomplete data',
+            ];
+            return $this->respond($response, 400);
         }
-    }
-
-    public function logout()
-    {
-        $session = session();
-        $session->destroy();
         
-        // Redirect ke halaman login admin setelah logout
-        return redirect()->to('/admin/login');
+        // Ambil email dan password dari data JSON
+        $email_admin = $jsonData->email_admin;
+        $password_admin = $jsonData->password_admin;
+
+        // Cari admin berdasarkan email
+        $adminModel = new AdminModel();
+        $admin = $adminModel->where('email_admin', $email_admin)->first();
+
+        // Periksa apakah admin ditemukan
+        if ($admin === null) {
+            // Admin tidak ditemukan
+            $response = [
+                'code' => 401,
+                'status' => 'failed',
+                'message' => 'Admin not registered',
+            ];
+        } else {
+            // Periksa kecocokan password
+            if (password_verify($password_admin, $admin['password_admin'])) {
+                // Password cocok, set session
+                $session = session();
+                $session->set('admin_id', $admin['id_admin']);
+                $session->set('admin_email', $admin['email_admin']);
+
+                // Kirim respons sukses
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => 'Login successfully',
+                    'admin_id' => $admin['id_admin'],
+                    'admin_nama' => $admin['nama_admin'], 
+                    'admin_email' => $admin['email_admin'],
+                ];
+            } else {
+                // Password tidak cocok
+                $response = [
+                    'code' => 401,
+                    'status' => 'failed',
+                    'message' => 'Login failed, incorrect password',
+                ];
+            }
+        }
+
+        return $this->respond($response);
     }
 }
