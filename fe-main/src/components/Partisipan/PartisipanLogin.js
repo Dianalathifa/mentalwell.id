@@ -4,6 +4,8 @@ import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "../images/logo-web.png";
 import illustrasi from "../images/illustrasi-1.png";
+import Header from "../landing/Navbar";
+import Footer from "../landing/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -42,9 +44,14 @@ const Login = () => {
       }
     }
   };
-
+  
+  
   return (
+    <>
+    <Header/>
     <Row className="d-flex justify-content-between">
+          
+
       {/* Form di sisi kiri */}
       <Col md={4} className="mx-5">
         <div className="d-flex align-items-center justify-content-center">
@@ -94,6 +101,8 @@ const Login = () => {
         <Image src={illustrasi} alt="Illustrasi" fluid />
       </Col>
     </Row>
+    <Footer/>
+    </>
   );
 };
 

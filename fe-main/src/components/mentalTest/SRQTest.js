@@ -104,7 +104,7 @@ const classifyDisease = (result) => {
         </Col>
       </section>
       <Container className="py-5">
-        <h2 className="mb-6">Daftar Kuisioner</h2>
+        <h2 className="mb-6">Pertanyaan</h2>
         {kuisionerList.map((kuisioner, index) => (
           <div key={kuisioner.id_kuisioner} className="mb-5">
             <h5>{index + 1}. {kuisioner.pertanyaan}</h5>
@@ -125,8 +125,9 @@ const classifyDisease = (result) => {
             </div>
           </div>
         ))}
+        <Col md={14} className="text-center">
         <button className="btn btn-light mt-3" style={{ backgroundColor: "#FEA503", color: "white", fontWeight: "bold" }} onClick={handleSubmit}>
-          Kirim Jawaban
+          Lihat Hasil Tes
         </button>
         {showResult && (
           <Alert variant="success" className="mt-3">
@@ -134,8 +135,10 @@ const classifyDisease = (result) => {
             <p>{result}</p>
           </Alert>
         )}
+        </Col>
       </Container>
-
+        <br></br>
+        <br></br>
       <Footer />
     </>
   );
