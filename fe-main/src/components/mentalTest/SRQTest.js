@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Col, Form, Button, Alert } from "react-bootstrap";
-import Header from "../landing/Header";
-import Footer from "../landing/Footer";
+import Navbar from "../landing/Navbar.js";
+import Footer from "../landing/Footer.js";
 
 const SRQTest = () => {
   // State untuk menyimpan daftar kuisioner, jawaban, dan hasil perhitungan skor
@@ -86,11 +86,11 @@ const handleSubmit = () => {
 
   return (
     <>
-      <Header />
+      <Navbar />
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
       <Col md={16} className="d-flex align-items-center justify-content-center">
         <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts">SRQ-20 Test</h6>
+          <h6 className="section-title mb-2 tfonts">Tes Kesehatan Mental</h6>
             </div>
       </Col>
       </section>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import Header from "../landing/Header.js";
+import Navbar from "../landing/Navbar.js";
 import Footer from "../landing/Footer.js";
 import foodImage from "../images/contact.png";
 import loc from "../images/location_icon.png";
@@ -44,7 +44,7 @@ const ContactUs = () => {
   return (
     <div>
       {/* Banner Section */}
-      <Header />
+      <Navbar />
       <div className="testimonial-banner">
         <h1 className="testimonial-heading">Contact Us</h1>
       </div>

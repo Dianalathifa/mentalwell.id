@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/landing/App.css"; // Import file CSS utama Anda di sini
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AdminAuthProvider } from './components/admin/AdminAuthContext';
 import { PartisipanAuthProvider } from './components/Partisipan/PartisipanAuthContext';
 
@@ -32,6 +34,10 @@ const PartisipanLogin = lazy(() => import("./components/Partisipan/PartisipanLog
 const PartisipanRegister = lazy(() => import("./components/Partisipan/PartisipanRegister"));
 const PartisipanProfile = lazy(() => import("./components/Partisipan/PartisipanProfile"));
 const EditPartisipan = lazy(() => import("./components/Partisipan/EditPartisipan"));
+const SRQTest = lazy(() => import("./components/mentalTest/SRQTest"));
+const SRQDetail = lazy(() => import("./components/mentalTest/SRQDetail"));
+const MentalWellTest = lazy(() => import("./components/mentalTest/MentalWellTest"));
+
 
 function App() {
   return (
@@ -44,6 +50,9 @@ function App() {
               <Route path="/about-us" component={AboutUs} />
               <Route path="/register" component={Register} />
               <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/srqtest-user" component={SRQTest} />
+              <Route exact path="/srqdetail-user" component={SRQDetail} />
+              <Route exact path="/mentalwelltest-user" component={MentalWellTest} />
               <Route exact path="/psikolog" component={Psikolog} />
               <Route exact path="/psikolog/add" component={AddPsikolog} />
               <Route exact path="/psikolog/edit/:id" component={EditPsikolog} />

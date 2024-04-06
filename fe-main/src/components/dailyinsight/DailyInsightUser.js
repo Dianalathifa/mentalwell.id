@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Footer from "../landing/Footer";
-import Header from "../landing/Header";
+import Footer from "../landing/Footer.js";
+import Navbar from "../landing/Navbar.js";
 import "./css/DailyInsightUser.css"; // Import file CSS untuk styling tambahan
 
 const DailyInsightUser = () => {
@@ -25,11 +25,11 @@ const DailyInsightUser = () => {
 
   return (
     <div>
-      <Header />
+      <Navbar />
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
       <Col md={16} className="d-flex align-items-center justify-content-center">
         <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts">Daily Insight</h6><br></br>
+          <h6 className="section-title mb-2 tfonts"><br></br>Daily Insight<br></br><br></br></h6>
             </div>
       </Col>
       </section>

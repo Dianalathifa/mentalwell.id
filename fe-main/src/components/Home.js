@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
-import image6 from "./images/image6.png";
 import mentalwelltes from "./images/mw-tes.png";
 import daily from "./images/d-insight.png";
 import psikolist from "./images/psikolog-list.png";
@@ -13,7 +9,7 @@ import tes from "./images/tes.png";
 import dailyinsight from "./images/dailyinsight.png";
 import psikolog1 from "./images/psikolog1.png";
 import Footer from "./landing/Footer.js";
-import Header from "./landing/Header.js";
+import Navbar from "./landing/Navbar.js";
 import "./style/Home.css";
 
 const PsikologCard = ({ image, nama_psikolog }) => {
@@ -57,7 +53,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Navbar />
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
       <Col md={16} className="d-flex align-items-center justify-content">
         <div className="container text-left">
@@ -69,36 +65,34 @@ const Home = () => {
         <img src={illustrasi} alt="Logo" style={{ width: "700px", height: "700px", maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
       </Col>
       </section>
+      <br></br>
+      <br></br>
       <section id="about" className="section before-content">
         <div className="container text-center">
           <div>
             <h6 className="section-title mb-2 tfonts">Layanan Mental Well</h6>
           </div>
-          <hr></hr>
+          <br></br>
+          <br></br>
+          <br></br>
           <Row className="text-center align-items-center">
           <Col>
-            <Card>
-              <Card.Body>
+            
                 <img src={tes} size="4x" className="mb-6" />
                 <Card.Title>MentalWell Test</Card.Title>
-              </Card.Body>
-            </Card>
+              
           </Col>
           <Col>
-            <Card>
-              <Card.Body>
+          
                 <img src={dailyinsight} size="4x" className="mb-6" />
                 <Card.Title>Daily Insight</Card.Title>
-              </Card.Body>
-            </Card>
+              
           </Col>
           <Col>
-            <Card>
-              <Card.Body>
+            
                 <img src={psikolog1} size="4x" className="mb-6" />
                 <Card.Title>Psikolog List</Card.Title>
-              </Card.Body>
-              </Card>
+              
           </Col>
         </Row>
         </div>
@@ -117,7 +111,7 @@ const Home = () => {
             <Card className="about-us-card">
               <Card.Body>
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Mental Well Test<br></br></h5>
-                <p style={{ fontSize: "25px" }}><br></br>Mental Health Test merupakan tes berupa skala psikologi. <br></br>
+                <p style={{ fontSize: "25px" }}><br></br>Mental Health Test merupakan tes berupa skala psikologi. <br></br>
                 Skala psikologi sendiri adalah instrumen pengukuran untuk mengidentifikasi konstruk psikologis tertentu dalam diri seseorang.<br></br>
                 Hasil tes kurang lebih dapat digunakan sebagai screening awal kondisi psikologis individu, tetapi bukan sebagai diagnosis.<br></br><br></br></p>
               </Card.Body>

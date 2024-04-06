@@ -4,8 +4,8 @@ import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "./images/logo-web.png";
 import illustrasi from "./images/illustrasi-1.png";
-import Header from "./landing/Header";
-import Footer from "./landing/Footer";
+import Navbar from "./landing/Navbar.js";
+import Footer from "./landing/Footer.js";
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -26,7 +26,7 @@ const LoginPage = () => {
   };
   return (
     <>
-    <Header/>
+    <Navbar/>
     <Row className="d-flex justify-content-between">
       {/* Form di sisi kiri */}
 

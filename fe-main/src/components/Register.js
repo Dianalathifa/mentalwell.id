@@ -4,8 +4,8 @@ import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "./images/logo.png";
 import illustrasi from "./images/illustrasi-1.png";
-import Header from "./landing/Header";
-import Footer from "./landing/Footer";
+import Navbar from "./landing/Navbar.js";
+import Footer from "./landing/Footer.js";
 
 const RegisterPage = () => {
   const [nama, setNama] = useState("");
@@ -32,7 +32,7 @@ const RegisterPage = () => {
 
   return (
     <>
-    <Header/>
+    <Navbar/>
     <Row className="d-flex justify-content-between">
       {/* Gambar di sisi kanan */}
       <Col md={5}>

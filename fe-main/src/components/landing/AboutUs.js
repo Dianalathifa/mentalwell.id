@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import Footer from "../landing/Footer";
-import Header from "../landing/Header";
+import Footer from "../landing/Footer.js";
+import Navbar from "../landing/Navbar.js";
 import image6 from "../images/image6.png"; // Import gambar
 import image7 from "../images/image7.png"; // Import gambar
 import logo1 from "../images/logo1.png"; // Import gambar
@@ -10,7 +10,7 @@ const AboutUs = () => {
 
   return (
     <div>
-      <Header />
+      <Navbar />
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
       <Col md={16} className="d-flex align-items-center justify-content-center">
         <div className="container text-left">

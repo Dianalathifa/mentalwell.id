@@ -3,7 +3,7 @@ import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Footer from "../landing/Footer";
-import Header from "../landing/Header";
+import Navbar from "../landing/Navbar";
 import ConNav from './conNav'; // Import ConNav component here
 
 const PsikologList = () => {
@@ -24,7 +24,7 @@ const PsikologList = () => {
 
   return (
     <div>
-      <Header />
+      <Navbar />
       
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-56px", paddingTop: "200px" }}>
         <div className="container text-center">

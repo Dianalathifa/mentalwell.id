@@ -16,7 +16,7 @@ const AddKuisioner = () => {
 
   const fetchKategoriOptions = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/kategori_test");
+      const response = await axios.get("http://localhost:8080/kategori-test");
       setKategoriOptions(response.data);
     } catch (error) {
       console.error("Error fetching kategori options:", error);
@@ -72,9 +72,9 @@ const AddKuisioner = () => {
                     required
                   >
                     <option value="">Pilih Kategori</option>
-                    {kategoriOptions.map((kategori_test) => (
-                      <option key={kategori_test.id_test} value={kategori_test.id_test}>
-                        {kategori_test.nama_test}
+                    {kategoriOptions.map((kategori) => (
+                      <option key={kategori.id_test} value={kategori.id_test}>
+                        {kategori.nama_test}
                       </option>
                     ))}
                   </Form.Control>
