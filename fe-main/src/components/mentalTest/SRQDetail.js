@@ -16,10 +16,10 @@ const AboutUs = () => {
       <Col md={12} className="d-flex align-items-center justify-content-center">
         <div className="container text-left ">
           <h6 className="section-title mb-2 tfonts">SRQ-Test</h6>
-          <h6 className="subtitle" style={{ fontSize: "28px" }}>Self-Reporting Questionnaire (SRQ) 20 adalah kuisioner yang dikembangkan<br></br>
-          oleh WHO untuk melakukan skrining adanya masalah kesehatan jiwa di<br></br>
-          masyarakat. Kuisioner SRQ ini valid dan reliabel digunakan sebagai alat ukur
-          <br></br>adanya masalah kesehatan mental yang dialami seseorang</h6> <br></br><br></br><br></br>
+          <h6 className="subtitle" style={{ fontSize: "28px" }}>Self-Reporting Questionnaire (SRQ) 20 <br></br>adalah kuisioner yang dikembangkan
+          oleh WHO <br></br> untuk melakukan skrining adanya masalah kesehatan jiwa <br></br>
+          di masyarakat. Kuisioner SRQ ini valid dan reliabel digunakan <br></br>sebagai alat ukur
+          adanya masalah kesehatan mental <br></br>yang dialami seseorang</h6> <br></br><br></br><br></br>
         </div>
         <img src={SRQ} alt="Logo" style={{ width: "500px", height: "500px", maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
       </Col>

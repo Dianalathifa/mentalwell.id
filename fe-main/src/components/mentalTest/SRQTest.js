@@ -34,8 +34,7 @@ const SRQTest = () => {
   };
 
   // Fungsi untuk mengirim jawaban dan menampilkan hasil
-  // Fungsi untuk mengirim jawaban dan menampilkan hasil
-const handleSubmit = () => {
+  const handleSubmit = () => {
     // Lakukan perhitungan skor
     const scores = {
       depresi: [2, 3, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 20],
@@ -75,12 +74,18 @@ const handleSubmit = () => {
 
   // Fungsi untuk melakukan klasifikasi penyakit
   const classifyDisease = (result) => {
-    const { depresi, tidak } = result;
+    const { depresi, kecemasan, somatoform, neurotik } = result;
 
     if (depresi >= 6) {
-      return 'Depresi';
-    } else if (tidak >= 3) {
-      return 'Kecemasan';
+      return 'Depresi: Anda perlu melakukan pola makan teratur, istirahat cukup, dan olahraga';
+    } else if (kecemasan >= 3) {
+      return 'Gangguan Kecemasan: Anda perlu melakukan relaksasi, terapi musik, dan mengikuti seminar motivasi';
+    } else if (somatoform >= 1) {
+      return 'Gangguan Somatoform: Anda perlu melakukan relaksasi dengan aromaterapi dan meditasi';
+    } else if (neurotik >= 1) {
+      return 'Gangguan Neurotik lain: Anda perlu melakukan olahraga dan relaksasi';
+    } else {
+      return 'Tidak mengalami gangguan mental';
     }
   };
 
@@ -88,36 +93,36 @@ const handleSubmit = () => {
     <>
       <Navbar />
       <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
-      <Col md={16} className="d-flex align-items-center justify-content-center">
-        <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts">Tes Kesehatan Mental</h6>
-            </div>
-      </Col>
+        <Col md={16} className="d-flex align-items-center justify-content-center">
+          <div className="container text-center">
+            <h6 className="section-title mb-2 tfonts">Tes Kesehatan Mental</h6>
+          </div>
+        </Col>
       </section>
       <Container className="py-5">
         <h2 className="mb-4">Daftar Kuisioner</h2>
         {kuisionerList.map((kuisioner, index) => (
           <div key={kuisioner.id_kuisioner} className="mb-4">
             <h5>{index + 1}. {kuisioner.pertanyaan}</h5>
-            <Form.Check
-              type="radio"
-              label="Ya"
-              name={`answer_${kuisioner.id_kuisioner}`}
-              id={`answer_yes_${kuisioner.id_kuisioner}`}
-              onChange={() => handleAnswer(kuisioner.id_kuisioner, true)}
-            />
-            <Form.Check
-              type="radio"
-              label="Tidak"
-              name={`answer_${kuisioner.id_kuisioner}`}
-              id={`answer_no_${kuisioner.id_kuisioner}`}
-              onChange={() => handleAnswer(kuisioner.id_kuisioner, false)}
-            />
+            <div>
+              <button
+                className={answers[kuisioner.id_kuisioner] === true ? "btn btn-primary mr-2" : "btn btn-outline-primary mr-2"}
+                onClick={() => handleAnswer(kuisioner.id_kuisioner, true)}
+              >
+                Ya
+              </button>
+              <button
+                className={answers[kuisioner.id_kuisioner] === false ? "btn btn-primary" : "btn btn-outline-primary"}
+                onClick={() => handleAnswer(kuisioner.id_kuisioner, false)}
+              >
+                Tidak
+              </button>
+            </div>
           </div>
         ))}
-        <Button variant="light" style={{backgroundColor:"#FEA503", color:"white", fontWeight:"bold"}} onClick={handleSubmit}>
+        <button className="btn btn-light mt-3" style={{ backgroundColor: "#FEA503", color: "white", fontWeight: "bold" }} onClick={handleSubmit}>
           Kirim Jawaban
-        </Button>
+        </button>
         {showResult && (
           <Alert variant="success" className="mt-3">
             <h5>Hasil Klasifikasi Penyakit:</h5>

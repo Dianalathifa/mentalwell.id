@@ -49,8 +49,8 @@ const TampilanAwal = () => {
               <p style={{ fontSize: "28px" }}>
                 <br></br><br></br><br></br><br></br>Mengenali adanya gangguan mental <br></br>sedini mungkin 
                 akan jauh lebih baik
-                <br></br>dibandingkan membiarkan terlalu lama yang <br></br>dapat menyebabkan terganggunya <br></br>fungsi sehari-hari. 
-                Jika lebih awal dikenali juga <br></br>akan mempermudah penanganan <br></br>dan biaya pengobatan.
+                <br></br>dibandingkan membiarkan terlalu lama <br></br>yang dapat menyebabkan terganggunya <br></br>fungsi sehari-hari. 
+                Jika lebih awal dikenali <br></br>juga akan mempermudah penanganan <br></br>dan biaya pengobatan.
               </p>
               
         </Col>

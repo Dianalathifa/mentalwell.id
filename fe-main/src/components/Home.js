@@ -108,14 +108,12 @@ const Home = () => {
             <img src={mentalwelltes} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
           </Col>
           <Col md={8}>
-            <Card className="about-us-card">
-              <Card.Body>
+            
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Mental Well Test<br></br></h5>
                 <p style={{ fontSize: "25px" }}><br></br>Mental Health Test merupakan tes berupa skala psikologi. <br></br>
                 Skala psikologi sendiri adalah instrumen pengukuran untuk mengidentifikasi konstruk psikologis tertentu dalam diri seseorang.<br></br>
                 Hasil tes kurang lebih dapat digunakan sebagai screening awal kondisi psikologis individu, tetapi bukan sebagai diagnosis.<br></br><br></br></p>
-              </Card.Body>
-            </Card>
+              
           </Col>        
         </Row>
       </Container> 
@@ -129,12 +127,8 @@ const Home = () => {
             <img src={daily} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
           </Col>
           <Col md={8}>
-            <Card className="about-us-card">
-              <Card.Body>
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Daily Insight<br></br></h5>
                 <p style={{ fontSize: "25px" }}><br></br>Daily Insight merupakan fitur yang dirancang untuk memberikan pengguna akses harian konten bermutu yang mendukung peningkatan kesehatan mental. Fitur ini menyediakan artikel, materi, dan panduan yang membahas berbagai aspek kesehatan mental, memberikan wawasan, dan memberikan dukungan untuk meningkatkan diri.</p>
-              </Card.Body>
-            </Card>
           </Col>        
         </Row>
       </Container> 
@@ -148,12 +142,10 @@ const Home = () => {
             <img src={psikolist} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
           </Col>
           <Col md={8}>
-            <Card className="about-us-card">
-              <Card.Body>
+          
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>Psikolog List<br></br></h5>
                 <p style={{ fontSize: "25px" }}><br></br>Psikolog List merupakan bentuk layanan yang berupa informasi psikologi ahli yakni berisi terkait nama, lokasi dan foto dari profile psikolog. Layanan ini sebagai rekomendasi rujukan bagi penderita yang butuh penanganan oleh ahli.</p>
-              </Card.Body>
-            </Card>
+             
           </Col>        
         </Row>
       </Container>  
@@ -164,11 +156,13 @@ const Home = () => {
         <div className="container text-center">
           <div>
             <h6 className="section-title mb-2 tfonts">Rekomendasi Psikolog </h6>
+            <br></br>
+            <br></br>
           </div>
           <div className="scrollable-cards-container py-5 d-flex flex-wrap justify-content-center">
             {/* Menggunakan d-flex, flex-wrap, dan justify-content-center untuk styling */}
             {psikolog.map((psikolog) => (
-              <Col key={psikolog.id_psikolog} className="mr-3 mb-3" style={{ flex: "0 0 auto", maxWidth: "300px" }}>
+              <Col key={psikolog.id_psikolog} className="mr-6 mb-6" style={{ flex: "0 0 auto", maxWidth: "300px" }}>
                 {/* Set flex ke auto agar lebar card menyesuaikan konten */}
                 <PsikologCard image={psikolog.image_psikolog} nama_psikolog={psikolog.nama_psikolog} />
               </Col>
