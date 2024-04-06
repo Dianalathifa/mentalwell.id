@@ -122,34 +122,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -184,3 +156,43 @@
     transform: rotate(360deg);
   }
 }
+
+/* Header.css */
+.custom-navbar {
+  background-color: #C4EAF4;
+  position: relative;
+  padding: 15px 0;
+}
+
+.logo {
+  max-width: 120px;
+}
+
+.nav-link {
+  color: #141313;
+  padding: 10px 15px;
+  margin-right: 15px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+/* .nav-link:hover {
+  color: #FFFFFF;
+  background-color: #239BB2;
+}
+
+.nav-link.active {
+  background-color: #84c4d4;
+} */
+
+.login-btn {
+  background-color: #239BB2;
+  color: #FFFFFF;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #005F75;
+}
+

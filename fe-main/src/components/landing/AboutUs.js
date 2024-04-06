@@ -15,9 +15,9 @@ const AboutUs = () => {
       <Col md={16} className="d-flex align-items-center justify-content-center">
         <div className="container text-left">
           <h6 className="section-title mb-2 tfonts">About Us</h6>
-          <h6 className="subtitle" style={{ fontSize: "28px" }}>Selamat datang di MentalWell<br></br>ruang digital yang didedikasikan untuk kesehatan mental.<br></br>
-          Kami adalah komunitas yang berfokus memberikan dukungan holistik dan sumber daya<br></br>untuk meningkatkan kesejahteraan mental Anda.<br></br>
-          MentalWell percaya bahwa setiap individu layak mendapatkan akses mudah dan aman<br></br>terhadap layanan kesehatan mental yang berkualitas.</h6> 
+          <h6 className="subtitle" style={{ fontSize: "28px" }}>Selamat datang di MentalWell ruang digital yang didedikasikan <br></br>untuk kesehatan mental.
+          Kami adalah komunitas yang berfokus memberikan dukungan holistik dan sumber daya untuk meningkatkan kesejahteraan mental anda. MentalWell percaya bahwa setiap individu layak mendapatkan akses mudah dan aman
+          terhadap layanan kesehatan mental yang berkualitas.</h6> 
         </div>
         <img src={logo1} alt="Logo" style={{ width: "500px", height: "560px", maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
       </Col>
@@ -35,12 +35,10 @@ const AboutUs = () => {
             <img src={image6} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
           </Col>
           <Col md={8}>
-            <Card className="about-us-card">
-              <Card.Body>
+           
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>VISI<br></br></h5>
                 <p style={{ fontSize: "25px" }}><br></br>Meningkatkan kesadaran tentang kesehatan mental <br></br>dan proses pengembangan diri untuk mewujudkan kualitas hidup yang lebih optimal<br></br><br></br></p>
-              </Card.Body>
-            </Card>
+             
           </Col>        
         </Row>
       </Container>
@@ -51,20 +49,18 @@ const AboutUs = () => {
             <img src={image7} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
           </Col>
           <Col md={8}>
-            <Card className="about-us-card">
-              <Card.Body>
+            
               <h5  style={{ fontSize: "30px", fontWeight:"bold" }}><br></br>MISI<br></br></h5>
                 <p style={{ fontSize: "25px" }}><br></br>1. Memahami permasalahan kesehatan mental yang sedang dialami remaja khususnya mahasiswabr<br></br>
                                                           2. Mengedukasi remaja khususnya mahasiswa tentang kesehatan mental dan pengembangan diri melalui berbagai konten kreatif di platform website<br></br>
                                                           3. Menyediakan bantuan berupa layanan dukungan kesehatan mental dan pengembangan diri kepada remaja dan mahasiswa yang membutuhkan<br></br>
                                                           4. Memberikan pemahaman kepada kalangan remaja agar lebih mengenal diri sendiri</p>
-              </Card.Body>
-            </Card>
+             
           </Col>
         </Row>
       </Container>
 
-      
+      <br></br>
       <Container className="my-6">
         <Row className="justify-content-center">
           <Col md={9}>
@@ -75,9 +71,12 @@ const AboutUs = () => {
               </Card.Body>
             </Card>
           </Col>
-          
+
         </Row>
       </Container>
+      <br></br>
+      <br></br>
+
       <Footer />
     </div>
   );
