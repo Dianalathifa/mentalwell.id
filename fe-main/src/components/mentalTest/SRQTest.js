@@ -73,21 +73,25 @@ const SRQTest = () => {
   
 
   // Fungsi untuk melakukan klasifikasi penyakit
-  const classifyDisease = (result) => {
-    const { depresi, kecemasan, somatoform, neurotik } = result;
+const classifyDisease = (result) => {
+  const { depresi, kecemasan, somatoform, neurotik } = result;
 
-    if (depresi >= 6) {
-      return 'Depresi: Anda perlu melakukan pola makan teratur, istirahat cukup, dan olahraga';
-    } else if (kecemasan >= 3) {
-      return 'Gangguan Kecemasan: Anda perlu melakukan relaksasi, terapi musik, dan mengikuti seminar motivasi';
-    } else if (somatoform >= 1) {
-      return 'Gangguan Somatoform: Anda perlu melakukan relaksasi dengan aromaterapi dan meditasi';
-    } else if (neurotik >= 1) {
-      return 'Gangguan Neurotik lain: Anda perlu melakukan olahraga dan relaksasi';
-    } else {
-      return 'Tidak mengalami gangguan mental';
-    }
-  };
+  // Menentukan jumlah total jawaban "ya"
+  const totalYes = depresi + kecemasan + somatoform + neurotik;
+
+  if (depresi >= 6 || totalYes > 6) {
+    return 'Depresi: Anda perlu melakukan pola makan teratur, istirahat cukup, dan olahraga.';
+  } else if (neurotik >= 5 || totalYes > 5) {
+    return 'Gangguan Neurotik lain: Anda perlu melakukan olahraga dan relaksasi.';
+  } else if (kecemasan >= 4 || totalYes > 4) {
+    return 'Gangguan Kecemasan: Anda perlu melakukan relaksasi, terapi musik, dan mengikuti seminar motivasi.';
+  } else if (somatoform >= 3 || totalYes > 3) {
+    return 'Gangguan Somatoform: Anda perlu melakukan relaksasi dengan aromaterapi dan meditasi.';
+  } else {
+    return 'Tidak ada klasifikasi penyakit yang sesuai.';
+  }
+};
+
 
   return (
     <>
@@ -100,11 +104,12 @@ const SRQTest = () => {
         </Col>
       </section>
       <Container className="py-5">
-        <h2 className="mb-4">Daftar Kuisioner</h2>
+        <h2 className="mb-6">Daftar Kuisioner</h2>
         {kuisionerList.map((kuisioner, index) => (
-          <div key={kuisioner.id_kuisioner} className="mb-4">
+          <div key={kuisioner.id_kuisioner} className="mb-5">
             <h5>{index + 1}. {kuisioner.pertanyaan}</h5>
-            <div>
+            <div >
+              <br></br>
               <button
                 className={answers[kuisioner.id_kuisioner] === true ? "btn btn-primary mr-2" : "btn btn-outline-primary mr-2"}
                 onClick={() => handleAnswer(kuisioner.id_kuisioner, true)}
