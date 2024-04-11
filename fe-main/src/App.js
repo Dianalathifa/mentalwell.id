@@ -19,6 +19,7 @@ const EditKategori = lazy(() => import("./components/kategoritest/EditKategori")
 const Kuisioner = lazy(() => import("./components/Kuisioner/Kuisioner"));
 const AddKuisioner = lazy(() => import("./components/Kuisioner/AddKuisioner"));
 const EditKuisioner = lazy(() => import("./components/Kuisioner/EditKuisioner"));
+const Jawaban = lazy(() => import ("./components/jawaban/Jawaban"))
 const PsikologList = lazy(() => import("./components/landing/PsikologList"));
 const DailyInsight = lazy(() => import("./components/dailyinsight/DailyInsight"));
 const AddDailyInsight = lazy(() => import("./components/dailyinsight/AddDailyInsight"));
@@ -62,6 +63,7 @@ function App() {
               <Route exact path="/kuisioner" component={Kuisioner} />
               <Route exact path="/kuisioner/add" component={AddKuisioner} />
               <Route exact path="/kuisioner/edit/:id" component={EditKuisioner} />
+              <Route exact path="/jawaban" component={Jawaban} />
               <Route exact path="/psikolog-list" component={PsikologList} />
               <Route exact path="/dailyinsight" component={DailyInsight} />
               <Route exact path="/dailyinsight/add" component={AddDailyInsight} />

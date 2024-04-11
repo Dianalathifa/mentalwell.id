@@ -59,21 +59,4 @@ $routes->post('api/kuisioner', 'Kuisioner::create', ['filter' => 'cors']); // En
 $routes->post('api/kuisioner/(:num)', 'Kuisioner::update/$1', ['filter' => 'cors']); // Endpoint untuk mengupdate data kuisioner berdasarkan ID
 $routes->delete('api/kuisioner/(:num)', 'Kuisioner::delete/$1', ['filter' => 'cors']); // Endpoint untuk menghapus data kuisioner berdasarkan ID
 
-// $routes->get('api/users', 'Users::index', ['filter' => 'cors']);
-// $routes->post('api/users', 'Users::create', ['filter' => 'cors']);
-// $routes->get('api/users/(:num)', 'Users::show/$1', ['filter' => 'cors']);
-// $routes->post('api/users/(:num)', 'Users::update/$1', ['filter' => 'cors']);
-// $routes->get('api/users/delete/(:num)', 'Users::delete/$1', ['filter' => 'cors']);
-
-
-$routes->get('api/reviews', 'Review::index', ['filter' => 'cors']);
-$routes->post('api/reviews', 'Review::create', ['filter' => 'cors']);
-$routes->get('api/reviews/(:num)', 'Review::show/$1', ['filter' => 'cors']);
-$routes->post('api/reviews/(:num)', 'Review::update/$1', ['filter' => 'cors']);
-$routes->get('api/reviews/delete/(:num)', 'Review::delete/$1', ['filter' => 'cors']);
-
-$routes->get('api/contact', 'Contact::index', ['filter' => 'cors']);
-$routes->post('api/contact', 'Contact::create', ['filter' => 'cors']);
-$routes->get('api/contact/(:num)', 'Contact::show/$1', ['filter' => 'cors']);
-$routes->post('api/contact/(:num)', 'Contact::update/$1', ['filter' => 'cors']);
-$routes->get('api/contact/delete/(:num)', 'Contact::delete/$1', ['filter' => 'cors']);
+$routes->post('api/save-answer', 'SRQTest::saveAnswer', ['filter' => 'cors']);

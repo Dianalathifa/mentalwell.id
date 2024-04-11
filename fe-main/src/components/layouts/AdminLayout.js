@@ -106,14 +106,7 @@ const AdminLayout = ({ children }) => {
             >
               Partisipan
             </Nav.Link>
-            {/* <Nav.Link
-              href="/users"
-              className={`sidebar-link ${
-                location.pathname.startsWith("/users") ? "active" : ""
-              } mt-2`}
-            >
-              Users
-            </Nav.Link> */}
+
             <Nav.Link
               href="/kategoritest"
               className={`sidebar-link ${
@@ -132,6 +125,15 @@ const AdminLayout = ({ children }) => {
               Kuisioner
             </Nav.Link>
             
+            <Nav.Link
+              href="/jawaban"
+              className={`sidebar-link ${
+                location.pathname.startsWith("/jawaban_test") ? "active" : ""
+              } mt-2`}
+            >
+              Jawaban
+            </Nav.Link>
+
             <Nav.Link
               href="/dailyinsight"
               className={`sidebar-link ${
