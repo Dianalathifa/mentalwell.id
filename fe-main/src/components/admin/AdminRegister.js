@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "../images/logo.png";
-import illustrasi from "../images/illustrasi-1.png";
 
 const RegisterPage = () => {
   const [nama_admin, setName] = useState("");
@@ -28,22 +27,16 @@ const RegisterPage = () => {
   };
 
   return (
-    <Row className="d-flex justify-content-between">
-      {/* Gambar di sisi kanan */}
-      <Col md={5}>
-        <Image src={illustrasi} alt="Register" fluid />
-      </Col>
-
-      {/* Form di sisi kiri */}
+    <Row className="d-flex justify-content-center align-items-center" style={{ height: "100vh",  backgroundColor: "#C4EAF4" }}>
       <Col md={4} style={{ marginTop: "50px" }} className="mx-5">
         <div className="d-flex align-items-center justify-content-center">
-          <Image src={logo} alt="Logo" />
+          <Image src={logo} alt="Logo" style={{ width: "40%", marginBottom: "20px" }} />
         </div>
-        <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>REGISTER</h1>
+        <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>Register Admin</h1>
         <hr style={{ borderTop: "2px solid gray" }} />
-
+  
         <Form onSubmit={saveAdmin}>
-
+  
           <Form.Group controlId="formNama" className="mb-3">
             <Form.Control
               type="text"
@@ -52,10 +45,10 @@ const RegisterPage = () => {
               value={nama_admin}
               onChange={(e) => setName(e.target.value)}
               required
-              style={{ backgroundColor: "#FFFFFF", borderColor: "gray" }}
+              style={{ backgroundColor: "#FFFFFF", borderColor: "gray", borderRadius: "5px" }}
             />
           </Form.Group>
-
+  
           <Form.Group controlId="formEmail" className="mb-3">
             <Form.Control
               type="email"
@@ -64,10 +57,10 @@ const RegisterPage = () => {
               value={email_admin}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ backgroundColor: "#FFFFFF", borderColor: "gray" }}
+              style={{ backgroundColor: "#FFFFFF", borderColor: "gray", borderRadius: "5px" }} 
             />
           </Form.Group>
-
+  
           <Form.Group controlId="formPassword" className="mb-3">
             <Form.Control
               type="password"
@@ -78,14 +71,14 @@ const RegisterPage = () => {
               pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,}"
               title="Password minimal 8 karakter, terdiri dari huruf kapital, angka, dan karakter khusus."
               required
-              style={{ backgroundColor: "#FFFFFF", borderColor: "gray" }}
+              style={{ backgroundColor: "#FFFFFF", borderColor: "gray", borderRadius: "5px" }} 
             />
           </Form.Group>
-
+  
           <Button
             style={{
               backgroundColor: "#393646",
-              borderRadius: "20px",
+              borderRadius: "5px",
               borderColor: "#393646",
             }}
             type="submit"
@@ -94,7 +87,7 @@ const RegisterPage = () => {
             Register
           </Button>
         </Form>
-
+  
         <div className="my-3 text-center">
           <p>
             Already have an account? <a href="/admin-login">Login</a>
@@ -103,6 +96,7 @@ const RegisterPage = () => {
       </Col>
     </Row>
   );
+  
 };
 
 export default RegisterPage;

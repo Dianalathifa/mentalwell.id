@@ -11,7 +11,7 @@ class KategoriTestModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['nama_test', 'deskripsi_test', 'sub_test']; // Hapus 'created_at' dan 'updated_at'
+    protected $allowedFields = ['nama_test', 'sub_test','deskripsi_test' ]; // Hapus 'created_at' dan 'updated_at'
 
     protected $useTimestamps = false; // Menonaktifkan penggunaan timestamp
 

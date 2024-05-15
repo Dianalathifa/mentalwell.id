@@ -58,7 +58,7 @@ const Admin = () => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama</th>
                     <th>Password</th>
                     <th>Email</th>

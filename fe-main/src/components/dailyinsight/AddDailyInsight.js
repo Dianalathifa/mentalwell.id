@@ -25,7 +25,7 @@ const AddDailyInsight = () => {
       formData.append("deskripsi", deskripsi);
       formData.append("tanggal_upload", tanggalUpload);
 
-      await axios.post("http://localhost:8080/api/dailyinsight", formData, {
+      await axios.post("http://localhost:8080/api/daily_insight", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

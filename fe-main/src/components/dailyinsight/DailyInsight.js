@@ -16,7 +16,7 @@ const DailyInsight = () => {
 
   const getDailyInsights = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/dailyinsight");
+      const response = await axios.get("http://localhost:8080/api/daily_insight");
       setDailyInsights(response.data);
     } catch (error) {
       setError("Error fetching daily insights. Please try again later.");
@@ -29,7 +29,7 @@ const DailyInsight = () => {
       const confirmed = window.confirm("Apakah Anda yakin ingin menghapus?");
 
       if (confirmed) {
-        await axios.get(`http://localhost:8080/api/dailyinsight/delete/${id}`);
+        await axios.get(`http://localhost:8080/api/daily_insight/delete/${id}`);
         getDailyInsights();
       }
     } catch (error) {
@@ -61,7 +61,7 @@ const DailyInsight = () => {
               <Table striped bordered hover width={"100%"}>
                 <thead>
                   <tr>
-                    <th width={"5%"}>#</th>
+                    <th width={"5%"}>No</th>
                     <th width={"16%"}>Content Name</th>
                     <th width={"15%"}>Image</th>
                     <th width={"30%"}>Description</th>
@@ -70,22 +70,22 @@ const DailyInsight = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {dailyInsights.map((dailyInsight, index) => (
-                    <tr key={dailyInsight.id_daily_insight}>
+                  {dailyInsights.map((daily_insight, index) => (
+                    <tr key={daily_insight.id}>
                       <td>{index + 1}</td>
-                      <td>{dailyInsight.judul_content}</td>
+                      <td>{daily_insight.judul_content}</td>
                       <td>
                         <img
-                          src={`http://localhost:8080/images/daily_insight/${dailyInsight.image}`}
+                          src={`http://localhost:8080/images/daily_insight/${daily_insight.image}`}
                           alt="Daily Insight"
                           style={{ maxWidth: "200px", maxHeight: "200px" }}
                         />
                       </td>
-                      <td>{dailyInsight.deskripsi}</td>
-                      <td>{dailyInsight.tanggal_upload}</td>
+                      <td>{daily_insight.deskripsi}</td>
+                      <td>{daily_insight.tanggal_upload}</td>
                       <td>
                         <Link
-                          to={`/dailyinsight/edit/${dailyInsight.id_daily_insight}`}
+                          to={`/dailyinsight/edit/${daily_insight.id}`}
                           className="btn btn-primary btn-sm mr-2"
                         >
                           <FontAwesomeIcon icon={faEdit} />
@@ -93,7 +93,7 @@ const DailyInsight = () => {
                         <Button
                           variant="danger"
                           size="sm"
-                          onClick={() => deleteDailyInsight(dailyInsight.id_daily_insight)}
+                          onClick={() => deleteDailyInsight(daily_insight.id)}
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </Button>

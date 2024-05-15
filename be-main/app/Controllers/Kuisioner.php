@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KuisionerModel;
+use App\Models\JawabanModel;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -24,6 +25,18 @@ class Kuisioner extends ResourceController
     {
         $model = new KuisionerModel();
         $data = $model->find($id);
+
+        if (!$data) {
+            return $this->failNotFound('No Data Found');
+        }
+
+        return $this->respond($data);
+    }
+
+    public function getByKategoriId($id_kategori = null)
+    {
+        $model = new KuisionerModel();
+        $data = $model->where('id_kategori', $id_kategori)->findAll();
 
         if (!$data) {
             return $this->failNotFound('No Data Found');
@@ -104,17 +117,24 @@ class Kuisioner extends ResourceController
         return $this->respond($response);
     }
 
-    // Method untuk menghapus data kuisioner berdasarkan ID
     public function delete($id = null)
-    {
-        $model = new KuisionerModel();
-        $kuisioner = $model->find($id);
+{
+    $model = new KuisionerModel();
+    $jawabanModel = new JawabanModel();
+    $db = \Config\Database::connect();
 
-        if (!$kuisioner) {
-            return $this->failNotFound('No Data Found');
-        }
+    // Mulai transaksi
+    $db->transStart();
 
+    try {
+        // Hapus semua baris terkait di tabel jawaban yang memiliki id_kuisioner yang sama
+        $jawabanModel->where('id_kuisioner', $id)->delete();
+
+        // Hapus baris di tabel kuisioner
         $model->delete($id);
+
+        // Commit transaksi
+        $db->transCommit();
 
         $response = [
             'status' => 200,
@@ -125,5 +145,13 @@ class Kuisioner extends ResourceController
         ];
 
         return $this->respond($response);
+    } catch (\Exception $e) {
+        // Jika terjadi kesalahan, rollback transaksi dan kirim pesan kesalahan
+        $db->transRollback();
+        return $this->fail($e->getMessage());
     }
+}
+
+
+
 }

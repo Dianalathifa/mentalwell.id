@@ -1,0 +1,114 @@
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-header {
+  text-align: center;
+}
+
+.profile-title {
+  color: #005f75;
+  font-weight: bold;
+}
+
+.avatar-container {
+  margin-top: 20px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.welcome-message {
+  margin-top: 20px;
+}
+
+.profile-content {
+  margin-top: 30px;
+}
+
+.profile-info {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.edit-profile-button {
+  background-color: #005f75;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.edit-profile-button:hover {
+  background-color: #003541;
+}
+
+.edit-profile-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff; /* Warna latar belakang form */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #333333; /* Warna ikon close */
+}
+
+label {
+  color: #333333; /* Warna teks label */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dddddd; /* Warna border input */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus {
+  outline: none;
+  border-color: #005f75; /* Warna border input saat focus */
+}
+
+button.save-profile-button {
+  background-color: #005f75; /* Warna tombol simpan */
+  color: #ffffff; /* Warna teks tombol */
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button.save-profile-button:hover {
+  background-color: #36a6c0; /* Warna tombol saat hover */
+}

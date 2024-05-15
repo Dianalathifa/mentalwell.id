@@ -14,3 +14,15 @@
 .daily-insight-card-content {
   font-size: 18px; /* Adjust the font size as needed */
 }
+.daily-insight-card {
+  height: 100%;
+}
+
+.daily-insight-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link-text {
+  margin: 0;
+}

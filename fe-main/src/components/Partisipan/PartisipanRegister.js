@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { Row, Col, Form, Button, Image } from "react-bootstrap";
+import { Row, Col, Form, Button, Image, Container, Alert } from "react-bootstrap";
 import logo from "../images/logo.png";
-import illustrasi from "../images/illustrasi-1.png";
 import Navbar from "../landing/Navbar";
 import Footer from "../landing/Footer";
 
@@ -13,36 +12,56 @@ const RegisterPage = () => {
   const [password_partisipan, setPassword] = useState("");
   const [usia, setUsia] = useState("");
   const [no_telp, setNoTelp] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
   const history = useHistory();
 
   const savePartisipan = async (e) => {
     try {
       e.preventDefault();
-      await axios.post("http://localhost:8080/api/partisipan", {
-        // Menggunakan path relatif
+      await axios.post("http://localhost:8080/partisipan/register", {
         nama_partisipan: nama_partisipan,
         email_partisipan: email_partisipan,
         password_partisipan: password_partisipan,
         usia: usia,
         no_telp: no_telp
       });
-      history.push("/partisipan-login");
+      setShowSuccess(true);
+      setShowError(false);
+      setTimeout(() => {
+        history.push("/partisipan-login");
+      }, 2000);
     } catch (error) {
       console.error("Error saving partisipan:", error);
+      setShowError(true);
+      setShowSuccess(false);
     }
   };
 
-  return (
-    <>
-    <Navbar/>
-    <Row className="d-flex justify-content-between">
-        {/* Form di sisi kiri */}
-        <Col md={5} className="mx-5">
-        <div className="d-flex align-items-center justify-content-center">
-            <Image src={logo} alt="Logo" />
+  
+return (
+  <>
+    <Navbar />
+    <Container>
+      <Row className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+        <Col md={6} className="mx-auto"> 
+          <div className="d-flex align-items-center justify-content-center">
+            <Image src={logo} alt="Logo" style={{ width: "40%", marginBottom: "20px" }} />
           </div>
           <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>REGISTER</h1>
           <hr style={{ borderTop: "2px solid gray" }} />
+
+          {showSuccess && (
+            <Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
+              Registrasi berhasil! Anda akan dialihkan ke halaman login.
+            </Alert>
+          )}
+
+          {showError && (
+            <Alert variant="danger" onClose={() => setShowError(false)} dismissible>
+              Gagal melakukan registrasi. Silakan coba lagi.
+            </Alert>
+          )}
 
           <Form onSubmit={savePartisipan}>
             <Form.Group controlId="formNama" className="mb-3">
@@ -82,7 +101,6 @@ const RegisterPage = () => {
                 style={{ backgroundColor: "#FFFFFF", borderColor: "gray" }}
               />
             </Form.Group>
-
             <Form.Group controlId="formUsia" className="mb-3">
               <Form.Control
                 type="number"
@@ -125,15 +143,11 @@ const RegisterPage = () => {
               Already have an account? <a href="/partisipan-login">Login</a>
             </p>
           </div>
-      </Col>
-      <Col md={5}>
-        {/* Gambar di sisi kanan */}
-        <div className="text-center">
-          <Image src={illustrasi} alt="Register" fluid />
-        </div>
-      </Col>
-    </Row>
-    <Footer/>
+        </Col>
+      </Row>
+    </Container>
+      <br/><br/><br/><br/><br/><br/>
+      <Footer />
     </>
   );
 };

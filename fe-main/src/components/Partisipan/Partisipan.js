@@ -58,7 +58,7 @@ const Partisipan = () => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Usia</th>

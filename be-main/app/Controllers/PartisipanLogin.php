@@ -43,6 +43,9 @@ class PartisipanLogin extends BaseController
                     'partisipan_id' => $partisipan['id_partisipan'],
                     'partisipan_nama' => $partisipan['nama_partisipan'], 
                     'partisipan_email' => $partisipan['email_partisipan'],
+                    'partisipan_password' => $partisipan['password_partisipan'], // Tambahkan password ke respons
+                    'usia' => $partisipan['usia'], // Tambahkan usia ke respons
+                    'no_telp' => $partisipan['no_telp'], // Tambahkan nomor telepon ke respons
                 ];
             } else {
                 // Password is incorrect

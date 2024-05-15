@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DailyInsightModel extends Model
 {
     protected $table      = 'daily_insight';
-    protected $primaryKey = 'id_daily_insight';
+    protected $primaryKey = 'id';
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 

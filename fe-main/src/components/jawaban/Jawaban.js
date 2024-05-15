@@ -5,18 +5,47 @@ import AdminLayout from "../layouts/AdminLayout";
 
 const HasilJawaban = () => {
   const [hasilJawaban, setHasilJawaban] = useState([]);
+  const [partisipanMap, setPartisipanMap] = useState({});
+  const [kuisionerMap, setKuisionerMap] = useState({});
 
   useEffect(() => {
     getHasilJawaban();
+    getPartisipanMap();
+    getKuisionerMap();
   }, []);
 
   const getHasilJawaban = async () => {
     try {
-      // Mendapatkan hasil jawaban dari backend
       const response = await axios.get("http://localhost:8080/api/jawaban");
       setHasilJawaban(response.data);
     } catch (error) {
       console.error("Error fetching hasil jawaban data:", error);
+    }
+  };
+
+  const getPartisipanMap = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/partisipan");
+      const partisipanData = response.data.reduce((acc, cur) => {
+        acc[cur.id_partisipan] = cur.nama_partisipan;
+        return acc;
+      }, {});
+      setPartisipanMap(partisipanData);
+    } catch (error) {
+      console.error("Error fetching partisipan data:", error);
+    }
+  };
+
+  const getKuisionerMap = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/kuisioner");
+      const kuisionerData = response.data.reduce((acc, cur) => {
+        acc[cur.id_kuisioner] = cur.pertanyaan;
+        return acc;
+      }, {});
+      setKuisionerMap(kuisionerData);
+    } catch (error) {
+      console.error("Error fetching kuisioner data:", error);
     }
   };
 
@@ -39,19 +68,21 @@ const HasilJawaban = () => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama Partisipan</th>
                     <th>Pertanyaan</th>
                     <th>Jawaban</th>
+                    <th>Tanggal Jawab</th>
                   </tr>
                 </thead>
                 <tbody>
                   {hasilJawaban.map((item, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{item.nama_partisipan}</td>
-                      <td>{item.pertanyaan}</td>
+                      <td>{partisipanMap[item.id_partisipan]}</td>
+                      <td>{kuisionerMap[item.id_kuisioner]}</td>
                       <td>{item.jawaban}</td>
+                      <td>{item.created_at}</td>
                     </tr>
                   ))}
                 </tbody>

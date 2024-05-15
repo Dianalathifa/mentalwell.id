@@ -37,6 +37,15 @@ class KategoriTest extends ResourceController
 
         return $this->respond($data);
     }
+    
+    public function getDass42()
+{
+    $model = new KategoriTestModel();
+    $data = $model->where('nama_test', 'DASS-42')->findAll();
+
+    return $this->respond($data);
+}
+
 
     public function create()
     {

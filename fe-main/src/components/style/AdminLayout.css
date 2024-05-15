@@ -25,3 +25,47 @@
     background-color: #239BB2; /* Memberikan opacity saat aktif */
   }
   
+  /* AdminLayout.css */
+
+.admin-layout-content {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  transition: all 0.3s;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-main-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.sidebar-link {
+  color: #333;
+}
+
+.sidebar-link.active {
+  font-weight: bold;
+}
+
+.admin-profile-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.admin-profile-info img {
+  margin-left: 10px;
+}

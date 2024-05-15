@@ -8,22 +8,37 @@ const EditPartisipan = () => {
   const history = useHistory();
   const { id } = useParams();
   const [nama_partisipan, setNama] = useState("");
-  const [password_partisipan, setPassword] = useState("");
   const [email_partisipan, setEmail] = useState("");
+  const [password_partisipan, setPassword] = useState("");
   const [usia, setUsia] = useState("");
   const [no_telp, setNoTelp] = useState("");
 
   const updatePartisipan = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:8080/api/partisipan/update/${id}`, {
-      nama_partisipan: nama_partisipan,
-      password_partisipan: password_partisipan,
-      email_partisipan: email_partisipan,
-      usia: usia,
-      no_telp: no_telp,
-    });
-    history.push("/partisipan");
+    try {
+      const response = await axios.post(`http://localhost:8080/api/partisipan/update/${id}`, {
+        nama_partisipan: nama_partisipan,
+        email_partisipan: email_partisipan,
+        password_partisipan: password_partisipan, // Hindari mengirimkan password dalam plain text
+        usia: usia,
+        no_telp: no_telp,
+      });
+      if (response.status === 200) {
+        // Jika pembaruan berhasil, Anda tidak perlu memperbarui state
+        // karena data yang diperbarui sudah disediakan oleh backend.
+        // Redirect pengguna ke halaman partisipan setelah pembaruan berhasil.
+        history.push("/partisipan");
+      } else {
+        // Handle other status codes if needed
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error updating participant:", error);
+      // Show error message to the user
+      // Anda dapat menggunakan state untuk mengelola pesan kesalahan dan menampilkannya di UI
+    }
   };
+  
 
   useEffect(() => {
     getPartisipanById();
@@ -73,6 +88,22 @@ const EditPartisipan = () => {
 
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">
+                  <Form.Label>Email</Form.Label>
+                </Col>
+                <Col md="8">
+                  <Form.Control
+                    type="email"
+                    name="email_partisipan"
+                    placeholder="example@gmail.com"
+                    value={email_partisipan}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+              
+              <Row className="mb-3">
+                <Col md="2" className="d-flex justify-content-end">
                   <Form.Label>Password</Form.Label>
                 </Col>
                 <Col md="8">
@@ -87,23 +118,6 @@ const EditPartisipan = () => {
                   <small>Isi password hanya jika ingin mengubah password lama.</small>
                 </Col>
               </Row>
-
-              <Row className="mb-3">
-                <Col md="2" className="d-flex justify-content-end">
-                  <Form.Label>Email</Form.Label>
-                </Col>
-                <Col md="8">
-                  <Form.Control
-                    type="email"
-                    name="email_partisipan"
-                    placeholder="example@gmail.com"
-                    value={email_partisipan}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </Col>
-              </Row>
-
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">
                   <Form.Label>Usia</Form.Label>
@@ -137,9 +151,9 @@ const EditPartisipan = () => {
               </Row>
 
               <Col md="10" className="d-flex justify-content-end">
-                <Button variant="success" type="submit">
-                  Submit
-                </Button>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
               </Col>
             </Form>
           </Card.Body>

@@ -4,7 +4,6 @@ import { useAdminAuth } from './AdminAuthContext';
 import axios from "axios";
 import { Row, Col, Form, Button, Image } from "react-bootstrap";
 import logo from "../images/logo-web.png";
-import illustrasi from "../images/illustrasi-1.png";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -56,13 +55,12 @@ const Login = () => {
   
 
   return (
-    <Row className="d-flex justify-content-between">
-      {/* Form di sisi kiri */}
+      <Row className="d-flex justify-content-center align-items-center" style={{ height: "100vh",  backgroundColor: "#C4EAF4" }}>
       <Col md={4} className="mx-5">
         <div className="d-flex align-items-center justify-content-center">
           <Image src={logo} alt="Logo" />
         </div>
-        <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>LOGIN</h1>
+        <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>Login Admin</h1>
         <hr style={{ borderTop: "2px solid gray" }} />
         <Form onSubmit={handleLogin}>
           <Form.Group controlId="formEmail" className="mb-3">
@@ -70,7 +68,7 @@ const Login = () => {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Username"
+              placeholder="E-mail"
               style={{ backgroundColor: "#FFFFFF", borderColor: "gray" }}
               autoFocus
               required
@@ -99,11 +97,6 @@ const Login = () => {
             Create new account? <a href="/admin-register">Register</a>
           </p>
         </div>
-      </Col>
-
-      {/* Gambar di sisi kanan */}
-      <Col md={5}>
-        <Image src={illustrasi} alt="Illustrasi" fluid />
       </Col>
     </Row>
   );

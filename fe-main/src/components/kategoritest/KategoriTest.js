@@ -57,7 +57,7 @@ const KategoriTest = () => {
               <Table striped bordered hover width={"100%"}>
                 <thead>
                   <tr>
-                    <th width={"5%"}>#</th>
+                    <th width={"5%"}>No</th>
                     <th width={"10%"}>Nama Test</th>
                     <th width={"30%"}>Deskripsi</th>
                     <th width={"30%"}>Sub Test</th>

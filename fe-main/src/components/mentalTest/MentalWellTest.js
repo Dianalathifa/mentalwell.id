@@ -128,7 +128,13 @@ const TampilanAwal = () => {
         </section>
         <Col md={14} className="text-center">
           <Link to="/srqdetail-user">
-            <Button variant="light" style={{ backgroundColor: "#25B7D3", borderColor: "#25B7D3", color: "white", fontWeight: "bold" }} >Mulai Skrining</Button>
+            <Button variant="light" style={{
+            backgroundColor: "#25B7D3",
+            borderRadius:"50px",
+            color: "white",
+            fontWeight: "bold",
+            padding: '20px 35px', // Atur padding untuk mengatur ukuran tombol
+            fontSize: '25px'}} >Mulai Skrining</Button>
           </Link>
         </Col>
 

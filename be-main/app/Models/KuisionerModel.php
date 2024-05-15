@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class KuisionerModel extends Model
 {
     protected $table = 'kuisioner';
-    protected $primaryKey = 'id_kuesioner';
+    protected $primaryKey = 'id_kuisioner';
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
 

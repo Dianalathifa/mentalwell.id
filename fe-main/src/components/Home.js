@@ -59,10 +59,10 @@ const Home = () => {
         <div className="container text-left">
           <h6 className="section-title mb-2 tfonts">Mental Well</h6>
           <h6 className="subtitle" style={{ fontSize: "28px" }}>adalah platform kesehatan mental yang dirancang sebagai solusi inovatif dalam meningkatkan kesehatan mental mahasiswa melalui  test dan pemahaman lebih dalam tentang kesejahteraan mental.</h6> 
-          <Button variant="light" style={{backgroundColor:"#FFD2DD", borderColor:"#FFD2DD",color:"black", fontWeight:"bold"}}>Baca Selengkapnya</Button>
+          <Button variant="light" style={{backgroundColor:"#FFD2DD", borderColor:"#FFD2DD",color:"black", fontWeight:"bold"}} href="/about-us" >Baca Selengkapnya</Button>
 
         </div>
-        <img src={illustrasi} alt="Logo" style={{ width: "700px", height: "700px", maxWidth: "100%", maxHeight: "100%" }} /> {/* Panggil gambar dengan variabel */}
+        <img src={illustrasi} alt="Logo" style={{ width: "700px", height: "700px", maxWidth: "100%", maxHeight: "100%" }} /> 
       </Col>
       </section>
       <br></br>
@@ -100,8 +100,8 @@ const Home = () => {
 
 
       {/*LAYANAN 1*/}
-      <hr></hr>
-      <hr></hr>
+      <br/>
+      <br/>
       <Container className="my-5">
         <Row className="justify-content-center">
         <Col md={4} className="d-flex align-items-center justify-content-center">
@@ -119,8 +119,8 @@ const Home = () => {
       </Container> 
 
       {/*LAYANAN 2*/}
-       <hr></hr>
-      <hr></hr>
+       <br/>
+      <br/>
       <Container className="my-5">
         <Row className="justify-content-center">
         <Col md={4} className="d-flex align-items-center justify-content-center">
@@ -134,8 +134,8 @@ const Home = () => {
       </Container> 
 
       {/*LAYANAN 3*/}
-      <hr></hr>
-      <hr></hr>
+      <br/>
+      <br/>
       <Container className="my-5">
         <Row className="justify-content-center">
         <Col md={4} className="d-flex align-items-center justify-content-center">
@@ -149,8 +149,8 @@ const Home = () => {
           </Col>        
         </Row>
       </Container>  
-      <hr></hr> 
-      <hr></hr> 
+      <br/> 
+      <br/> 
 
       <Container className="mt-5">
         <div className="container text-center">
@@ -160,10 +160,8 @@ const Home = () => {
             <br></br>
           </div>
           <div className="scrollable-cards-container py-5 d-flex flex-wrap justify-content-center">
-            {/* Menggunakan d-flex, flex-wrap, dan justify-content-center untuk styling */}
             {psikolog.map((psikolog) => (
               <Col key={psikolog.id_psikolog} className="mr-6 mb-6" style={{ flex: "0 0 auto", maxWidth: "300px" }}>
-                {/* Set flex ke auto agar lebar card menyesuaikan konten */}
                 <PsikologCard image={psikolog.image_psikolog} nama_psikolog={psikolog.nama_psikolog} />
               </Col>
             ))}

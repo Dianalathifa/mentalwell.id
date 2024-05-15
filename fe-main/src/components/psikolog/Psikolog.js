@@ -57,7 +57,7 @@ const Psikolog = () => {
               <Table striped bordered hover width={"100%"}>
                 <thead>
                   <tr>
-                    <th width={"5%"}>#</th>
+                    <th width={"5%"}>No</th>
                     <th width={"10%"}>Name</th>
                     <th width={"30%"}>Description</th>
                     <th width={"30%"}>Image</th>

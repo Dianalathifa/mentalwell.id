@@ -16,7 +16,7 @@ const AddKuisioner = () => {
 
   const fetchKategoriOptions = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/kategori-test");
+      const response = await axios.get("http://localhost:8080/kategori_test");
       setKategoriOptions(response.data);
     } catch (error) {
       console.error("Error fetching kategori options:", error);

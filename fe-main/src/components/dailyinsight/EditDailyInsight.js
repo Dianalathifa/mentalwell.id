@@ -20,7 +20,7 @@ const EditDailyInsight = () => {
 
   const getDailyInsight = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/dailyinsight/${id}`);
+      const response = await axios.get(`http://localhost:8080/api/daily_insight/${id}`);
       const { judul_content, deskripsi, tanggal_upload, image } = response.data;
       setJudulContent(judul_content);
       setDeskripsi(deskripsi);
@@ -40,7 +40,7 @@ const EditDailyInsight = () => {
       formData.append("tanggal_upload", tanggal_upload);
       formData.append("image", image);
 
-      await axios.post(`http://localhost:8080/api/dailyinsight/${id}`, formData, {
+      await axios.post(`http://localhost:8080/api/daily_insight/update/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
