@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Button, Container } from 'react-bootstrap';
-import illustrasi from '../../video/mindfulness-week1.mp4'; // Sesuaikan path dengan lokasi video Anda
+import week1 from '../../video/mindfulness-week1.mp4'; // Sesuaikan path dengan lokasi video Anda
 import Navbar from '../../landing/Navbar.js';
 import Footer from '../../landing/Footer.js';
 
@@ -62,7 +62,7 @@ return (
         <Col md={16} className="d-flex align-items-center justify-content">
         <div className="container text-center">
 
-        <video src={illustrasi} controls style={{ width: "700px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} />      
+        <video src={week1} controls style={{ width: "700px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} />      
         <br></br><br></br><br></br>
         <Button variant="light" style={{width: "300px", height: "45px", backgroundColor:"white", borderColor:"white",color:"#25B7D3", fontWeight:"bold", fontSize:"20px", borderRadius:"15px"}} href="/mindfulness-1" >Click For Start Challenge</Button>
 

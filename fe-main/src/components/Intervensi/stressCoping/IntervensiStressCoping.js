@@ -11,10 +11,10 @@ import Footer from '../../landing/Footer.js';
 
 const StressCoping = () => {
   const stressCoping = [
-    { id: 1, image: ringan1, text: "Section 1", link: "/grateful" },
-    { id: 2, image: ringan2, text: "Section 2", link: "/do-not-anything" },
+    { id: 1, image: ringan1, text: "Section 1", link: "/stress-coping-grateful" },
+    { id: 2, image: ringan2, text: "Section 2", link: "/stress-coping-nothing-2minutes" },
     { id: 4, image: ringan3, text: "Section 3", link: "/coloring" },
-    { id: 5, image: ringan4, text: "Section 4", link: "/game" }
+    { id: 5, image: ringan4, text: "Section 4", link: "/puzzle&game" }
   ];
 
   return (

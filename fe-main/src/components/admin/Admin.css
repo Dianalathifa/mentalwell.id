@@ -1,0 +1,94 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 700px;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 10%; /* Adjust to move the container slightly downward */
+  }
+  
+  .profile-header {
+    text-align: center;
+  }
+  
+  .profile-title {
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+  
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .welcome-message {
+    margin-bottom: 30px;
+    font-size: 1.2em;
+  }
+  
+  .profile-content {
+    width: 100%;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-info p {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  
+  #nama_admin, #email_admin {
+    font-weight: normal;
+  }
+  
+  .edit-profile-button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+  }
+  
+  .edit-profile-button:hover {
+    background-color: #0056b3;
+  }
+  
+/* Custom CSS to change the overlay color */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important; /* Adjust the color and transparency */
+  }
+  
+  /* Optional: Ensure profile picture size is consistent */
+  .avatar-container img {
+    width: 150px;
+    height: 150px;
+  }
+  

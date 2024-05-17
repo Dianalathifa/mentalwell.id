@@ -14,7 +14,7 @@ const HasilSRQ = () => {
 
   const getHasilJawaban = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/hasil-srq");
+      const response = await axios.get("http://localhost:5000/hasil-prediksi-semua");
       setHasilJawaban(response.data);
     } catch (error) {
       console.error("Error fetching hasil jawaban data:", error);

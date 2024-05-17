@@ -57,7 +57,12 @@ const IntervensiTerapi = lazy (() => import ("./components/Intervensi/Intervensi
 const Intervensi30Days = lazy (() => import ("./components/Intervensi/Intervensi30Days"));
 const IntervensiStressCoping = lazy (() => import ("./components/Intervensi/stressCoping/IntervensiStressCoping"));
 const IntervensiTeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/IntervensiTeknikGrounding"));
+const TeknikGroundingDetail = lazy (() => import ("./components/Intervensi/teknik54321/Detail"));
+const TeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/54321"));
 const IntervensiMindfulness = lazy (() => import ("./components/Intervensi/IntervensiMindfulness"));
+
+const Teknik54321 = lazy (() => import ("./components/Intervensi/teknik54321/54321"));
+const PenjelasanCBT = lazy (() => import ("./components/Intervensi/depresiSedang/Penjelasan"));
 const MBSR = lazy (() => import ("./components/Intervensi/mindfulness/MBSR"));
 const LatihanMindfulness = lazy (() => import ("./components/Intervensi/mindfulness/LatihanMindfulness"));
 const BodyScan = lazy (() => import ("./components/Intervensi/mindfulness/BodyScan"));
@@ -79,6 +84,27 @@ const Mindfulness1 = lazy (() => import ("./components/Intervensi/mindfulness/Mi
 const Mindfulness2 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness2"));
 const Mindfulness3 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness3"));
 const Mindfulness4 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness4"));
+
+const Nothing2mnt = lazy (() => import ("./components/Intervensi/stressCoping/Nothing2Mnt"));
+const Grateful = lazy (() => import ("./components/Intervensi/stressCoping/Grateful"));
+const Coloring = lazy (() => import ("./components/Intervensi/stressCoping/Coloring"));
+const Puzzle = lazy (() => import ("./components/Intervensi/stressCoping/Puzzle"));
+const VideoStressAdmin = lazy (() => import ("./components/admin/VideoStress"));
+
+const CBT = lazy (() => import ("./components/Intervensi/depresiSedang/CBT"));
+const CBTPikiran = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPikiran"));
+const CBTPerasaan = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPerasaan"));
+const CBTPercayaDiri = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPercayaDiri"));
+
+const CBTSession = lazy (() => import ("./components/Intervensi/depresiSedang/CbtSession"));
+
+const DailyTask = lazy (() => import ("./components/Intervensi/depresiSedang/DailyTask"));
+const DetailDailyTask = lazy (() => import ("./components/Intervensi/depresiSedang/DetailDailyTask"));
+
+const CBTSessionAdmin = lazy(() => import("./components/admin/CBTSession"));
+const DailyTaskAdmin = lazy(() => import("./components/admin/DailyTask"));
+
+
 
 
 
@@ -117,6 +143,17 @@ function App() {
               <Route exact path="/intervensi30days-user" component={Intervensi30Days} />
               <Route exact path="/intervensi-stresscoping-user" component={IntervensiStressCoping} />
               <Route exact path="/intervensigrounding-user" component={IntervensiTeknikGrounding} />
+              <Route exact path="/groundingdetail-user" component={TeknikGroundingDetail} />
+              <Route exact path="/Intervensi54321-user" component={Teknik54321} />
+              <Route exact path="/coloring" component={Coloring} />
+              <Route exact path="/puzzle&game" component={Puzzle} />
+
+              <Route exact path="/penjelasan-cbt" component={PenjelasanCBT} />
+              <Route exact path="/cbt" component={CBT} />
+              <Route exact path="/cbt-pikiran" component={CBTPikiran} />
+              <Route exact path="/cbt-perasaan" component={CBTPerasaan} />
+              <Route exact path="/cbt-percaya-diri" component={CBTPercayaDiri} />
+
               <Route exact path="/intro-mbsr" component={MBSR} />
               <Route exact path="/mindfulness-exercise" component={LatihanMindfulness} />
               <Route exact path="/body-scan-breathing" component={BodyScan} />
@@ -131,6 +168,14 @@ function App() {
               <Route exact path="/mindfulness-2" component={Mindfulness2} />
               <Route exact path="/mindfulness-3" component={Mindfulness3} />
               <Route exact path="/mindfulness-4" component={Mindfulness4} />
+
+              <Route exact path="/stress-coping-nothing-2minutes" component={Nothing2mnt} />
+              <Route exact path="/stress-coping-grateful" component={Grateful} />
+
+              <Route exact path="/cbt-session" component={CBTSession} />
+
+              <Route exact path="/daily-task" component={DailyTask} />
+              <Route exact path="/daily-task-detail/:id" component={DetailDailyTask} />
 
                {/* PSIKOLOG */}
               <Route exact path="/psikolog" component={Psikolog} />
@@ -175,6 +220,10 @@ function App() {
               <Route exact path="/kategoritest" component={KategoriTest} />
               <Route exact path="/kategoritest/add" component={AddKategori} />
               <Route exact path="/kategoritest/edit/:id" component={EditKategori} />
+
+              <Route exact path="/video-stress-admin" component={VideoStressAdmin} />
+              <Route exact path="/cbt-session-admin" component={CBTSessionAdmin} />
+              <Route exact path="/cbt-daily-task-admin" component={DailyTaskAdmin} />
 
 
             </Switch>

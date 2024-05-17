@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import profileImage from '../images/admin.jpg';
 import EditProfileForm from './EditForm';
+import './Admin.css';
 
 const Profile = () => {
   const admin = {
@@ -11,6 +13,8 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedAdmin, setEditedAdmin] = useState({
     nama_admin: localStorage.getItem('admin_nama') || '',
+    email_admin: localStorage.getItem('admin_email') || '',
+    admin_password: '',
     foto_profile: localStorage.getItem('admin_foto_profile') || profileImage,
   });
 
@@ -40,10 +44,9 @@ const Profile = () => {
   const handleSaveClick = () => {
     localStorage.setItem('admin_nama', editedAdmin.nama_admin);
     localStorage.setItem('admin_foto_profile', editedAdmin.foto_profile);
-    
+
     setIsEditing(false);
 
-    // Lakukan permintaan API untuk menyimpan perubahan
     fetch(`https://localhost:8080/update/admin/${localStorage.getItem('admin_id')}`, {
       method: 'PUT',
       headers: {
@@ -61,37 +64,37 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <h2 className="profile-title">Profile</h2>
-        <div className="avatar-container">
-          <img src={editedAdmin.foto_profile} alt="Avatar" className="avatar" />
-        </div>
-        <div className="welcome-message">
-          <p>Selamat datang, {editedAdmin.nama_admin}!</p>
-        </div>
-      </div>
-      <div className="profile-content">
-        <div className="profile-info">
-          {isEditing ? (
-            <EditProfileForm
-              editedAdmin={editedAdmin}
-              onInputChange={handleInputChange}
-              onSaveClick={handleSaveClick}
-              onCancelClick={() => setIsEditing(false)}
-            />
-          ) : (
-            <>
-              <p id="nama_admin">{admin.nama_admin}</p>
-              <p id="email_admin">{admin.email_admin}</p>
-              <button className="edit-profile-button" onClick={handleEditClick}>
-                Edit Profile
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+    <Container className="mt-5 profile-container">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <div className="text-center">
+            <h2 className="mb-4">Profile</h2>
+            <div className="avatar-container mb-4">
+              <img src={editedAdmin.foto_profile} alt="Avatar" className="rounded-circle" style={{ width: '350px', height: '200px' }} />
+            </div>
+            <p className="mb-4">Selamat datang, {editedAdmin.nama_admin}!</p>
+          </div>
+          <div className="profile-info">
+            {isEditing ? (
+              <EditProfileForm
+                editedAdmin={editedAdmin}
+                onInputChange={handleInputChange}
+                onSaveClick={handleSaveClick}
+                onCancelClick={() => setIsEditing(false)}
+              />
+            ) : (
+              <>
+                <p><strong>Username:</strong> <span id="nama_admin">{admin.nama_admin}</span></p>
+                <p><strong>Email:</strong> <span id="email_admin">{admin.email_admin}</span></p>
+                <Button variant="primary" onClick={handleEditClick} className="mt-3" style={{ backgroundColor: '#20c997', borderColor: '#20c997' }}>
+                  Edit Profile
+                </Button>
+              </>
+            )}
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

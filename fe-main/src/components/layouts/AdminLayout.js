@@ -211,6 +211,15 @@ const AdminLayout = ({ children }) => {
             >
               Psikolog
             </Nav.Link>
+
+            <Nav.Link
+              href="/video-stress-admin"
+              className={`sidebar-link ${
+                location.pathname.startsWith("/video-stress") ? "active" : ""
+              } mt-2`}
+            >
+              Video Stress
+            </Nav.Link>
           </Nav>
         </Col>
         <Col

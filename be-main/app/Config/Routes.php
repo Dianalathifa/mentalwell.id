@@ -157,3 +157,36 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->get('jawaban-intervensi/(:num)', 'JawabanIntervensi::show/$1');
 });
 
+$routes->get('/video-stress', 'VideoStress::index');
+$routes->post('/video-stress', 'VideoStress::create');
+$routes->put('/video-stress/(:num)', 'VideoStress::update/$1');
+$routes->delete('/video-stress/(:num)', 'VideoStress::delete/$1');
+
+$routes->get('/grateful', 'Grateful::index');
+$routes->post('/grateful', 'Grateful::create');
+$routes->put('/grateful(:num)', 'Grateful::update/$1');
+$routes->delete('/grateful(:num)', 'Grateful::delete/$1');
+$routes->get('grateful/(:num)', 'Grateful::getByPartisipanId/$1');
+
+// Routes for CbtResponses
+$routes->get('/cbt-responses', 'CbtResponsesController::index');
+$routes->post('/cbt-responses', 'CbtResponsesController::create');
+$routes->put('/cbt-responses/(:num)', 'CbtResponsesController::update/$1');
+$routes->delete('/cbt-responses/(:num)', 'CbtResponsesController::delete/$1');
+$routes->get('/cbt-responses/(:num)', 'CbtResponsesController::getByParticipantId/$1');
+
+// Routes for CbtSession
+$routes->get('/cbt-sessions', 'CbtSessionController::index');
+$routes->post('/cbt-sessions', 'CbtSessionController::create');
+$routes->put('/cbt-sessions/(:num)', 'CbtSessionController::update/$1');
+$routes->delete('/cbt-sessions/(:num)', 'CbtSessionController::delete/$1');
+
+// Routes for DailyTask
+$routes->get('/daily-tasks', 'DailyTask::index');
+$routes->post('/daily-tasks', 'DailyTask::create');
+$routes->put('/daily-tasks/(:num)', 'DailyTask::update/$1');
+$routes->delete('/daily-tasks/(:num)', 'DailyTask::delete/$1');
+$routes->get('/daily-tasks/(:num)', 'DailyTask::getByTaskId/$1');
+$routes->get('/daily-tasks-sessions/(:num)', 'DailyTask::getDailyTasksBySessionId/$1');
+
+

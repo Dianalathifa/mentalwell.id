@@ -8,6 +8,7 @@ import mindfulness4 from "../images/intervensi/mindfulness4.png"; // Import gamb
 import challenge from "../images/intervensiStress/30.png"; // Import gambar
 import ringan from "../images/stressCoping/stressringan1.png"; // Import gambar
 import cemasRingan from "../images/intervensi/cemas-ringan.jpg"; // Import gambar
+import CBT from "../images/CBT/CBT1.png"; // Import gambar
 
 const IntervensiUser = () => {
     return (
@@ -101,6 +102,23 @@ const IntervensiUser = () => {
                                         <Card.Title style={{ fontSize: "35px" }}>Depresi Ringan</Card.Title>
                                         <Card.Text style={{ fontSize: "20px" }}>Lakukan Intervensi Activity Therapy untuk mengatasi depresi ringan serta dukungan yang Anda butuhkan.</Card.Text><br/>
                                         <Link to="/intervensiterapi-user">Lihat Intervensi</Link>
+                                    </Card.Body>
+                                </Col>
+                                <br/>
+                            </Col>
+                        </Row>
+                    </Container>
+
+                    <Container className="my-5">
+                        <Row className="justify-content-center">
+                            <Col md={9} className="d-flex align-items-center justify-content-center">
+                                <img src={CBT} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
+                                <Col/>
+                                <Col md={8} >
+                                    <Card.Body>
+                                        <Card.Title style={{ fontSize: "35px" }}>Depresi Sedang</Card.Title>
+                                        <Card.Text style={{ fontSize: "20px" }}>Lakukan Intervensi CBT untuk mengatasi depresi sedang serta penanganan khusus yang Anda butuhkan.</Card.Text><br/>
+                                        <Link to="/penjelasan-cbt">Lihat Intervensi</Link>
                                     </Card.Body>
                                 </Col>
                                 <br/>
