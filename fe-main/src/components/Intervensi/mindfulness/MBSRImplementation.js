@@ -1,57 +1,101 @@
 import React from 'react';
-import { Col, Button, Container } from 'react-bootstrap';
+import { Col, Button, Container, Card, Row } from 'react-bootstrap';
 import Navbar from '../../landing/Navbar.js';
 import Footer from '../../landing/Footer.js';
+import breathing1 from '../../video/mindfulness-breathing1.mp4'; // Sesuaikan path dengan lokasi video Anda
+import bodyscan1 from '../../video/mindfulness-bodyscan1.mp4'; // Sesuaikan path dengan lokasi video Anda
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MBSR = () => {
 return (
     <>
     <Navbar />
     <Container>
-        <div className="container text-center">
-            <h6 className="section-title mb-2 tfonts" style={{ borderColor:"#FFD2DD",color:"#25B7D3", fontWeight:"bold"}}><br />Hello Welcome to Week 4 !<br />Penerapan MBSR (Mindfulness-Based Stress Reduction)<br /></h6>
-            </div>
+  <div className="container text-center" style={{marginTop:"100px"}}>
+    <h6 className="section-title mb-2 tfonts" style={{ color:"#EBBCBC", fontWeight:"bold"}}><br />Hello Welcome to Week 4 !<br />Yuk Kita Belajar Tentang Latihan Walking<br /></h6>
+  </div>
+  <Row className="justify-content-center">
+    <Col md={4}>
+      <Card className="about-us-card" style={{ backgroundColor: "#EBBCBC", marginTop:"50px", padding:"28px"}}>
+        <Card.Body>
+          <h5 style={{ fontSize: "20px", color:"white", fontWeight:"bold" }}>
+            <FontAwesomeIcon icon={faInfoCircle} style={{ marginRight: "10px", textAlign:"left" }} />
+            Latihan Mindful Breathing:
+            <br></br>
+          </h5>      
+          <p style={{ fontSize: "18px", textAlign: "justify", }}>
+            <br></br>
+            - &nbsp;Cari posisi yang nyaman, bisa duduk atau berbaring.<br></br>
+            - &nbsp;Tutup mata atau biarkan pandangan lembut ke bawah.<br></br>
+            - &nbsp;Fokuskan perhatian pada sensasi napas. Rasakan udara masuk melalui hidung dan keluar melalui mulut atau hidung.<br></br>
+            - &nbsp;Perhatikan perut yang naik turun saat bernapas.<br></br>
+            - &nbsp;Pikiran akan mengembara, itu wajar. Lembut saja arahkan perhatian kembali ke napas saat Anda tersadar.<br/>
+            - &nbsp;Lakukan selama 5-10 menit atau lebih lama jika nyaman.<br/>
+          </p>
+        </Card.Body>
+      </Card>
+    </Col>
+    <Col md={4}>
+      <Card className="about-us-card" style={{ backgroundColor: "#EBBCBC", marginTop:"50px"}}>
+        <Card.Body>
+          <h5 style={{ fontSize: "20px", color:"white", fontWeight:"bold" }}>
+            <FontAwesomeIcon icon={faInfoCircle} style={{ marginRight: "10px", textAlign:"left" }} />
+            Latihan Mindful Body Scan:
+            <br></br>
+          </h5>      
+          <p style={{ fontSize: "18px", textAlign: "justify" }}>
+            <br></br>
+            - &nbsp;Posisi sama seperti mindful breathing.<br></br>
+            - &nbsp;Tarik napas dalam dan embuskan perlahan.<br></br>
+            - &nbsp;Mulailah fokuskan perhatian pada bagian atas kepala. Rasakan sensasi apapun yang ada, seperti kehangatan, kesemutan, atau relaksasi. Tidak perlu ada penilaian.<br></br>
+            - &nbsp;Perlahan pindaikan perhatian ke seluruh tubuh, area demi area. Leher, bahu, lengan, dada, punggung, dan seterusnya hingga ke ujung jari kaki.<br></br>
+            - &nbsp;Saat Anda menemukan area yang tegang, coba bayangkan napas mengalir ke sana dan melunakkan ketegangan tersebut.<br/>
+            - &nbsp;Lanjutkan pemindaian hingga seluruh tubuh tercakup.<br/>
+            - &nbsp;Setelah selesai, luangkan waktu sejenak untuk merasakan keseluruhan tubuh Anda.<br/>
+          </p>
+        </Card.Body>
+      </Card>
+    </Col>    
+  </Row>
+</Container>
 
-            <div className="container text-left">
-            <br></br><br></br>
-            <p style={{color:"black", fontWeight:"bold", fontSize:"20px"}}>MBSR (Mindfulness-Based Stress Reduction) dalam Kehidupan Sehari-hari</p><br></br>
-            <p style={{color:"black",  fontSize:"20px"}}>
-            MBSR (Mindfulness-Based Stress Reduction) adalah program latihan meditasi yang dirancang untuk membantu individu mengelola stres dan meningkatkan kesejahteraan. 
-            Program ini menggabungkan teknik mindfulness, seperti meditasi kesadaran diri dan pemindaian tubuh, dengan latihan kesadaran dalam aktivitas sehari-hari.               
-            <br></br><br></br>
 
-            <p style={{color:"black", fontWeight:"bold", fontSize:"20px"}}>Cara Menerapkan MBSR dalam Kehidupan Sehari-hari:</p>
-                - &nbsp;Latihan formal: Dedikasikan waktu 10-30 menit setiap hari untuk meditasi formal, seperti mindful breathing atau body scan.<br></br> 
-                - &nbsp;Kesadaran dalam aktivitas:  mindfulness dalam aktivitas sehari-hari, seperti makan, berjalan, atau mandi. Perhatikan sensasi fisik, suara, dan &nbsp;&nbsp;&nbsp;pikiran tanpa penilaian.<br></br> 
-                - &nbsp;Komunikasi mindful: Saat berkomunikasi, dengarkan dengan penuh perhatian dan tanpa terdistraksi. Berbicaralah dengan tenang dan penuh &nbsp;&nbsp;&nbsp;kesadaran.<br></br> 
-                - &nbsp;Menangani stres: Gunakan teknik mindfulness untuk mengelola stres saat muncul. Tarik napas dalam, akui perasaan Anda, dan tanggapi situasi &nbsp;&nbsp;&nbsp;dengan penuh kesadaran.<br></br> 
-                - &nbsp;Apresiasi momen: Luangkan waktu untuk menghargai momen-momen kecil dalam hidup. Perhatikan keindahan alam, rasa makanan, atau &nbsp;&nbsp;&nbsp;kebersamaan dengan orang terkasih.<br></br> 
 
-                <br></br>
-                <p style={{color:"black", fontWeight:"bold", fontSize:"20px"}}>Mengatasi Hambatan dalam Mempraktikkan MBSR:</p>
-                - &nbsp;Kurangnya waktu: Sisihkan waktu singkat setiap hari, bahkan 5 menit, untuk latihan mindfulness.<br></br>
-                - &nbsp;Pikiran yang mengembara: Ini wajar. Lembut saja arahkan perhatian kembali ke fokus meditasi.<br></br>
-                - &nbsp;Ketidaknyamanan: Perhatikan sensasi ketidaknyamanan tanpa penilaian. Biarkan sensasi tersebut berlalu tanpa terikat.<br></br>
-                - &nbsp;Keraguan diri: Percayalah pada kemampuan Anda untuk belajar dan berkembang dalam latihan mindfulness.<br></br>
-
-                <br></br>
-                <p style={{color:"black", fontWeight:"bold", fontSize:"20px"}}>Tips untuk Mempertahankan Kebiasaan Mindfulness:</p>
-                - &nbsp;Bergabung dengan komunitas: Bergabunglah dengan kelompok meditasi atau ikuti kelas online untuk mendapatkan dukungan dan motivasi.<br></br>
-                - &nbsp;Gunakan pengingat: Gunakan aplikasi pengingat atau atur alarm untuk mengingatkan Anda untuk berlatih mindfulness.<br></br>
-                - &nbsp;Temukan partner: Berlatihlah mindfulness bersama teman atau keluarga untuk saling menyemangati.<br></br>
-                - &nbsp;Bersabarlah: Membangun kebiasaan mindfulness membutuhkan waktu dan latihan. Jangan berkecil hati jika Anda mengalami kemunduran.<br></br>
-                
-                </p>
-
-        </div>
-        <br></br><br></br><br></br><br></br>
-        </Container>
+        <section className="section before-content" style={{ backgroundColor: "#EBBCBC", marginTop: "60px", paddingTop: "100px", paddingBottom: "100px" }}>
         <Col md={16} className="d-flex align-items-center justify-content">
             <div className="container text-center">
-                <Button variant="light" style={{width: "300px", height: "45px", backgroundColor:"#25B7D3", borderColor:"#25B7D3",color:"white", fontWeight:"bold", fontSize:"20px", borderRadius:"15px"}} href="/mindfulness-4" >Click For Start Challenge</Button>
+            <h6 className="subtitle" style={{ fontSize: "40px", fontWeight:"bold", color:"white"}}>Latihan Mindful Breathing</h6> 
             </div>
         </Col>
-        <br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br>
+        <Col md={12} className="d-flex align-items-center justify-content">
+        <div className="container text-center">
+
+        <video src={breathing1} controls style={{ width: "600px", height: "auto", maxWidth: "100%", maxHeight: "100%", marginBottom:"60px" }} />            
+        </div>
+        </Col>
+
+        </section>
+        <section className="section before-content" style={{ backgroundColor: "white", color: "#141313", marginTop: "-10px", paddingTop: "100px", paddingBottom: "100px" }}>
+        <Col md={16} className="d-flex align-items-center justify-content">
+            <div className="container text-center">
+            <h6 className="subtitle" style={{ fontSize: "40px", fontWeight:"bold", color:"#EBBCBC", marginBottom:"20px"}}>Latihan Mindful Scan</h6> 
+            </div>
+        </Col>
+        <Col md={12} className="d-flex align-items-center justify-content">
+        <div className="container text-center">
+
+        <video src={bodyscan1} controls style={{ width: "600px", height: "auto", maxWidth: "100%", maxHeight: "100%", marginBottom:"10px" }} />     
+        </div>
+        </Col>
+
+        </section>
+        <Col md={16} className="d-flex align-items-center justify-content">
+            <div className="container text-center">
+                <Button variant="light" style={{width: "250px", height: "50px", backgroundColor:"#EBBCBC", borderColor:"#EBBCBC",color:"white", fontWeight:"bold", fontSize:"18px", borderRadius:"50px", marginBottom:"50px"}} href="/mindfulness-4" >Checklist Harian</Button>
+            </div>
+        </Col>
         <Footer/>
       </>
     );

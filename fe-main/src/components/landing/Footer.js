@@ -17,7 +17,7 @@ const Footer = () => {
           </div>
 
           <div className="sb__footer-links_div">
-            <h4 className="font-weight-bold" style={{ color: "black" }}>About Us</h4>
+            <h4 className="font-weight-bold" style={{ color: "black" }}>Tentang Kami</h4>
             <a href="/about-us"> 
               <p style={{ color: "black" }}>MentalWell adalah platform kesehatan mental 
               yang dirancang sebagai solusi inovatif dalam 

@@ -14,6 +14,7 @@ const EditPsikolog = () => {
   const [telephonePsikolog, setTelephonePsikolog] = useState("");
   const [image, setImage] = useState(null);
   const [oldImage, setOldImage] = useState(""); // Initialize with the existing image URL
+  const [urlPsikolog, setUrlPsikolog] = useState("");
 
   useEffect(() => {
     getPsikolog();
@@ -22,12 +23,13 @@ const EditPsikolog = () => {
   const getPsikolog = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/psikolog/${id}`);
-      const { nama_psikolog, deskripsi_psikolog, lokasi_psikolog, telephone_psikolog, image } = response.data;
+      const { nama_psikolog, deskripsi_psikolog, lokasi_psikolog, telephone_psikolog, image, url_psikolog } = response.data;
       setNamaPsikolog(nama_psikolog);
       setDeskripsiPsikolog(deskripsi_psikolog);
       setLokasiPsikolog(lokasi_psikolog);
       setTelephonePsikolog(telephone_psikolog);
       setOldImage(image);
+      setUrlPsikolog(url_psikolog);
     } catch (error) {
       console.error("Error fetching psikolog:", error);
     }
@@ -42,6 +44,7 @@ const EditPsikolog = () => {
       formData.append("lokasi_psikolog", lokasiPsikolog);
       formData.append("telephone_psikolog", telephonePsikolog);
       formData.append("image_psikolog", image);
+      formData.append("url_psikolog", urlPsikolog);
 
       await axios.post(`http://localhost:8080/api/psikolog/${id}`, formData, {
         headers: {
@@ -151,6 +154,7 @@ const EditPsikolog = () => {
                   )}
                 </Col>
               </Row>
+
               <Row className="mb-3">
                 <Col md="2" className="d-flex justify-content-end">
                   <Form.Label>New Image</Form.Label>
@@ -165,6 +169,22 @@ const EditPsikolog = () => {
                 </Col>
               </Row>
 
+              <Row className="mb-3">
+                <Col md="2" className="d-flex justify-content-end">
+                  <Form.Label>URL Psikolog</Form.Label>
+                </Col>
+                <Col md="8">
+                  <Form.Control
+                    type="text"
+                    name="url_psikolog"
+                    value={urlPsikolog}
+                    placeholder="URL Psikolog"
+                    onChange={(e) => setUrlPsikolog(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+
               <Col md="10" className="d-flex justify-content-end">
                 <Button variant="success" type="submit">
                   Submit
@@ -174,8 +194,9 @@ const EditPsikolog = () => {
           </Card.Body>
         </Card>
       </div>
-    </AdminLayout>
+      </AdminLayout>
   );
 };
 
 export default EditPsikolog;
+

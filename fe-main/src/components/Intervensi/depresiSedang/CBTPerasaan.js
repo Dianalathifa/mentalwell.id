@@ -31,11 +31,11 @@ const CBTPerasaan = () => {
   return (
     <>
       <Navbar />
-      <div className="container text-center">
-        <h6 className="section-title mb-2 tfonts"><br />Pahami Emosimu, Kendalikan Depresimu: Intervensi CBT Ini Untukmu!<br /><br /></h6>
+      <div className="container text-center" style={{paddingTop:"150px"}}>
+        <h6 className="section-title mb-2 tfonts-2"><br />Pahami Emosimu, Kendalikan Depresimu: Intervensi CBT Ini Untukmu!<br /><br /></h6>
       </div>
 
-            <div className="container text-left">
+            <div className="container text-left" style={{maxWidth:"1100px"}}>
                 <br></br><br></br>
                 <p style={{color:"black", fontWeight:"bold", fontSize:"20px"}}>Selamat datang di tantangan 7 hari kendalikan perasaan!</p><br></br>
                 <p style={{color:"black",  fontSize:"20px"}}>
@@ -53,7 +53,7 @@ const CBTPerasaan = () => {
                 <br/>
                
                 <div className="container text-center">
-            <h3 className="section-title mb-2 tfonts" style={{ borderColor:"#FFD2DD",color:"#25B7D3", fontWeight:"bold"}}><br />Yuk, mulai tantangannya !<br /></h3>
+            <h3 className="section-title mb-2 tfonts-2" style={{ borderColor:"#FFD2DD",color:"#25B7D3", fontWeight:"bold"}}><br />Yuk, mulai tantangannya !<br /></h3>
             </div>
                                      
         </div>
@@ -79,8 +79,8 @@ const InterventionCard = ({ intervention }) => {
   const { image, text, link } = intervention;
   return (
     <div className="col-md-3 mb-4" style={{marginLeft:"80px"}}>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={image} style={{ height: '600px' }} />
+      <Card style={{ width: '16rem', margin:"15px" }}>
+        <Card.Img variant="top" src={image} style={{ height: '300px' }} />
         <Card.Body>
           <Link to={link} className="stretched-link"></Link>
           <Card.Text className="text-center" style={{ height: '50px' }}>{text}</Card.Text>
@@ -105,11 +105,11 @@ const TaskCard = ({ task }) => {
 
   return (
     <div className="col-md-3 mb-4" style={{ marginLeft: "80px" }}>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={imageSrc} style={{ height: '600px' }} />
+      <Card style={{ width: '16rem', margin:"15px" }}>
+        <Card.Img variant="top" src={imageSrc} style={{ height: '300px' }} />
         <Card.Body>
           <Link to={`/daily-task-detail/${id_task}`} className="stretched-link"></Link>
-          <Card.Text className="text-center" style={{ height: '50px' }}>Day {no_hari}: {judul_task}</Card.Text>
+          <Card.Text className="text-center" style={{ height: '50px' }}>{judul_task}</Card.Text>
         </Card.Body>
       </Card>
     </div>

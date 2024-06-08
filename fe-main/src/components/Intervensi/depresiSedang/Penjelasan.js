@@ -1,66 +1,101 @@
 import React from 'react';
-import { Col, Button, Container } from 'react-bootstrap';
+import { Col, Button, Container, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import Navbar from '../../landing/Navbar.js';
 import Footer from '../../landing/Footer.js';
+import depresiDetail from "../../images/activityTerapi/depresi-detail.png"; // Import gambar
+import activity from "../../images/activityTerapi/activity-detail.png"; // Import gambar
+import depresi from "../../images/CBT/depresi.png"; // Import gambar
+import cbt from "../../images/CBT/cbt.png"; // Import gambar
+import cbtlatihan from "../../images/CBT/cbt-latihan.jpg"; // Import gambar
+import "../../style/Intervensi.css";
 
 const Teknik54321 = () => {
 return (
     <>
     <Navbar />
-    <Container>
-        <div className="container text-center">
-            <h6 className="section-title mb-2 tfonts" style={{ borderColor:"#FFD2DD",color:"#25B7D3", fontWeight:"bold"}}><br />Intervensi Depresi Sedang<br /></h6>
-            </div>
+    <div style={{marginTop:"150px"}}>
+        <Container className="mt-5" style={{ padding:"60px",backgroundColor:"#F5A5AD80", borderRadius:"50px"}}>
+      <Row className="justify-content-center">
+        <Col md={6}>
+              <h6 style={{ fontSize: "25px", marginTop:"30px", fontWeight:"bold" }}>
+                Intervensi Depresi Sedang
+                </h6>
+              <h6 style={{ fontSize: "35px",  fontWeight:"bold" }}>
+              CBT (Cognitive Behavior Therapy) 
+                    </h6>
+                 <Link to="/cbt">
+          <Button
+            variant="light"
+            className="custom-button" // Tambahkan kelas custom-button di sini
+            style={{
+              marginTop:"20px",
+              borderRadius: "50px",
+              fontWeight: "bold",
+              padding: '17px 20px', // Atur padding untuk mengatur ukuran tombol
+              fontSize: '16px' // Atur ukuran font teks tombol
+            }}
+          >
+          Yuk Ikuti Langkah-langkahnya!
+         </Button>
+        </Link>
+        </Col>
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+          <img src={depresiDetail} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
+        </Col>
+      </Row>
+    </Container>
+    </div>
+    
 
-            <div className="container text-center">
-                <br></br><br></br>
-                <p style={{color:"black",  fontSize:"20px"}}>
-                "Kembangkan dirimu di tingkat yang lebih tinggi dengan menggali lebih dalam informasi seputar depresi remaja untuk mencapai pikiran yang lebih positif. 
-                Cari tips-tips intervensi depresi yang ada diwebsite ini sesuai dengan rutinitas hidupmu untuk mencapai stabilitas emosional dan kesejahteraan secara menyeluruh."                <br></br><br></br>
-
-                
-                </p>
-        </div>
-        <div className="container text-center">
-            <h6 className="section-title mb-2 tfonts" style={{ borderColor:"#FFD2DD",color:"#25B7D3", fontWeight:"bold"}}><br />CBT (Cognitive Behavior Therapy)<br /></h6>
-            </div>
-
-            <div className="container text-left">
-                <br></br><br></br>
-                <p style={{color:"black",  fontSize:"20px"}}>
-
+    <Container className="my-5" >
+        <Row className="justify-content-center" style={{marginTop:"100px"}}>
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+            <img src={cbt} alt="Image" style={{ borderRadius:"30px", maxWidth: "100%", maxHeight: "100%", height:"300px" }} /> 
+          </Col>
+          <Col md={6}>
+                <h3 style={{fontWeight:"bold", fontSize:"30px"}}>Apa itu CBT?</h3>
+                <p style={{ fontSize: "20px", marginTop:"30px"}}>
                 CBT (Cognitive Behavior Therapy) adalah terapi yang sering digunakan untuk menangani kasus depresi. 
                 Terapi ini mengkombinasikan cara berpikir dan berperilaku dengan berfokus pada tiga aspek yang saling berkaitan: pikiran, perasaan, dan perilaku. 
-                Tujuan utama CBT adalah mengubah cara seseorang memandang suatu masalah (kognitif) untuk menghasilkan perubahan emosi dan perilaku yang positif.<br /><br/>
-                CBT didasarkan pada pemahaman bahwa pikiran, emosi, dan tingkah laku saling mempengaruhi satu sama lain. 
-                Misalnya, keyakinan atau persepsi seseorang tentang suatu situasi dapat mempengaruhi perasaannya dan perilakunya dalam menghadapi situasi tersebut. 
-                Untuk itu, CBT menggabungkan pendekatan perilaku dan kognitif dalam penerapannya, menggunakan berbagai teknik intervensi untuk membantu individu mengubah pola pikir dan perilaku yang tidak membantu menjadi lebih adaptif dan sehat.<br/><br/>
-                Dalam pendekatan perilaku, tindakan atau perilaku seseorang dianggap memiliki pengaruh langsung terhadap perasaan dan pikirannya. 
-                Dengan demikian, intervensi CBT sering kali melibatkan latihan untuk mengubah perilaku tertentu yang pada gilirannya akan mempengaruhi pikiran dan perasaan menjadi lebih positif.<br/><br/>
-                
+                Tujuan utama CBT adalah mengubah cara seseorang memandang suatu masalah (kognitif) untuk menghasilkan perubahan emosi dan perilaku yang positif.
                 </p>
-        </div>
-        
-        <br></br><br></br><br></br><br></br>
-    </Container>
-    
-    <Container>
-      <Col md={14} className="text-center">
-          <Link to="/cbt">
-            <Button variant="light" 
-            style={{
-            backgroundColor: "#25B7D3",
-            borderRadius:"50px",
-            color: "white",
-            fontWeight: "bold",
-            padding: '20px 35px', // Atur padding untuk mengatur ukuran tombol
-            fontSize: '25px'}} >Yuk Ikuti Langkah-langkah nya!</Button>
-          </Link>
+              
+          </Col>        
+        </Row>
+      </Container> 
+      <Container className="my-5" >
+      <Row className="justify-content-center" style={{marginTop:"50px"}}>
+        <Col md={6}>
+            
+              <p style={{ fontSize: "25px", marginTop:"30px", marginLeft:"50px"}}>
+              CBT didasarkan pada pemahaman bahwa pikiran, emosi, dan tingkah laku saling mempengaruhi satu sama lain. 
+              Misalnya, keyakinan atau persepsi seseorang tentang suatu situasi dapat mempengaruhi perasaannya dan perilakunya dalam menghadapi situasi tersebut. 
+              Untuk itu, CBT menggabungkan pendekatan perilaku dan kognitif dalam penerapannya, menggunakan berbagai teknik intervensi untuk membantu individu mengubah pola pikir dan perilaku yang tidak membantu menjadi lebih adaptif dan sehat.
+              </p>
+              
         </Col>
-        </Container>
-        <br/><br/><br/>
-        <Footer/>
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+        <img src={depresi} alt="Image" style={{ borderRadius:"30px", marginRight:"-100px", height:"300px" }} /> 
+        </Col>
+      </Row>
+    </Container>
+    <Container className="my-5" >
+        <Row className="justify-content-center" style={{marginTop:"50px", marginBottom:"100px"}}>
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+            <img src={cbtlatihan} alt="Image" style={{ borderRadius:"30px", maxWidth: "100%", maxHeight: "100%", height:"250px" }} /> {/* Panggil gambar dengan variabel */}
+          </Col>
+          <Col md={6}>
+            
+                <p style={{ fontSize: "25px", marginTop:"30px"}}>
+                Dalam pendekatan perilaku, tindakan atau perilaku seseorang dianggap memiliki pengaruh langsung terhadap perasaan dan pikirannya. 
+                Dengan demikian, intervensi CBT sering kali melibatkan latihan untuk mengubah perilaku tertentu yang pada gilirannya akan mempengaruhi pikiran dan perasaan menjadi lebih positif.
+                </p>
+              
+          </Col>        
+        </Row>
+      </Container>
+          <Footer/>
         
       </>
     );

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\JawabanSuicide;
 use CodeIgniter\API\ResponseTrait;
+use DateTime;
 
 class Suicide extends BaseController
 {
@@ -54,6 +55,7 @@ class Suicide extends BaseController
             // Masukkan total skor dan klasifikasi ke dalam database
             'points' => $totalScore,
             'klasifikasi' => $classification,
+            'tanggal_tes' => (new DateTime())->format('Y-m-d')
         ];
         
 
@@ -94,8 +96,10 @@ class Suicide extends BaseController
         $formattedAnswer = [
             'id_partisipan' => $answer['id_partisipan'],
             'points' => $answer['points'],
-            'klasifikasi' => $answer['klasifikasi']
+            'klasifikasi' => $answer['klasifikasi'],
+            'tanggal_tes' => $answer['tanggal_tes']
         ];
+
         return $this->respond($formattedAnswer);
     } else {
         return $this->fail('Data jawaban tidak ditemukan', 404);

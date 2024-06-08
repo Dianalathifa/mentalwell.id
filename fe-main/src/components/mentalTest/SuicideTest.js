@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Col } from 'react-bootstrap';
+import { Container, Button, Col, Card, Row } from 'react-bootstrap';
 import Navbar from '../landing/Navbar';
 import Footer from '../landing/Footer';
 import { useHistory } from 'react-router-dom'; // Import useHistory
+import "../style/Intervensi.css";
+
 
 const KuisionerPage = () => {
   const [questions] = useState([
@@ -71,19 +73,39 @@ const KuisionerPage = () => {
   return (
     <>
     <Navbar />
-    <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
+    <section id="psikolog-list" className="section before-content" style={{ color: "#141313", paddingTop: "100px" }}>
         <Col md={16} className="d-flex align-items-center justify-content-center">
+        <Container className="my-6">
+        <Row className="justify-content-center">
           <div className="container text-center">
-            <h6 className="section-title mb-2 tfonts">Suicide Test</h6>
+            <h6 className="section-title mb-2 tfonts" style={{color:"#25B7D3", marginBottom:"20px"}}>Tes Suicide</h6>
           </div>
+          <Col md={10}>
+                        <Card className="about-us-card" style={{ backgroundColor: "#FFD2DD"}}>
+                            <Card.Body>
+                            <h5 style={{ fontSize: "20px", color:"#25B7D3", fontWeight: "bold" }}>Petunjuk Pengisian :</h5><br></br>
+                            <p style={{ fontSize: "16px" }}>
+                              1. Dapat dijawab oleh petugas/keluarga/teman atau user yang mengerti dengan pertanyaan yang tertera pada kuisioner &nbsp;&nbsp;&nbsp;&nbsp;dibawah ini.
+                              <br />
+                              2. Jawablah semua pertanyaan sesuai dengan kondisi saat ini yang anda alami atau rasakan.
+                              <br />
+                              3. Setiap jawaban yang dijawab akan mendapatkan skor.
+                              <br />
+                              4. Hasil dari penilaian akan digunakan sebagai dasar untuk menentukan langkah-langkah intervensi atau tindakan lebih lanjut.
+                              &nbsp;&nbsp;&nbsp;&nbsp;Selamat Mengerjakan!
+                            </p>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    </Row>
+      </Container>
         </Col>
       </section>
-      <br />
-      <Container>
-    
+
+      <Container style={{marginLeft:"200px"}}>    
       {questions.map((question, index) => (
         <div key={index} style={{ marginBottom: '20px' }}>
-          <p style={{ fontSize: '25px' }}>{index + 1}. {question}</p>
+          <p style={{ fontSize: '20px' }}>{index + 1}. {question}</p>
           <div>
             <br/>
           <Button
@@ -107,8 +129,16 @@ const KuisionerPage = () => {
         </div>
       ))}
       <br/>
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <Button onClick={handleSubmit} disabled={isSubmitting}>Submit Jawaban</Button>
+      <div style={{ marginLeft:"350px", marginTop: '60px', marginBottom:"60px" }}>
+          <Button 
+          variant="light"
+          className="custom-button" // Tambahkan kelas custom-button di sini
+          style={{
+            borderRadius: "50px",
+            fontWeight: "bold",
+            padding: '15px 25px', // Atur padding untuk mengatur ukuran tombol
+            fontSize: '17px'}} 
+            onClick={handleSubmit} disabled={isSubmitting}>Submit Jawaban</Button>
       </div>
     </Container>
     <br/><br/>

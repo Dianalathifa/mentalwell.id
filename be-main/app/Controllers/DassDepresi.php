@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\JawabanDASSDepresi;
 use CodeIgniter\API\ResponseTrait;
+use DateTime;
 
 class DassDepresi extends BaseController
 {
@@ -60,7 +61,9 @@ class DassDepresi extends BaseController
             // Masukkan total skor dan klasifikasi ke dalam database
             'points' => $totalScore,
             'klasifikasi' => $classification,
+            'tanggal_tes' => (new DateTime())->format('Y-m-d'),
         ];
+
         
 
         // Simpan jawaban ke dalam database
@@ -101,7 +104,8 @@ public function getAnswerByIdPartisipan($id_partisipan)
         $formattedAnswer = [
             'id_partisipan' => $answer['id_partisipan'],
             'points' => $answer['points'],
-            'klasifikasi' => $answer['klasifikasi']
+            'klasifikasi' => $answer['klasifikasi'],
+            'tanggal_tes' => $answer['tanggal_tes']
         ];
         return $this->respond($formattedAnswer);
     } else {

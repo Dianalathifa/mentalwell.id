@@ -48,9 +48,13 @@
 
 .tfonts {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size:75px !important;
+  font-size:50px !important;
 }
 
+.tfonts-2 {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:35px !important;
+}
 
 .aboutfont {
   font-size:21px;
@@ -77,20 +81,6 @@
 .size{
   font-size:larger;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #map {
 	position:absolute;

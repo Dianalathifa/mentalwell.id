@@ -50,11 +50,8 @@ const Admin = () => {
               <h5 className="font-weight-bold" style={{ fontSize: "20px" }}>
                 Data Admin
               </h5>
-              {/* <Link to="/admin/add">
-                <Button variant="success" style={{ backgroundColor: "#FEA503", borderColor: "#FEA503" }}>+ Tambah</Button>
-              </Link> */}
             </div>
-            <div className="table-responsive" style={{ overflowY: "auto", maxHeight: "450px" }}>
+            <div className="table-responsive" style={{ overflowY: "auto" }}>
               <Table striped bordered hover>
                 <thead>
                   <tr>

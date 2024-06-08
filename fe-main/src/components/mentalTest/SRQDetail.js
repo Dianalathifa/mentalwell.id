@@ -6,6 +6,7 @@ import Navbar from "../landing/Navbar.js";
 import detail1 from "../images/srq-detail1.png"; // Import gambar
 import detail2 from "../images/srq-detail2.png"; // Import gambar
 import SRQ from "../images/srq-tes.png"; // Import gambar
+import "../style/Intervensi.css";
 
 const SRQDetail = () => {
 
@@ -13,13 +14,13 @@ const SRQDetail = () => {
     <div>
       <Navbar />
       <br/>
-      <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
-      <Col md={12} className="d-flex align-items-center justify-content-center">
+      <section id="psikolog-list" className="section sebelum-content mt-5" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "100px" }}>
+      <Col md={16} className="d-flex align-items-center justify-content-center">
         <div className="container text-left ">
           <h6 className="section-title mb-2 tfonts" style={{ paddingLeft:"100px"}}>SRQ-Test</h6>
-          <h6 className="subtitle" style={{ fontSize: "28px", paddingLeft:"100px"}}>Self-Reporting Questionnaire (SRQ) 20 <br></br>adalah kuisioner yang dikembangkan
+          <h6 className="subtitle-srq" style={{ fontSize: "26px", paddingLeft:"100px"}}>Self-Reporting Questionnaire (SRQ) 20 <br></br>adalah kuisioner yang dikembangkan
           oleh WHO <br></br> untuk melakukan skrining adanya masalah kesehatan jiwa <br></br>
-          di masyarakat. Kuisioner SRQ ini valid dan reliabel digunakan <br></br>sebagai alat ukur
+          di masyarakat. Kuisioner SRQ ini valid dan reliabel digunakan sebagai alat ukur
           adanya masalah kesehatan mental <br></br>yang dialami seseorang</h6> <br></br><br></br><br></br>
         </div>
         <img src={SRQ} alt="Logo" style={{ marginRight:"100px",width: "500px", height: "500px", maxWidth: "100%", maxHeight: "100%" }} /> 
@@ -88,21 +89,20 @@ const SRQDetail = () => {
               </Card.Body>
             </Card>
           </Col>
-          
         </Row>
       </Container>
       
       <Container>
       <Col md={14} className="text-center">
           <Link to="/srqtest-user">
-            <Button variant="light" 
+            <Button variant="light"
+            className="custom-button" // Tambahkan kelas custom-button di sini
             style={{
-            backgroundColor: "#25B7D3",
-            borderRadius:"50px",
-            color: "white",
-            fontWeight: "bold",
-            padding: '20px 35px', // Atur padding untuk mengatur ukuran tombol
-            fontSize: '25px'}} >Mulai Tes SRQ</Button>
+              borderRadius: "50px",
+              fontWeight: "bold",
+              padding: '20px 35px', // Atur padding untuk mengatur ukuran tombol
+              fontSize: '25px' // Atur ukuran font teks tombol
+            }} >Mulai Tes SRQ</Button>
           </Link>
         </Col>
         </Container>

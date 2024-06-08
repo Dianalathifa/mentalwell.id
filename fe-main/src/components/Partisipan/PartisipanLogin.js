@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { Row, Col, Form, Button, Image, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Image, Container, Alert } from "react-bootstrap";
 import logo from "../images/logo.png";
 import Header from "../landing/Navbar";
 import Footer from "../landing/Footer";
@@ -9,6 +9,7 @@ import Footer from "../landing/Footer";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // State untuk menyimpan pesan kesalahan
   const history = useHistory();
 
   const handleLogin = async (e) => {
@@ -19,24 +20,21 @@ const Login = () => {
         password_partisipan: password
       });
       console.log(response.data);
-      const { partisipan_id, partisipan_nama, partisipan_email } = response.data;
-      localStorage.setItem('partisipan_id', partisipan_id);
-      localStorage.setItem('partisipan_nama', partisipan_nama);
-      localStorage.setItem('partisipan_email', partisipan_email);
-
-      history.push('/');
-    } catch (error) {
-      if (error.response) {
-        if (error.response.status === 401) {
-          alert('Login failed! Incorrect email or password.');
-        } else {
-          alert('Login failed! Please try again later.');
-        }
-      } else if (error.request) {
-        alert('Failed to send request! Please check your network connection.');
+      const { data } = response;
+      const { partisipan_id, partisipan_nama, partisipan_email, usia, no_telp } = data;
+      if (partisipan_id) {
+        localStorage.setItem('partisipan_id', partisipan_id);
+        localStorage.setItem('partisipan_nama', partisipan_nama);
+        localStorage.setItem('partisipan_email', partisipan_email);
+        localStorage.setItem('usia', usia);
+        localStorage.setItem('no_telp', no_telp);
+        history.push('/'); // Redirect ke halaman profil
       } else {
-        alert('An error occurred! Please try again later.');
+        setError('Incorrect email or password.');
       }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError('Incorrect email or password.');
     }
   };
   
@@ -44,17 +42,18 @@ const Login = () => {
     <>
       <Header />
       <Container>
-        <Row className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-          <Col md={6} className="mx-auto"> {/* Mengubah md menjadi 4 dan menambahkan class mx-auto */}
+        <Row className="d-flex justify-content-center align-items-center" style={{ height: "110vh", maxWidth:"800px", marginLeft:"240px" }}>
+          <Col md={6} className="mx-auto">
             <div className="d-flex align-items-center justify-content-center">
-            <Image src={logo} alt="Logo" style={{ width: "40%", marginBottom: "20px" }} />
+              <Image src={logo} alt="Logo" style={{ width: "40%", marginBottom: "20px" }} />
             </div>
             <h1 style={{ textAlign: "center", color: "#005F75", fontWeight: "bold" }}>LOGIN</h1>
             <hr style={{ borderTop: "2px solid gray" }} />
+            {error && <Alert variant="danger">{error}</Alert>} {/* Tampilkan pesan kesalahan */}
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formEmail" className="mb-3">
                 <Form.Control
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"

@@ -75,6 +75,7 @@ $routes->post('api/jawaban', 'Jawaban::create', ['filter' => 'cors']); // Endpoi
 $routes->post('api/jawaban/(:num)', 'Jawaban::update/$1', ['filter' => 'cors']); // Endpoint untuk mengupdate data jawaban berdasarkan ID
 $routes->delete('api/jawaban/(:num)', 'Jawaban::delete/$1', ['filter' => 'cors']); // Endpoint untuk menghapus data jawaban berdasarkan ID
 
+
 $routes->post('api/jawaban-srq', 'JawabanSRQController::saveAnswer', ['filter' => 'cors']);
 $routes->get('api/jawaban-srq', 'JawabanSRQController::getAnswers');
 
@@ -154,7 +155,7 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->post('jawaban-intervensi', 'JawabanIntervensi::create');
     $routes->put('jawaban-intervensi/(:num)', 'JawabanIntervensi::update/$1');
     $routes->delete('jawaban-intervensi/(:num)', 'JawabanIntervensi::delete/$1');
-    $routes->get('jawaban-intervensi/(:num)', 'JawabanIntervensi::show/$1');
+    $routes->get('jawaban-intervensi/(:num)', 'JawabanIntervensi::getByPartisipan/$1');
 });
 
 $routes->get('/video-stress', 'VideoStress::index');
@@ -174,6 +175,8 @@ $routes->post('/cbt-responses', 'CbtResponsesController::create');
 $routes->put('/cbt-responses/(:num)', 'CbtResponsesController::update/$1');
 $routes->delete('/cbt-responses/(:num)', 'CbtResponsesController::delete/$1');
 $routes->get('/cbt-responses/(:num)', 'CbtResponsesController::getByParticipantId/$1');
+$routes->get('/cbt-responses/check-existing/(:num)/(:any)', 'CbtResponsesController::checkExisting/$1/$2');
+$routes->get('/cbt-responses/task-participant/(:num)/(:num)', 'CbtResponsesController::getByTaskAndParticipant/$1/$2');
 
 // Routes for CbtSession
 $routes->get('/cbt-sessions', 'CbtSessionController::index');
@@ -188,5 +191,42 @@ $routes->put('/daily-tasks/(:num)', 'DailyTask::update/$1');
 $routes->delete('/daily-tasks/(:num)', 'DailyTask::delete/$1');
 $routes->get('/daily-tasks/(:num)', 'DailyTask::getByTaskId/$1');
 $routes->get('/daily-tasks-sessions/(:num)', 'DailyTask::getDailyTasksBySessionId/$1');
+
+$routes->get('api/reminders', 'RemindersController::reminders');
+
+// Routes for Checklist Cemas Controller
+$routes->get('/cemas/checklist', 'CemasRinganChecklist::index');
+$routes->post('/cemas/checklist/check-day', 'CemasRinganChecklist::checkDay');
+$routes->get('/cemas/checklist/participant/(:num)', 'CemasRinganChecklist::showByIdPartisipan/$1');
+
+// Routes for Checklist Depresi Controller
+$routes->get('/depresi/checklist', 'DepresiRinganChecklist::index');
+$routes->post('/depresi/checklist/check-day', 'DepresiRinganChecklist::checkDay');
+$routes->get('/depresi/checklist/participant/(:num)', 'DepresiRinganChecklist::showByIdPartisipan/$1');
+
+// Routes for Checklist Stress Controller
+$routes->get('/stress/checklist', 'StressRinganChecklist::index');
+$routes->post('/stress/checklist/check-day', 'StressRinganChecklist::checkDay');
+$routes->get('/stress/checklist/participant/(:num)', 'StressRinganChecklist::showByIdPartisipan/$1');
+
+// Routes for VoiceOverController
+$routes->get('/voiceovers', 'VoiceOver::index');
+$routes->get('/voiceovers/(:num)', 'VoiceOver::show/$1');
+$routes->post('/voiceovers', 'VoiceOver::create');
+$routes->put('/voiceovers/(:num)', 'VoiceOver::update/$1');
+$routes->delete('/voiceovers/(:num)', 'VoiceOver::delete/$1');
+$routes->get('/voiceovers/audio/(:any)', 'VoiceOver::audio/$1');
+
+//Routes for Post Test
+$routes->post('save-answer', 'JawabanPostTestController::saveAnswer');
+$routes->get('get-answers', 'JawabanPostTestController::getAnswers');
+
+// Routes hasil prediksi
+$routes->group('hasil-prediksi', function ($routes) {
+    $routes->get('partisipan/(:num)', 'HasilPrediksiController::getByPartisipan/$1');
+    $routes->get('semua', 'HasilPrediksiController::getAll');
+});
+
+$routes->get('api/analisis', 'AnalisisController::index');
 
 

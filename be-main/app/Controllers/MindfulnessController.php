@@ -23,6 +23,19 @@ class MindfulnessController extends BaseController
     {
         $data = $this->request->getJSON();
 
+        // Get the current date
+        $currentDate = date('Y-m-d');
+
+        // Check if an entry for the current day already exists
+        $existingEntry = $this->dailyStatusModel
+            ->where('id_partisipan', $data->id_partisipan)
+            ->where('DATE(created_at)', $currentDate)
+            ->first();
+
+        if ($existingEntry) {
+            return $this->failValidationError('You have already submitted your daily status for today.');
+        }
+
         $dataToInsert = [
             'id_partisipan' => $data->id_partisipan,
             'intervention_category' => 'mindfulness',

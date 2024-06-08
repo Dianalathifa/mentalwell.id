@@ -5,11 +5,12 @@ import { Row, Col, Form, Breadcrumb, Button, Card } from "react-bootstrap";
 import AdminLayout from "../layouts/AdminLayout";
 
 const AddPsikolog = () => {
-  const [nama_psikolog, setNamaPsikolog] = useState("");
-  const [deskripsi_psikolog, setDeskripsiPsikolog] = useState("");
-  const [image_psikolog, setImagePsikolog] = useState(null);
-  const [lokasi_psikolog, setLokasiPsikolog] = useState("");
-  const [telephone_psikolog, setTelephonePsikolog] = useState("");
+  const [namaPsikolog, setNamaPsikolog] = useState("");
+  const [deskripsiPsikolog, setDeskripsiPsikolog] = useState("");
+  const [imagePsikolog, setImagePsikolog] = useState(null);
+  const [lokasiPsikolog, setLokasiPsikolog] = useState("");
+  const [telephonePsikolog, setTelephonePsikolog] = useState("");
+  const [urlPsikolog, setUrlPsikolog] = useState("");
   const history = useHistory();
 
   const handleFileChange = (e) => {
@@ -21,11 +22,12 @@ const AddPsikolog = () => {
 
     try {
       const formData = new FormData();
-      formData.append("nama_psikolog", nama_psikolog);
-      formData.append("deskripsi_psikolog", deskripsi_psikolog);
-      formData.append("image_psikolog", image_psikolog);
-      formData.append("lokasi_psikolog", lokasi_psikolog);
-      formData.append("telephone_psikolog", telephone_psikolog);
+      formData.append("nama_psikolog", namaPsikolog);
+      formData.append("deskripsi_psikolog", deskripsiPsikolog);
+      formData.append("image_psikolog", imagePsikolog);
+      formData.append("lokasi_psikolog", lokasiPsikolog);
+      formData.append("telephone_psikolog", telephonePsikolog);
+      formData.append("url_psikolog", urlPsikolog);
 
       await axios.post("http://localhost:8080/api/psikolog", formData, {
         headers: {
@@ -64,7 +66,7 @@ const AddPsikolog = () => {
                   <Form.Control
                     type="text"
                     name="nama_psikolog"
-                    value={nama_psikolog}
+                    value={namaPsikolog}
                     placeholder="Nama Psikolog"
                     onChange={(e) => setNamaPsikolog(e.target.value)}
                     required
@@ -81,7 +83,7 @@ const AddPsikolog = () => {
                     as="textarea"
                     name="deskripsi_psikolog"
                     placeholder="Deskripsi Psikolog"
-                    value={deskripsi_psikolog}
+                    value={deskripsiPsikolog}
                     onChange={(e) => setDeskripsiPsikolog(e.target.value)}
                     rows={4}
                     required
@@ -112,7 +114,7 @@ const AddPsikolog = () => {
                   <Form.Control
                     type="text"
                     name="lokasi_psikolog"
-                    value={lokasi_psikolog}
+                    value={lokasiPsikolog}
                     placeholder="Lokasi Psikolog"
                     onChange={(e) => setLokasiPsikolog(e.target.value)}
                     required
@@ -128,9 +130,25 @@ const AddPsikolog = () => {
                   <Form.Control
                     type="text"
                     name="telephone_psikolog"
-                    value={telephone_psikolog}
+                    value={telephonePsikolog}
                     placeholder="Telephone Psikolog"
                     onChange={(e) => setTelephonePsikolog(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+
+              <Row className="mb-3">
+                <Col md="2" className="d-flex justify-content-end">
+                  <Form.Label>URL Psikolog</Form.Label>
+                </Col>
+                <Col md="8">
+                  <Form.Control
+                    type="text"
+                    name="url_psikolog"
+                    value={urlPsikolog}
+                    placeholder="URL Psikolog"
+                    onChange={(e) => setUrlPsikolog(e.target.value)}
                     required
                   />
                 </Col>

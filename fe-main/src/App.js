@@ -48,32 +48,39 @@ const SRQDetail = lazy(() => import("./components/mentalTest/SRQDetail"));
 const Suicide = lazy(() => import("./components/mentalTest/Suicide"));
 const SuicideTest = lazy(() => import("./components/mentalTest/SuicideTest"));
 const MentalWellTest = lazy(() => import("./components/mentalTest/MentalWellTest"));
+const PostTest = lazy(() => import("./components/mentalTest/PostTest"));
 
 const EditIntervensi =lazy(() =>  import ("./components/Intervensi/EditIntervensi"));
 const IntervensiAdmin = lazy (() => import ("./components/Intervensi/Intervensi"));
 const IntervensiDetail = lazy (() => import ("./components/Intervensi/IntervensiDetail"));
 const AddIntervensi = lazy (() => import ("./components/Intervensi/AddIntervensi"));
-const IntervensiTerapi = lazy (() => import ("./components/Intervensi/IntervensiTerapi"));
-const Intervensi30Days = lazy (() => import ("./components/Intervensi/Intervensi30Days"));
+const IntervensiTerapi = lazy (() => import ("./components/Intervensi/depresiRingan/IntervensiTerapi"));
+const DetailTerapi = lazy (() => import ("./components/Intervensi/depresiRingan/DetailTerapi"));
+const Intervensi30Days = lazy (() => import ("./components/Intervensi/30dayChallenge/Intervensi30Days"));
+const ChallengeDetail = lazy (() => import ("./components/Intervensi/30dayChallenge/30DaysDetail"));
 const IntervensiStressCoping = lazy (() => import ("./components/Intervensi/stressCoping/IntervensiStressCoping"));
 const IntervensiTeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/IntervensiTeknikGrounding"));
 const TeknikGroundingDetail = lazy (() => import ("./components/Intervensi/teknik54321/Detail"));
 const TeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/54321"));
 const IntervensiMindfulness = lazy (() => import ("./components/Intervensi/IntervensiMindfulness"));
 
-const Teknik54321 = lazy (() => import ("./components/Intervensi/teknik54321/54321"));
+const Cemas = lazy (() => import ("./components/Intervensi/Cemas"));
+const Stress = lazy (() => import ("./components/Intervensi/Stress"));
+const Depresi = lazy (() => import ("./components/Intervensi/Depresi"));
+
 const PenjelasanCBT = lazy (() => import ("./components/Intervensi/depresiSedang/Penjelasan"));
 const MBSR = lazy (() => import ("./components/Intervensi/mindfulness/MBSR"));
 const LatihanMindfulness = lazy (() => import ("./components/Intervensi/mindfulness/LatihanMindfulness"));
 const BodyScan = lazy (() => import ("./components/Intervensi/mindfulness/BodyScan"));
 const MBSRImplementation = lazy (() => import ("./components/Intervensi/mindfulness/MBSRImplementation"));
-const FormStress = lazy (() => import ("./components/Intervensi/FormStress"));
+const FormStress = lazy (() => import ("./components/Intervensi/30dayChallenge/FormStress"));
 
 const HasilKlasifikasi = lazy (() => import ("./components/Partisipan/HasilKlasifikasi"));
 const HasilDASSDepresi = lazy (() => import ("./components/Partisipan/HasilDassDepresi"));
 const HasilDASSCemas = lazy (() => import ("./components/Partisipan/HasilDassCemas"));
 const HasilDASSStress = lazy (() => import ("./components/Partisipan/HasilDassStress"));
 const HasilSuicide = lazy (() => import ("./components/Partisipan/HasilSuicide"));
+const HasilPostTest = lazy (() => import ("./components/Partisipan/HasilPostTest"));
 
 const JadwalTidur = lazy (() => import ("./components/Intervensi/activity/JadwalTidur"));
 const JadwalOlahraga = lazy (() => import ("./components/Intervensi/activity/JadwalOlahraga"));
@@ -90,6 +97,7 @@ const Grateful = lazy (() => import ("./components/Intervensi/stressCoping/Grate
 const Coloring = lazy (() => import ("./components/Intervensi/stressCoping/Coloring"));
 const Puzzle = lazy (() => import ("./components/Intervensi/stressCoping/Puzzle"));
 const VideoStressAdmin = lazy (() => import ("./components/admin/VideoStress"));
+const StressDetail = lazy (() => import ("./components/Intervensi/stressCoping/StressDetail"));
 
 const CBT = lazy (() => import ("./components/Intervensi/depresiSedang/CBT"));
 const CBTPikiran = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPikiran"));
@@ -103,6 +111,12 @@ const DetailDailyTask = lazy (() => import ("./components/Intervensi/depresiSeda
 
 const CBTSessionAdmin = lazy(() => import("./components/admin/CBTSession"));
 const DailyTaskAdmin = lazy(() => import("./components/admin/DailyTask"));
+
+const CemasRinganChecklist = lazy(() => import("./components/Intervensi/teknik54321/CemasDailyChecklist"));
+const StressRinganChecklist = lazy(() => import("./components/Intervensi/stressCoping/StressDailyChecklist"));
+const DepresiRinganChecklist = lazy(() => import("./components/Intervensi/activity/DepresiDailyChecklist"));
+
+const VoiceOverAdmin = lazy (() => import ("./components/admin/VoiceOvers"));
 
 
 
@@ -128,6 +142,7 @@ function App() {
               <Route exact path="/suicidetest-user" component={SuicideTest} />
               {/* <Route exact path="/dass42kategori-user" component={KategoriDASS42} /> */}
               <Route exact path="/srqtest-user" component={SRQTest} />
+              <Route exact path="/post-test" component={PostTest} />
               <Route exact path="/srqdetail-user" component={SRQDetail} />
               <Route exact path="/mentalwelltest-user" component={MentalWellTest} />
               <Route exact path="/hasil-klasifikasi-srq" component={HasilKlasifikasi} />
@@ -135,18 +150,23 @@ function App() {
               <Route exact path="/hasil-klasifikasi-dass-cemas" component={HasilDASSCemas} />
               <Route exact path="/hasil-klasifikasi-dass-stress" component={HasilDASSStress} />
               <Route exact path="/hasil-test-suicide" component={HasilSuicide} />
+              <Route exact path="/hasil-post-test" component={HasilPostTest} />
 
                {/* INTERVENSI */}
               <Route exact path="/intervensidetail-user" component={IntervensiDetail} />
               <Route exact path="/intervensiterapi-user" component={IntervensiTerapi} />
+              <Route exact path="/detail-terapi" component={DetailTerapi} />
               <Route exact path="/intervensimindfulness-user" component={IntervensiMindfulness} />
               <Route exact path="/intervensi30days-user" component={Intervensi30Days} />
+              <Route exact path="/30daysdetail-user" component={ChallengeDetail} />
               <Route exact path="/intervensi-stresscoping-user" component={IntervensiStressCoping} />
               <Route exact path="/intervensigrounding-user" component={IntervensiTeknikGrounding} />
               <Route exact path="/groundingdetail-user" component={TeknikGroundingDetail} />
-              <Route exact path="/Intervensi54321-user" component={Teknik54321} />
+              <Route exact path="/Intervensi54321-user" component={TeknikGrounding} />
+              <Route exact path="/cemas-daily-checklist" component={CemasRinganChecklist} />
               <Route exact path="/coloring" component={Coloring} />
               <Route exact path="/puzzle&game" component={Puzzle} />
+              <Route exact path="/stress-detail" component={StressDetail} />
 
               <Route exact path="/penjelasan-cbt" component={PenjelasanCBT} />
               <Route exact path="/cbt" component={CBT} />
@@ -164,6 +184,7 @@ function App() {
               <Route exact path="/jadwal-kegiatan" component={JadwalKegiatan} />
               <Route exact path="/jadwal-tujuan" component={JadwalTujuan} />
               <Route exact path="/pola-makan" component={PolaMakan} />
+              <Route exact path="/depresi-daily-checklist" component={DepresiRinganChecklist} />
               <Route exact path="/mindfulness-1" component={Mindfulness1} />
               <Route exact path="/mindfulness-2" component={Mindfulness2} />
               <Route exact path="/mindfulness-3" component={Mindfulness3} />
@@ -171,11 +192,16 @@ function App() {
 
               <Route exact path="/stress-coping-nothing-2minutes" component={Nothing2mnt} />
               <Route exact path="/stress-coping-grateful" component={Grateful} />
+              <Route exact path="/stress-daily-checklist" component={StressRinganChecklist} />
 
               <Route exact path="/cbt-session" component={CBTSession} />
 
               <Route exact path="/daily-task" component={DailyTask} />
               <Route exact path="/daily-task-detail/:id" component={DetailDailyTask} />
+
+              <Route exact path="/cemas-user" component={Cemas} />
+              <Route exact path="/stress-user" component={Stress} />
+              <Route exact path="/depresi-user" component={Depresi} />
 
                {/* PSIKOLOG */}
               <Route exact path="/psikolog" component={Psikolog} />
@@ -224,6 +250,7 @@ function App() {
               <Route exact path="/video-stress-admin" component={VideoStressAdmin} />
               <Route exact path="/cbt-session-admin" component={CBTSessionAdmin} />
               <Route exact path="/cbt-daily-task-admin" component={DailyTaskAdmin} />
+              <Route exact path="/voice-over-admin" component={VoiceOverAdmin} />
 
 
             </Switch>

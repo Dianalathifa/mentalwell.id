@@ -85,7 +85,7 @@ const JadwalTujuan = () => {
   return (
     <>
       <Navbar/>
-      <Container className="mt-5"><br/><br/>
+      <Container style={{marginTop:"150px"}}>
         <Col md={16} className="d-flex align-items-center justify-content">
           <div className="container text-center">
             <h6 className="subtitle" style={{ fontSize: "45px", fontWeight:"bold", color:"#25B7D3"}}>Jadwal Tujuan</h6> 

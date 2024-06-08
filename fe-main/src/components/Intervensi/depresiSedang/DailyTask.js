@@ -1,82 +1,180 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Navbar from "../../landing/Navbar.js";
-import Footer from "../../landing/Footer.js";
+import { useParams } from "react-router-dom";
+import { Container, Card, Form, Button, Alert, Modal } from "react-bootstrap";
+import Navbar from '../../landing/Navbar.js';
+import Footer from '../../landing/Footer.js';
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
+const DailyTaskDetail = () => {
+  const { id } = useParams();
+  const [task, setTask] = useState(null);
+  const [jawaban, setJawaban] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [hasSubmittedToday, setHasSubmittedToday] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = async () => {
+    fetchTask();
+  }, [id]);
+  
+  useEffect(() => {
+    if (task) {
+      displaySubmittedAnswer(task.id_task, localStorage.getItem('partisipan_id'));
+    }
+  }, [task]);
+  
+  const fetchTask = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/daily-tasks-sessions/2");
-      setTasks(response.data);
+      const response = await axios.get(`http://localhost:8080/daily-tasks/${id}`);
+      setTask(response.data);
+      displaySubmittedAnswer(response.data.id_task); // Pass the task ID to displaySubmittedAnswer
     } catch (error) {
+      setError("Error fetching task data. Please try again later.");
       console.error("Error fetching task data:", error);
     }
+  };
+
+  const displaySubmittedAnswer = async (taskId, participantId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/cbt-responses/task-participant/${taskId}/${participantId}`);
+      if (response.data) {
+        setJawaban(response.data.jawaban); // Set the answer retrieved from the backend to the state
+        setHasSubmittedToday(true); // Indicate that the user has submitted a response for today
+      } else {
+        setJawaban(""); // Clear the answer if no answer has been submitted for today
+        setHasSubmittedToday(false); // Indicate that the user has not submitted a response for today
+      }
+    } catch (error) {
+      console.error('Failed to load the submitted answer:', error);
+    }
+  };
+  
+
+  const handleResponseSubmit = async (e) => {
+    e.preventDefault();
+    const id_partisipan = localStorage.getItem('partisipan_id');
+
+    if (!id_partisipan) {
+      setError("Participant ID not found in local storage.");
+      return;
+    }
+
+    if (!jawaban.trim()) {
+      setError("Please provide a response.");
+      return;
+    }
+
+    if (hasSubmittedToday) {
+      setError("Sorry, you have already submitted a response today. Please try again tomorrow.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:8080/cbt-responses", {
+        id_task: task.id_task,
+        id_partisipan,
+        jawaban,
+        submission_date: new Date().toISOString().split("T")[0],
+      });
+
+      if (response.status === 400) {
+        setError(response.data.messages.error);
+        return;
+      }
+
+      if (response.status === 300) {
+        setError(response.data.messages.error);
+        return;
+      }
+
+      setSuccess("Response submitted successfully!");
+      setJawaban("");
+      setHasSubmittedToday(true);
+
+      // Menampilkan modal jika id_task adalah 14 dan id_session adalah 4
+      if (task.id_session === 4 && task.id_task === 14) {
+        setShowModal(true);
+      }
+    } catch (error) {
+      setError("Error submitting response. Please try again later.");
+      console.error("Error submitting response:", error);
+      console.error("Server response:", error.response);
+      if (error.response && error.response.data && error.response.data.messages && error.response.data.messages.error) {
+        setError(error.response.data.messages.error);
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
     <>
       <Navbar />
-      <div className="container text-center">
-        <h6 className="section-title mb-2 tfonts"><br />7 Hari Tantangan Kendalikan Pikiran untuk Mengatasi Depresi<br /><br /></h6>
-      </div>
-
-      <div className="container text-left">
-        <br /><br />
-        <p style={{ color: "black", fontWeight: "bold", fontSize: "20px" }}>7 Hari Tantangan Kendalikan Pikiran untuk Mengatasi Depresi!</p><br />
-        <p style={{ color: "black", fontSize: "20px" }}>
-          Selamat datang di tantangan 7 hari kendalikan pikiran! Selama seminggu ini, kita akan fokus pada mengenali dan mengubah pola pikir negatif yang dapat berkontribusi terhadap depresi.
-        </p>
-        <br />
-        <p style={{ color: "black", fontSize: "20px" }}>
-          Setiap hari, kamu akan menerima tugas kecil yang akan membantumu:<br />
-          - &nbsp;Mengenali pola pikir negatifmu sendiri<br />
-          - &nbsp;Menantang pikiran negatif tersebut<br />
-          - &nbsp;Mengembangkan pola pikir yang lebih positif dan realistis<br />
-        </p>
-        <br />
-        <div className="container text-center">
-          <h3 className="section-title mb-2 tfonts" style={{ borderColor: "#FFD2DD", color: "#25B7D3", fontWeight: "bold" }}><br />Yuk, mulai tantangannya!<br /></h3>
-        </div>
-      </div>
-      <br /><br /><br /><br />
-
-      <div className="container">
-        <div className="row">
-          {tasks.map((task) => (
-            <TaskCard key={task.id_task} task={task} />
-          ))}
-        </div>
-        <br /><br /><br /><br />
-      </div>
-
+      <Container>
+        {task ? (
+          <Container>
+            <div className="container text-center">
+              <h6 className="section-title mb-2 tfonts" style={{ marginTop: "60px", marginBottom: "100px" }}>
+                Welcome to Day {task.no_hari}
+              </h6>
+            </div>
+            <Card className="mb-4" style={{ borderRadius: "25px", backgroundColor: "#25B7D3", color: "white" }}>
+              <Card.Body>
+                <Card.Title>{task.judul_task}</Card.Title>
+                <Card.Text>{task.deskripsi_task}</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card className="mb-4" style={{ borderRadius: "25px", backgroundColor: "#FFD2DD" }}>
+              <Card.Body>
+                <Card.Title>Tips</Card.Title>
+                <Card.Text>{task.tips_task}</Card.Text>
+              </Card.Body>
+            </Card>
+            <Form onSubmit={handleResponseSubmit}>
+              <Form.Group controlId="formResponse">
+                <Form.Label>Your Response</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={jawaban}
+                  onChange={(e) => setJawaban(e.target.value)}
+                  readOnly={hasSubmittedToday} // Membuat textarea menjadi readonly jika sudah submit hari ini
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" style={{ marginBottom: "60px", marginTop: "30px" }} disabled={hasSubmittedToday}>
+                Submit
+              </Button>
+            </Form>
+            {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+            {success && <Alert variant="success" className="mt-3">{success}</Alert>}
+            {/* Modal untuk menampilkan pesan selamat */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Congratulations!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Selamat kamu telah berhasil menyelesaikan intervensi CBT!
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModal}>
+                  Close
+                </Button>
+                <Button variant="primary" href="/srq">
+                  Go to SRQ
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </Container>
+        ) : (
+          <p>Loading task details...</p>
+        )}
+      </Container>
       <Footer />
     </>
   );
 };
 
-const TaskCard = ({ task }) => {
-  const { no_hari, judul_task, id_task } = task;
-  const imageSrc = `../../images/CBT/CBT${no_hari}.png`; // Assuming each day has a corresponding image
-
-  return (
-    <div className="col-md-3 mb-4" style={{ marginLeft: "80px" }}>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={imageSrc} style={{ height: '600px' }} />
-        <Card.Body>
-          <Link to={`/daily-task-detail/${task.id_task}`} className="stretched-link"></Link>
-          <Card.Text className="text-center" style={{ height: '50px' }}>Day {no_hari}: {judul_task}</Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
-  );
-};
-
-export default TaskList;
+export default DailyTaskDetail;

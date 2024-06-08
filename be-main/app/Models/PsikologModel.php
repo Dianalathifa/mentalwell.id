@@ -11,7 +11,7 @@ class PsikologModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['nama_psikolog', 'deskripsi_psikolog', 'image_psikolog', 'lokasi_psikolog', 'telephone_psikolog'];
+    protected $allowedFields = ['nama_psikolog', 'deskripsi_psikolog', 'image_psikolog', 'lokasi_psikolog', 'telephone_psikolog','url_psikolog'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

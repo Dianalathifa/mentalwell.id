@@ -39,6 +39,7 @@ class Psikolog extends ResourceController
             'deskripsi_psikolog' => 'required',
             'lokasi_psikolog' => 'required',
             'telephone_psikolog' => 'required',
+            'url_psikolog' => 'required',
         ];
 
         // Periksa apakah file gambar telah diunggah sebelum menjalankan validasi terkait gambar
@@ -64,6 +65,7 @@ class Psikolog extends ResourceController
             'image_psikolog' => $newImageName,
             'lokasi_psikolog' => $this->request->getVar('lokasi_psikolog'),
             'telephone_psikolog' => $this->request->getVar('telephone_psikolog'),
+            'url_psikolog' => $this->request->getVar('url_psikolog'),
         ];
 
         $model = new PsikologModel();
@@ -89,6 +91,7 @@ class Psikolog extends ResourceController
             'deskripsi_psikolog' => 'required',
             'lokasi_psikolog' => 'required',
             'telephone_psikolog' => 'required',
+            'url_psikolog' => 'required',
         ];
 
         // Periksa apakah file gambar telah diunggah sebelum menjalankan validasi terkait gambar
@@ -128,6 +131,7 @@ class Psikolog extends ResourceController
             'image_psikolog' => $newImageName,
             'lokasi_psikolog' => $this->request->getVar('lokasi_psikolog'),
             'telephone_psikolog' => $this->request->getVar('telephone_psikolog'),
+            'url_psikolog' => $this->request->getVar('url_psikolog'),
         ];
 
         $model->update($id, $data);

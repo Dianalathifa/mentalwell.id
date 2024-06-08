@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\JawabanSRQ;
+use App\Models\Analisis;
 use CodeIgniter\API\ResponseTrait;
 
 class JawabanSRQController extends BaseController
@@ -12,6 +13,7 @@ class JawabanSRQController extends BaseController
     public function saveAnswer()
     {
         $jawabanModel = new JawabanSRQ();
+        $analisisModel = new Analisis();
 
         // Ambil data jawaban dari body request
         $requestData = $this->request->getJSON(true);
@@ -45,18 +47,20 @@ class JawabanSRQController extends BaseController
             'easily_tired' => $requestData['jawaban'][18], // Pertanyaan 19
             'uncomfortable_stomach' => $requestData['jawaban'][19], // Pertanyaan 20
         ];
-        
 
-        // Simpan jawaban ke dalam database
+        // Simpan jawaban ke dalam model JawabanSRQ
         $saved = $jawabanModel->save($jawabanData);
 
         if ($saved) {
+            // Simpan juga jawaban ke dalam model Analisis
+            $analisisModel->save($jawabanData);
+
             return $this->respondCreated(['message' => 'Jawaban berhasil disimpan']);
         } else {
             return $this->fail('Gagal menyimpan jawaban', 500);
         }
     }
-     // Function untuk mengambil jawaban
+    // Function untuk mengambil jawaban
     public function getAnswers()
     {
         $jawabanModel = new JawabanSRQ();
@@ -71,4 +75,3 @@ class JawabanSRQController extends BaseController
         }
     }
 }
-

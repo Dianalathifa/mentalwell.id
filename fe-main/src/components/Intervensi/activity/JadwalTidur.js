@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Col, Form, Button, Row, Card } from "react-bootstrap";
 import Navbar from '../../landing/Navbar.js';
-import Footer from '../../landing/Footer.js';
 import tidur from '../../images/activityTerapi/tidur-sehat.png';
 
 const JadwalTidurSehat = () => {
@@ -30,7 +29,7 @@ const JadwalTidurSehat = () => {
         setLatestSleepSchedule([latestSchedule]);
       }
     } catch (error) {
-      setError("Gagal mengambil jadwal tidur sehat");
+      setError("Belum ada jadwal tidur sehat");
     }
   };
 
@@ -74,25 +73,25 @@ const JadwalTidurSehat = () => {
   return (
     <>
       <Navbar />
-      <section className="section before-content" style={{ backgroundColor: "#25B7D3", color: "#141313", marginTop: "-10px", paddingTop: "100px", paddingBottom: "-140px", position: "relative", overflow: "hidden" }}>
+      <section className="section before-content" style={{ backgroundColor: "#25B7D3", color: "#141313", marginTop: "100px", paddingTop: "100px", padding: "70px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: "50%", backgroundColor: "white", zIndex: 1 }}></div>
         <div style={{ position: "relative", zIndex: 2 }}>
           <Col md={16} className="d-flex align-items-center justify-content">
             <div className="container text-center">
-              <h6 className="subtitle" style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>Jadwal Tidur Sehat</h6>
+              <h6 className="tfonts-2" style={{ fontWeight: "bold", color: "white" }}>Jadwal Tidur Sehat</h6>
             </div>
           </Col>
           <br /><br /><br />
           <div className="container text-center">
-            <img src={tidur} style={{ width: "700px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} alt="tidur-sehat" />
+            <img src={tidur} style={{ borderRadius:"30px", width: "350px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} alt="tidur-sehat" />
           </div>
         </div>
       </section>
 
-      <Container className="mt-5">
-        <Col md={16} className="d-flex align-items-center justify-content">
+      <Container className="mt-3" style={{ maxWidth: '800px', marginBottom:"100px" }}>
+        <Col md={16} className="d-flex align-items-center justify-content" style={{ marginBottom:"100px" }}>
           <div className="container text-center">
-            <p style={{ fontSize: "19px", fontWeight: "bold", color: "#25B7D3" }}>
+            <p style={{ fontSize: "16px", fontWeight: "bold", color: "#25B7D3" }}>
               "Jaga kualitas tidurmu, karena istirahat yang cukup adalah kunci untuk kesehatan dan kesejahteraanmu. 
               Yuk, mulailah dengan mengatur jadwal tidur sehatmu sekarang! Dengan memiliki jadwal tidur yang teratur, kamu bisa merasakan manfaatnya dalam meningkatkan energi, produktivitas, dan kesehatan secara keseluruhan. 
               Tidak hanya itu, dalam fitur ini, kamu juga bisa melacak kualitas tidurmu dari hari ke hari dan memperbaiki kualitasnya. 
@@ -101,14 +100,12 @@ const JadwalTidurSehat = () => {
             </p>
           </div>
         </Col>
-        <br /><br /><br />
-
         <Row>
           <Col>
-            <Card className="container text-center " style={{ borderRadius: "40px", fontWeight: "bold", fontSize: "25px", height: "500px", backgroundColor: "#25B7D329", color: "#25B7D3" }}>
+            <Card className="container text-center " style={{ padding:"40px",borderRadius: "40px", fontWeight: "bold", fontSize: "20px", height: "500px", backgroundColor: "#25B7D329", color: "#25B7D3" }}>
               <Card.Body>
                 <br />
-                <Card.Title style={{ fontSize: "30px", fontWeight: "bold" }}>Daftar Jadwal Tidur</Card.Title><br /><br />
+                <Card.Title style={{ fontSize: "25px", fontWeight: "bold" }}>Daftar Jadwal Tidur</Card.Title><br /><br />
                 {error ? (
                   <p>{error}</p>
                 ) : (
@@ -119,7 +116,7 @@ const JadwalTidurSehat = () => {
                     {latestSleepSchedule.map((schedule, index) => (
                       <div key={index}>
                         <p>
-                          <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanggal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;</strong> {schedule.tanggal}
+                          <strong>Tanggal&nbsp;: &nbsp;&nbsp;&nbsp;</strong> {schedule.tanggal}
                         </p>
                         <p>
                           <strong>Jam Tidur&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</strong> {schedule.waktu_tidur}
@@ -140,9 +137,9 @@ const JadwalTidurSehat = () => {
             </Card>
           </Col>
           <Col>
-            <Card style={{ borderRadius: "40px", height: "500px", fontWeight: "bold", backgroundColor: "#25B7D329", color: "#25B7D3" }}>
+            <Card style={{ borderRadius: "40px", height: "500px", fontWeight: "bold", backgroundColor: "#25B7D329", color: "#25B7D3", padding:"10px" }}>
               <Card.Body>
-                <Card.Title className="container text-center" style={{ fontSize: "30px", fontWeight: "bold" }}>Tambah Jadwal Tidur</Card.Title>
+                <Card.Title className="container text-center" style={{ fontSize: "20px", fontWeight: "bold", marginBottom:"15px" }}>Tambah Jadwal Tidur</Card.Title>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formTanggal">
                     <Form.Label>Tanggal</Form.Label>
@@ -181,8 +178,7 @@ const JadwalTidurSehat = () => {
                       onChange={handleInputChange}
                     />
                   </Form.Group>
-                  <br />
-                  <Button variant="light" type="submit" style={{ backgroundColor: "#25B7D3", color: "white", fontWeight: "bold" }}>
+                  <Button variant="light" type="submit" style={{ marginTop:"10px",backgroundColor: "#25B7D3", color: "white", fontWeight: "bold" }}>
                     Tambah
                   </Button>
                 </Form>
@@ -191,8 +187,6 @@ const JadwalTidurSehat = () => {
           </Col>
         </Row>
       </Container>
-      <br /><br /><br /><br />
-      <Footer />
     </>
   );
 };

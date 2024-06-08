@@ -1,134 +1,172 @@
 import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Footer from "../landing/Footer.js";
 import Navbar from "../landing/Navbar.js";
-import terapi4 from "../images/intervensi/terapi4.png"; // Import gambar
-import mindfulness4 from "../images/intervensi/mindfulness4.png"; // Import gambar
-import challenge from "../images/intervensiStress/30.png"; // Import gambar
-import ringan from "../images/stressCoping/stressringan1.png"; // Import gambar
-import cemasRingan from "../images/intervensi/cemas-ringan.jpg"; // Import gambar
-import CBT from "../images/CBT/CBT1.png"; // Import gambar
+import welcomeImage from "../images/intervensi/intervensi-detail.png";
+import gambar1 from "../images/alur1.png";
+import gambar2 from "../images/alur2.png";
+import gambar3 from "../images/alur3.png";
+import cemasImage from "../images/intervensi/cemas1.png";
+import stressImage from "../images/intervensi/stress1.png";
+import depresiImage from "../images/intervensi/depresi1.png";
+
+import '../style/Intervensi.css';
 
 const IntervensiUser = () => {
-    return (
-        <div>
-            <Navbar />
-            <br></br>
-            <section id="intervensi-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
-                    <div className="container text-center ">
-                        <h6 className="section-title mb-2 tfonts" >Intervensi untuk Kesehatan Mental</h6>
-                        <h6 className="subtitle" style={{ fontSize: "28px" }}>Temukan berbagai intervensi untuk mengatasi stres, depresi, dan cemas</h6> <br></br><br></br><br></br>
-                    </div>
-            </section>
-            <br></br><br></br><br></br>
-                    
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={cemasRingan} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                            <Col/>
-                                <Col md={8}>
-                                    <Card.Body>
-                                        <Card.Title  style={{ fontSize: "35px" }}>Cemas Ringan</Card.Title>
-                                        <Card.Text style={{ fontSize: "20px" }}>Lakukan Teknik Grounding 5-4-3-2-1 untuk mengatasi cemas dan menemukan ketenangan dalam hidup anda.</Card.Text><br/>
-                                        <Link to="/intervensigrounding-user" >Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                             </Col>
-                        </Row>
-                    </Container>   
-                        
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={mindfulness4} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                            <Col/>
-                                <Col md={8}>
-                                    <Card.Body>
-                                        <Card.Title  style={{ fontSize: "35px" }}>Cemas Sedang</Card.Title>
-                                        <Card.Text style={{ fontSize: "20px" }}>Mindfulness-Based Stress Reduction intervensi untuk mengatasi cemas dan menemukan ketenangan dalam hidup anda.</Card.Text><br/>
-                                        <Link to="/intervensimindfulness-user" >Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                             </Col>
-                        </Row>
-                    </Container>                     
-                               
-                    
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={ringan} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                            <Col/>
-                                <Col md={8} >
-                                    <Card.Body>
-                                        <Card.Title  style={{ fontSize: "35px" }}>Stress Ringan</Card.Title>
-                                        <Card.Text  style={{ fontSize: "20px" }}>Lakukan Stress Coping Strategies untuk mengatasi stress dan meningkatkan kesejahteraan mental Anda.</Card.Text><br/>
-                                        <Link to="/intervensi-stresscoping-user">Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                             </Col>
-                        </Row>
-                    </Container>  
+  return (
+    <div>
+      <Navbar />
+      <section id="intervensi-list" className="section before-content-detail">
+        <Container className="section-container">
+          <Row className="align-items-center">
+            <Col md={6} className="text-md-left">
+              <h1 className="title">Hallo, Selamat Datang Di Intervensi MentalWell!</h1>
+              <p className="subtitle-detail">Selamat telah sampai di fitur intervensi kami! Kami berharap fitur ini membantu Kamu dan memberikan manfaat yang signifikan.</p>
+            </Col>
+            <Col md={6} className="text-center">
+              <img src={welcomeImage} alt="Welcome" className="welcome-image" />
+            </Col>
+          </Row>
+          <div className="intervensi-options">
+            <div className="intervensi-option">
+              <p className="intervensi-text">Intervensi</p>
+              <Button variant="link" className="intervensi-button" href="/cemas-user">Cemas</Button>
+            </div>
+            <div className="separator"></div>
+            <div className="intervensi-option">
+              <p className="intervensi-text">Intervensi</p>
+              <Button variant="link" className="intervensi-button" href="/stress-user">Stress</Button>
+            </div>
+            <div className="separator"></div>
+            <div className="intervensi-option">
+              <p className="intervensi-text">Intervensi</p>
+              <Button variant="link" className="intervensi-button" href="/depresi-user">Depresi</Button>
+            </div>
+          </div>
+          <section>
+            <Container>
+              <Row>
+                <Col md={9}>
+                  <Card className="info-card">
+                    <Card.Body className="info-card-body">
+                      <div className="info-text-container">
+                        <p className="info-text">
+                          Pilih intervensi sesuai dengan hasil tes Kamu, mulai dari 'Kecemasan Ringan', 'Stress', hingga 'Depresi'
+                        </p>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col md={3}>
+                  <div className="info-image-container">
+                    <img src={gambar1} alt="Gambar Pertama" className="info-image" />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
 
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={challenge} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                            <Col/>
-                                <Col md={8} >
-                                    <Card.Body>
-                                        <Card.Title  style={{ fontSize: "35px" }}>Stress Sedang</Card.Title>
-                                        <Card.Text  style={{ fontSize: "20px" }}>Lakukan 30 Days Writing Challenge strategi untuk mengatasi stress dan meningkatkan kesejahteraan mental Anda.</Card.Text><br/>
-                                        <Link to="/intervensi30days-user">Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                             </Col>
-                        </Row>
-                    </Container>  
+          <section>
+            <Container>
+              <Row>
+                <Col md={3}>
+                  <div className="info-image-container">
+                    <img src={gambar2} alt="Gambar Kedua" className="info-image-left" />
+                  </div>
+                </Col>
+                <Col md={9}>
+                  <Card className="info-card">
+                    <Card.Body className="info-card-body">
+                      <div className="info-text-container">
+                        <p className="info-text">
+                          Kemudian, Kamu akan diarahkan ke halaman dengan informasi dan metode intervensi yang dapat Kamu praktikkan sesuai petunjuk yang diberikan.
+                        </p>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Container>
+          </section>
 
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={terapi4} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                                <Col/>
-                                <Col md={8} >
-                                    <Card.Body>
-                                        <Card.Title style={{ fontSize: "35px" }}>Depresi Ringan</Card.Title>
-                                        <Card.Text style={{ fontSize: "20px" }}>Lakukan Intervensi Activity Therapy untuk mengatasi depresi ringan serta dukungan yang Anda butuhkan.</Card.Text><br/>
-                                        <Link to="/intervensiterapi-user">Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                            </Col>
-                        </Row>
-                    </Container>
+          <section>
+            <Container>
+              <Row>
+                <Col md={9}>
+                  <Card className="info-card">
+                    <Card.Body className="info-card-body">
+                      <div className="info-text-container">
+                        <p className="info-text">
+                          Ingatlah, semua fitur ini terbuka dan bisa kamu coba. Klasifikasi untuk yang lain juga bisa kamu eksplorasi untuk siapa pun yang ingin menjaga kesehatan mental mereka, tidak hanya untuk yang telah didiagnosis.
+                        </p>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col md={3}>
+                  <div className="info-image-container">
+                    <img src={gambar3} alt="Gambar Ketiga" className="info-image" />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        </Container>
+      </section>
 
-                    <Container className="my-5">
-                        <Row className="justify-content-center">
-                            <Col md={9} className="d-flex align-items-center justify-content-center">
-                                <img src={CBT} alt="image" style={{ borderRadius:"50px", maxWidth: "25%", maxHeight: "100%" }} />
-                                <Col/>
-                                <Col md={8} >
-                                    <Card.Body>
-                                        <Card.Title style={{ fontSize: "35px" }}>Depresi Sedang</Card.Title>
-                                        <Card.Text style={{ fontSize: "20px" }}>Lakukan Intervensi CBT untuk mengatasi depresi sedang serta penanganan khusus yang Anda butuhkan.</Card.Text><br/>
-                                        <Link to="/penjelasan-cbt">Lihat Intervensi</Link>
-                                    </Card.Body>
-                                </Col>
-                                <br/>
-                            </Col>
-                        </Row>
-                    </Container>
-            <br></br><br></br><br></br>
-            <Footer />
+      <section id="intervensi-list" className="section before-content" style={{ paddingTop: "30px" }}>
+        <div className="container text-center">
+          <h6 className="section-title mb-2 tfonts-2">Intervensi</h6>
+          <h6 className="subtitle" style={{ fontSize: "18px" }}>
+            "Temukan intervensi yang sesuai untuk membantu kesehatan mentalmu."
+          </h6>
         </div>
-    );
+      </section>
+      <Container className="my-5">
+        <Row className="justify-content-center">
+          <Col xs={12} sm={6} md={3} className="mb-4">
+            <Card className="card-hover">
+              <Card.Img variant="top" src={cemasImage} alt="Cemas" className="card-image" />
+              <Card.Body className="d-flex flex-column">
+                <Card.Title className="card-title">Cemas</Card.Title>
+                <Card.Text className="card-text">Ikuti intervensi berikut untuk mengatasi cemas dan menemukan ketenangan dalam hidup Anda.</Card.Text>
+                <Link to="/cemas-user" className="mt-auto">
+                  <Button variant="light" className="custom-button">Lihat Intervensi</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xs={12} sm={6} md={3} className="mb-4">
+              <Card className="card-hover">
+                <Card.Img variant="top" src={stressImage} alt="Stress" className="card-image" />
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title className="card-title">Stress</Card.Title>
+                  <Card.Text className="card-text">Ikuti intervensi berikut untuk mengatasi stress dan meningkatkan kesejahteraan mental Anda.</Card.Text>
+                  <Link to="/stress-user" className="mt-auto">
+                    <Button variant="light" className="custom-button">Lihat Intervensi</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12} sm={6} md={3} className="mb-4">
+            <Card className="card-hover" style={{marginBottom:"100px"}}>
+              <Card.Img variant="top" src={depresiImage} alt="Depresi" className="card-image" />
+              <Card.Body className="d-flex flex-column">
+                <Card.Title className="card-title">Depresi</Card.Title>
+                <Card.Text className="card-text">Ikuti intervensi berikut untuk mengatasi depresi ringan serta dukungan yang Anda butuhkan.</Card.Text>
+                <Link to="/depresi-user" className="mt-auto">
+                  <Button variant="light" className="custom-button">Lihat Intervensi</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default IntervensiUser;

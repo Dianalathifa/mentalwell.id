@@ -23,25 +23,25 @@ const Puzzle = () => {
   return (
     <>
       <Navbar />
-      <section className="section before-content" style={{ backgroundColor: "#25B7D3", color: "#141313", marginTop: "-10px", paddingTop: "100px", paddingBottom: "-140px", position: "relative", overflow: "hidden" }}>
+      <section className="section before-content" style={{ backgroundColor: "#C6BCCA", color: "#141313", marginTop: "100px", paddingTop: "100px", padding: "70px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: "100%", backgroundColor: "white", zIndex: 1 }}></div>
         <div style={{ position: "relative", zIndex: 2 }}>
           <Col md={16} className="d-flex align-items-center justify-content">
             <div className="container text-center">
-              <h6 className="subtitle" style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>Puzzle & Game</h6>
+              <h6 className="tfonts-2" style={{ fontWeight: "bold", color: "white" }}>Puzzle & Game</h6>
             </div>
           </Col>
           <br /><br /><br />
           <div className="container text-center">
-            <img src={puzzle} style={{ width: "500px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} alt="kegiatan" />
+            <img src={puzzle} style={{ width: "400px", height: "300", maxWidth: "100%", maxHeight: "100%" }} alt="kegiatan" />
           </div>
         </div>
       </section>
 
-      <Container className="mt-5">
+      <Container className="mt-3" style={{ maxWidth: '800px',  marginBottom:"50px" }}>
         <Col md={16} className="d-flex align-items-center justify-content">
           <div className="container text-center">
-            <p style={{ fontSize: "19px", fontWeight: "bold", color: "#25B7D3" }}>
+            <p style={{ fontSize: "16px", fontWeight: "bold", color: "#7F91D8" }}>
             "Beri diri Anda waktu istirahat untuk meredakan stres dengan menyusun  puzzle atau bermain game online! Ambil waktu sejenak untuk menikmati  kegiatan yang menyenangkan ini. 
             Manfaatkan waktu tersebut dan biarkan  diri Anda terfokus sepenuhnya pada aktivitas ini. 
             Anda akan merasakan  kesegaran baru dan ketenangan saat Anda menyelesaikan puzzle atau  mengeksplorasi permainan online. 
@@ -51,12 +51,12 @@ const Puzzle = () => {
         <br /><br /><br />
       </Container>
 
-      <Container className="mt-5">
-        <Row xs={1} md={3} className="g-4 justify-content-center">
+      <Container className="mt-3">
+        <Row xs={1} md={2} className="g-4 justify-content-center">
           {JenisPuzzle.map((jenis, index) => (
-            <Card key={index} style={{ borderRadius: "20px", fontWeight: "bold", fontSize: "20px", height: "400px", width: "300px", backgroundColor: "#25B7D329", color: "#25B7D3", margin: "20px" }}>
-              <a href={jenis.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#25B7D3" }}>
-                <Card.Img variant="top" src={GambarPuzzle[index]} style={{ height: "320px", objectFit: "cover", borderRadius: "20px 20px 0 0" }} />
+            <Card key={index} style={{ borderRadius: "20px", fontWeight: "bold", fontSize: "16px", height: "250px", width: "250px", backgroundColor: "#C6BCCA", color: "#25B7D3", margin: "20px" }}>
+              <a href={jenis.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#4A4A4A" }}>
+                <Card.Img variant="top" src={GambarPuzzle[index]} style={{ height: "180px", objectFit: "cover", borderRadius: "20px", marginTop:"10px" }} />
                 <Card.Body>
                   <Card.Text style={{ textAlign: "center" }}>{jenis.name}</Card.Text>
                 </Card.Body>

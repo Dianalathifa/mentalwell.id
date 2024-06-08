@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "../landing/Navbar.js";
 import Footer from "../landing/Footer.js";
+import "../style/DailyInsightDetail.css"; // Import CSS file for styling
 
 const DailyInsightDetail = () => {
   const [daily_insight, setDailyInsight] = useState({});
@@ -33,9 +34,15 @@ const DailyInsightDetail = () => {
   return (
     <div>
       <Navbar />
-      <div className="container">
-        <h2>{daily_insight.judul_content}</h2>
-        <p>{daily_insight.deskripsi}</p>
+      <div className="before-content container-daily" style={{marginBottom:"500px"}}>
+        <h2 className="daily-insight-title"><strong>{daily_insight.judul_content}</strong></h2>
+        <img
+          src={`http://localhost:8080/images/daily_insight/${daily_insight.image}`}
+          alt="Daily Insight"
+          className="daily-insight-image"
+          style={{height:"300px", width:"400px"}}
+        />
+        <p className="daily-insight-description">{daily_insight.deskripsi}</p>
       </div>
       <Footer />
     </div>

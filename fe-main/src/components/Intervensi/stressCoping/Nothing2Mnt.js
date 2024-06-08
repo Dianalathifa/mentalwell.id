@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Col, Row, Form, Button, Card, Table } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import Navbar from '../../landing/Navbar.js';
 import donothing from '../../images/stressCoping/donothing.png';
-import Footer from '../../landing/Footer.js';
 
 const DoNothing = () => {
     const [videos, setVideos] = useState([]);
@@ -25,25 +24,25 @@ const DoNothing = () => {
     return (
         <>
          <Navbar />
-      <section className="section before-content" style={{ backgroundColor: "#25B7D3", color: "#141313", marginTop: "-10px", paddingTop: "100px", paddingBottom: "-140px", position: "relative", overflow: "hidden" }}>
+      <section className="section before-content" style={{ backgroundColor: "#7F91D8", color: "#141313", marginTop: "100px", paddingTop: "100px", padding: "70px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: "50%", left: 0, width: "100%", height: "50%", backgroundColor: "white", zIndex: 1 }}></div>
         <div style={{ position: "relative", zIndex: 2 }}>
           <Col md={16} className="d-flex align-items-center justify-content">
             <div className="container text-center">
-              <h6 className="subtitle" style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>Do Nothing For 2 Minutes</h6>
+              <h6 className="tfonts-2" style={{ fontWeight: "bold", color: "white" }}>Do Nothing For 2 Minutes</h6>
             </div>
           </Col>
           <br /><br /><br />
           <div className="container text-center">
-            <img src={donothing} style={{ width: "700px", height: "auto", maxWidth: "100%", maxHeight: "100%" }} alt="tidur-sehat" />
+            <img src={donothing} style={{ width: "350px", height: "250px", maxWidth: "100%", maxHeight: "100%" }} alt="tidur-sehat" />
           </div>
         </div>
       </section>
 
-      <Container className="mt-5">
+      <Container className="mt-3" style={{ maxWidth: '800px', marginBottom:"50px" }}>
         <Col md={16} className="d-flex align-items-center justify-content">
           <div className="container text-center">
-            <p style={{ fontSize: "19px", fontWeight: "bold", color: "#25B7D3" }}>
+            <p style={{ fontSize: "16px", fontWeight: "bold", color: "#7F91D8" }}>
             "Beri diri Anda waktu istirahat selama 2 menit untuk tidak melakukan apa pun! Pilihlah video berdurasi dua menit di bawah ini untuk mendukung Anda selama istirahat ini. 
             Maksimalkan penggunaan waktu tersebut dan biarkan diri Anda benar-benar bersantai selama dua menit penuh. 
             Otak Anda akan sangat berterima kasih atas istirahat ini!"
@@ -51,29 +50,26 @@ const DoNothing = () => {
           </div>
         </Col>
         </Container>
-        <br /><br /><br />
         
         <Container>
-            <Row className="video-list">
-                {videos.map(video => (
-                    <Col key={video.id} md={4} className="video-container mb-3">
-                        <h3 className="video-title" style={{ fontWeight: "bold", fontSize: "20px" }}><br />{video.judul}</h3><br />
-                        <div className="video-player">
-                            <iframe
-                                title={video.judul}
-                                width="100%"
-                                height="215"
-                                src={`https://www.youtube.com/embed/${getYouTubeVideoID(video.url)}`}
-                                frameBorder="0"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    </Col>
-                ))}
-            </Row>
+          <Row className="video-list align-items-center justify-content-center" style={{marginBottom:"100px"}}>
+            {videos.map(video => (
+              <Col key={video.id} md={3} className="video-container mb-3 d-flex flex-column align-items-center">
+                <h3 className="video-title text-center" style={{ fontWeight: "bold", fontSize: "16px" }}>{video.judul}</h3>
+                <div className="video-player">
+                  <iframe
+                    title={video.judul}
+                    width="100%"
+                    height="215"
+                    src={`https://www.youtube.com/embed/${getYouTubeVideoID(video.url)}`}
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </Col>
+            ))}
+          </Row>
         </Container>
-        
-        <Footer />
         </>
     );
 };

@@ -57,10 +57,11 @@ const Psikolog = () => {
               <Table striped bordered hover width={"100%"}>
                 <thead>
                   <tr>
-                    <th width={"5%"}>No</th>
+                    <th width={"5%"}>#</th>
                     <th width={"10%"}>Name</th>
                     <th width={"30%"}>Description</th>
-                    <th width={"30%"}>Image</th>
+                    <th width={"10%"}>Image</th>
+                    <th width={"10%"}>URL</th>
                     <th width={"15%"}>Location</th>
                     <th width={"15%"}>Telephone</th>
                     <th width={"15%"}>Action</th>
@@ -78,7 +79,8 @@ const Psikolog = () => {
                           alt="Psikolog"
                           style={{ maxWidth: "100px", maxHeight: "100px" }}
                         />
-                      </td>                      
+                      </td>
+                      <td>{psikolog.url_psikolog}</td>
                       <td>{psikolog.lokasi_psikolog}</td>
                       <td>{psikolog.telephone_psikolog}</td>
                       <td>

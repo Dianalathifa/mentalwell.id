@@ -43,8 +43,8 @@ return (
   <>
     <Navbar />
     <Container>
-      <Row className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-        <Col md={6} className="mx-auto"> 
+      <Row className="d-flex justify-content-center align-items-center" style={{ height: "110vh", maxWidth:"600px", marginLeft:"350px" }}>
+        <Col md={8} className="mx-auto"> 
           <div className="d-flex align-items-center justify-content-center">
             <Image src={logo} alt="Logo" style={{ width: "40%", marginBottom: "20px" }} />
           </div>

@@ -8,7 +8,7 @@ class CbtTaskResponses extends Model
 {
     protected $table = 'cbt_task_responses';
     protected $primaryKey = 'id_responses';
-    protected $allowedFields = ['id_task', 'id_partisipan', 'response', 'submission_date'];
+    protected $allowedFields = ['id_task', 'id_partisipan', 'jawaban', 'submission_date'];
 
     // Methods, if any
 }

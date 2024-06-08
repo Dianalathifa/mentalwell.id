@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\JawabanDASSCemas;
 use CodeIgniter\API\ResponseTrait;
+use DateTime;
 
 class DassCemas extends BaseController
 {
@@ -60,8 +61,9 @@ class DassCemas extends BaseController
             // Masukkan total skor dan klasifikasi ke dalam database
             'points' => $totalScore,
             'klasifikasi' => $classification,
+            'tanggal_tes' => (new DateTime())->format('Y-m-d')
         ];
-        
+
 
         // Simpan jawaban ke dalam database
         $saved = $jawabanModel->save($jawabanData);
@@ -87,24 +89,26 @@ class DassCemas extends BaseController
             return $this->fail('Data jawaban tidak ditemukan', 404);
         }
     }
+
+    
     public function getAnswerByIdPartisipan($id_partisipan)
-{
-    $jawabanModel = new JawabanDASSCemas();
+    {
+        $jawabanModel = new JawabanDASSCemas();
 
-    // Ambil data jawaban dari database berdasarkan id_partisipan
-    $answer = $jawabanModel->where('id_partisipan', $id_partisipan)->first();
+        // Ambil data jawaban dari database berdasarkan id_partisipan
+        $answer = $jawabanModel->where('id_partisipan', $id_partisipan)->first();
 
-    if ($answer) {
-        // Format data jawaban sesuai yang diinginkan
-        $formattedAnswer = [
-            'id_partisipan' => $answer['id_partisipan'],
-            'points' => $answer['points'],
-            'klasifikasi' => $answer['klasifikasi']
-        ];
-        return $this->respond($formattedAnswer);
-    } else {
-        return $this->fail('Data jawaban tidak ditemukan', 404);
+        if ($answer) {
+            // Format data jawaban sesuai yang diinginkan
+            $formattedAnswer = [
+                'id_partisipan' => $answer['id_partisipan'],
+                'points' => $answer['points'],
+                'klasifikasi' => $answer['klasifikasi'],
+                'tanggal_tes' => $answer['tanggal_tes']
+            ];
+            return $this->respond($formattedAnswer);
+        } else {
+            return $this->fail('Data jawaban tidak ditemukan', 404);
+        }
     }
 }
-}
-

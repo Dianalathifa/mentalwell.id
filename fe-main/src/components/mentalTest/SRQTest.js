@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Col } from 'react-bootstrap';
+import { Container, Button, Col, Modal, Card, Row } from 'react-bootstrap';
 import Navbar from '../landing/Navbar';
 import Footer from '../landing/Footer';
-import { useHistory } from 'react-router-dom'; // Import useHistory untuk navigasi
+import { useHistory } from 'react-router-dom';
+import { Element, scroller } from 'react-scroll';
+import "../style/Intervensi.css";
 
 const KuisionerPage = () => {
-  const [questions] = useState([
+  const questions = [
     "Apakah Anda sering merasa sakit kepala?",
     "Apakah Anda kehilangan nafsu makan?",
     "Apakah tidur Anda tidak nyenyak?",
@@ -27,16 +29,15 @@ const KuisionerPage = () => {
     "Apakah Anda merasa lelah sepanjang waktu?",
     "Apakah Anda merasa tidak enak di perut?",
     "Apakah Anda mudah lelah?"
-  ]);
+  ];
 
   const [answers, setAnswers] = useState(new Array(questions.length).fill(null));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [idPartisipan, setIdPartisipan] = useState(null);
-  const history = useHistory(); // Inisialisasi useHistory
-
+  const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    // Ambil id_partisipan dari localStorage
     const partisipanId = localStorage.getItem('partisipan_id');
     setIdPartisipan(partisipanId);
   }, []);
@@ -45,10 +46,14 @@ const KuisionerPage = () => {
     const updatedAnswers = [...answers];
     updatedAnswers[index] = answer;
     setAnswers(updatedAnswers);
+
+    const nextSection = Math.floor((index + 1) / 10) * 10 + 1;
+    if ((index + 1) % 10 === 0 && nextSection < questions.length) {
+      scrollToSection(`section-${nextSection}`);
+    }
   };
 
   const handleSubmit = async () => {
-    // Cek apakah semua jawaban sudah terisi
     const isAllAnswered = answers.every(answer => answer !== null);
 
     if (!isAllAnswered) {
@@ -56,7 +61,6 @@ const KuisionerPage = () => {
       return;
     }
 
-    // Tampilkan alert konfirmasi
     const confirmSubmit = window.confirm('Apakah Anda yakin ingin mengirim jawaban?');
 
     if (!confirmSubmit) {
@@ -66,26 +70,26 @@ const KuisionerPage = () => {
     try {
       setIsSubmitting(true);
 
-      // Lakukan pengiriman data jawaban ke backend
       await axios.post('http://localhost:8080/api/jawaban-srq', {
         id_partisipan: idPartisipan,
         jawaban: answers
       });
       console.log('Jawaban berhasil dikirim:', answers);
-      history.push('/hasil-klasifikasi-srq');
+      setShowModal(true);
     } catch (error) {
       console.error('Error submitting answers:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
+
   const handleRunPython = async () => {
     try {
       setIsSubmitting(true);
 
-      // Panggil API Python untuk menjalankan klasifikasi
       await axios.post('http://localhost:5000/start-analysis');
       console.log('Klasifikasi di Python berhasil dimulai');
+      history.push('/hasil-klasifikasi-srq');
     } catch (error) {
       console.error('Error running Python classification:', error);
     } finally {
@@ -93,57 +97,112 @@ const KuisionerPage = () => {
     }
   };
 
+  const handleCloseModal = () => setShowModal(false);
+
+  const scrollToSection = (section) => {
+    scroller.scrollTo(section, {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart'
+    });
+  };
+
+  const renderQuestionsSection = (start, end) => (
+    <Element name={`section-${start}`}>
+      {questions.slice(start, end).map((question, index) => (
+        <div key={start + index} style={{ marginBottom: '20px' }}>
+          <p style={{ fontSize: '20px' }}>{start + index + 1}. {question}</p>
+          <div>
+            <Button
+              variant={answers[start + index] === 1 ? 'primary' : 'outline-primary'}
+              onClick={() => handleAnswer(start + index, 1)}
+              disabled={isSubmitting}
+              style={{ marginLeft: '26px', width: '150px', borderRadius: '20px' }}
+            >
+              YA
+            </Button>
+            <Button
+              variant={answers[start + index] === 0 ? 'danger' : 'outline-danger'}
+              onClick={() => handleAnswer(start + index, 0)}
+              disabled={isSubmitting}
+              style={{ marginLeft: '10px', width: '150px', borderRadius: '20px' }}
+            >
+              TIDAK
+            </Button>
+          </div>
+        </div>
+      ))}
+    </Element>
+  );
+
   return (
     <>
       <Navbar />
-      <section id="psikolog-list" className="section before-content" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "200px" }}>
-        <Col md={16} className="d-flex align-items-center justify-content-center">
-          <div className="container text-center">
-            <h6 className="section-title mb-2 tfonts">Tes SRQ</h6>
-          </div>
+      <section id="psikolog-list" className="section before-content mt-5" style={{ color: "#141313",  marginTop: "50px" }}>
+        <Col md={20} className="d-flex align-items-center justify-content-center">
+          <Container className="my-6">
+            <Row className="justify-content-center">
+              <div className="container text-center">
+                <h6 className="section-title mb-2 tfonts" style={{color:"#25B7D3", marginBottom:"30px"}}>Tes SRQ</h6>
+              </div>
+              <div style={{marginLeft:"240px"}}>
+                <Col md={10}>
+                  <Card className="about-us-card" style={{ backgroundColor: "#FFD2DD"}}>
+                    <Card.Body>
+                      <h5 style={{ fontSize: "20px", color:"#25B7D3", fontWeight:"bold" }}>Petunjuk Tes :<br></br></h5>
+                      <p style={{ fontSize: "16px" }}>
+                        <br></br>1. Metode : diisi sendiri (rahasia).
+                        <br></br>2. Jawablah semua pertanyaan sesuai dengan kondisi saat ini yang anda alami atau rasakan selama 30 hari terakhir.
+                        <br></br>3. Setiap jawaban yang dijawab akan mendapatkan skor.
+                        <br></br>4. Semakin sesuai yang anda alami maka hasil tes ini akan semakin akurat dan benar.
+                        <br></br>5. Pastikan semua pertanyaan sudah terjawab, dan jika sudah semua terjawab baru kemudian klik Lihat Hasil Test untuk memperoleh hasil test.
+                        <br/>&nbsp;&nbsp;&nbsp;&nbsp;Selamat Mengerjakan!
+                      </p>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </div>
+            </Row>
+          </Container>
         </Col>
       </section>
-      <br />
-      <Container>
-        {questions.map((question, index) => (
-          <div key={index} style={{ marginBottom: '20px' }}>
-            <p style={{ fontSize: '25px' }}>{index + 1}. {question}</p>
-            <div>
-              <br />
-              <Button
-                variant={answers[index] === 1 ? 'primary' : 'outline-primary'}
-                onClick={() => handleAnswer(index, 1)}
-                disabled={isSubmitting}
-                style={{ marginLeft: '26px', width: '150px', borderRadius: '20px' }}
-              >
-                YA
-              </Button>
-              <Button
-                variant={answers[index] === 0 ? 'danger' : 'outline-danger'}
-                onClick={() => handleAnswer(index, 0)}
-                disabled={isSubmitting}
-                style={{ marginLeft: '10px', width: '150px', borderRadius: '20px' }}
-              >
-                TIDAK
-              </Button>
-            </div>
-          </div>
-        ))}
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <Button style={{
-            borderRadius:"50px",
-            backgroundColor: "#25B7D3",
-            color: "white",
-            fontWeight: "bold",
-            padding: '12px 25px', // Atur padding untuk mengatur ukuran tombol
-            fontSize: '20px' // Atur ukuran font jika diperlukan
-          }}
-            variant="light" onClick={handleSubmit} disabled={isSubmitting}>Submit Jawaban</Button>
-          {/* <Button onClick={handleRunPython} disabled={isSubmitting} style={{ marginLeft: '10px' }}>Jalankan Klasifikasi</Button> */}
+      <Container style={{marginLeft:"200px"}}>
+        {renderQuestionsSection(0, 10)}
+        {renderQuestionsSection(10, 20)}
+        <div style={{ marginTop: '10px', marginBottom:"100px" }}>
+          <Button
+            variant="light"
+            className="custom-button"
+            style={{
+              borderRadius: "50px",
+              fontWeight: "bold",
+              padding: '15px 25px',
+              fontSize: '17px'
+            }}
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            Submit Jawaban
+          </Button>
         </div>
       </Container>
-      <br /><br /><br />
       <Footer />
+
+      {/* Modal untuk Jalankan Klasifikasi */}
+      <Modal show={showModal} onHide={handleCloseModal} centered backdrop keyboard={false} style={{ zIndex: 1050 }}>
+        <Modal.Header closeButton>
+          <Modal.Title>Jalankan Klasifikasi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Apakah Anda ingin menjalankan klasifikasi sekarang?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>Tutup</Button>
+          <Button variant="primary" onClick={handleRunPython} disabled={isSubmitting}>
+            Jalankan Klasifikasi
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

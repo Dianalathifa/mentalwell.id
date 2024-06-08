@@ -8,7 +8,7 @@ class JawabanIntervensiModel extends Model
 {
     protected $table = 'jawaban_intervensi'; // Nama tabel yang sesuai dengan struktur database
     protected $primaryKey = 'id_jawaban_intervensi'; // Nama kolom primary key
-    protected $allowedFields = ['id_intervensi', 'id_partisipan', 'respon', 'created_at']; // Kolom yang diizinkan untuk diisi
+    protected $allowedFields = ['id_intervensi', 'id_partisipan', 'respon','tanggal_submit', 'created_at']; // Kolom yang diizinkan untuk diisi
 
     // Format waktu untuk kolom created_at
     protected $useTimestamps = true;
