@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Col } from 'react-bootstrap';
+import { Container, Button, Col, Row, Card } from 'react-bootstrap';
 import Navbar from '../landing/Navbar';
 import Footer from '../landing/Footer';
 import { useHistory } from 'react-router-dom';
+import "../style/Intervensi.css";
+
 
 const PostTestSRQPage = () => {
   const [questions] = useState([
@@ -79,18 +81,34 @@ const PostTestSRQPage = () => {
   return (
     <>
       <Navbar />
-      <section id="psikolog-list" className="section before-content mt-5" style={{ backgroundColor: "#C4EAF4", color: "#141313", fontFamily: "Abril Fatface", marginTop: "-140px", paddingTop: "100px" }}>
-        <Col md={16} className="d-flex align-items-center justify-content-center">
+     
+      <section id="psikolog-list" className="section before-content" style={{ color: "#25B7D3",  marginTop: "110px" }}>
+        <Col md={20} className="d-flex align-items-center justify-content-center">
           <div className="container text-center">
             <h6 className="section-title mb-2 tfonts">Post-Test SRQ</h6>
           </div>
         </Col>
+        <Col md={10}>
+                  <Card className="about-us-card" style={{ backgroundColor: "#FFD2DD"}}>
+                    <Card.Body>
+                      <h5 style={{ fontSize: "20px", color:"#25B7D3", fontWeight:"bold" }}>Petunjuk Tes :<br></br></h5>
+                      <p style={{ fontSize: "16px" }}>
+                        <br></br>1. Metode : diisi sendiri (rahasia).
+                        <br></br>2. Jawablah semua pertanyaan sesuai dengan kondisi saat ini yang anda alami atau rasakan selama 30 hari terakhir.
+                        <br></br>3. Setiap jawaban yang dijawab akan mendapatkan skor.
+                        <br></br>4. Semakin sesuai yang anda alami maka hasil tes ini akan semakin akurat dan benar.
+                        <br></br>5. Pastikan semua pertanyaan sudah terjawab, dan jika sudah semua terjawab baru kemudian klik Lihat Hasil Test untuk memperoleh hasil test.
+                        <br/>&nbsp;&nbsp;&nbsp;&nbsp;Selamat Mengerjakan!
+                      </p>
+                    </Card.Body>
+                  </Card>
+                </Col>
       </section>
       <br />
-      <Container>
+      <Container style={{marginLeft:"200px"}}>
         {questions.map((question, index) => (
           <div key={index} style={{ marginBottom: '20px' }}>
-            <p style={{ fontSize: '25px' }}>{index + 1}. {question}</p>
+            <p style={{ fontSize: '18px' }}>{index + 1}. {question}</p>
             <div>
               <br />
               <Button
@@ -119,8 +137,9 @@ const PostTestSRQPage = () => {
             style={{
               borderRadius: "50px",
               fontWeight: "bold",
-              padding: '20px 35px',
-              fontSize: '25px'
+              padding: '15px 25px',
+              fontSize: '17px',
+              marginRight:'200px'
             }}
             onClick={handleSubmit}
             disabled={isSubmitting}>

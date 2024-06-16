@@ -41,7 +41,7 @@ def klasifikasi_data_terbaru():
             for data in api_data:
                 id_analisis = data['id_analisis']
                 id_partisipan = data['id_partisipan']
-
+                
                 # Periksa apakah id analisis sudah ada di database
                 sql_check_duplicate = "SELECT id_analisis FROM hasil_prediksi WHERE id_analisis = %s"
                 mycursor.execute(sql_check_duplicate, (id_analisis,))
@@ -63,17 +63,18 @@ def klasifikasi_data_terbaru():
 
                 new_data_df = new_data_df.apply(convert_to_numeric)
 
-                # Tambahkan tanggal tes ke dalam DataFrame
+                # Tambahkan tanggal tes dan waktu submit ke dalam DataFrame
                 new_data_df['tanggal_tes'] = datetime.date.today()
+                new_data_df['waktu_submit'] = datetime.datetime.now()
 
                 # Ganti nilai 'None' dengan 0 dan infer_objects
                 new_data_df = new_data_df.fillna(0).infer_objects()
 
                 # Tambahkan kolom 'points' ke dalam data input
-                new_data_df['points'] = new_data_df.drop(['id_analisis', 'id_partisipan', 'points', 'mental_disorders', 'klasifikasi', 'tanggal_tes'], axis=1).sum(axis=1)
+                new_data_df['points'] = new_data_df.drop(['id_analisis', 'id_partisipan', 'points', 'mental_disorders', 'klasifikasi', 'tanggal_tes', 'waktu_submit'], axis=1).sum(axis=1)
 
                 # Lakukan prediksi dengan model
-                predictions = rf_model.predict(new_data_df.drop(['id_analisis', 'id_partisipan', 'klasifikasi', 'mental_disorders', 'tanggal_tes'], axis=1))
+                predictions = rf_model.predict(new_data_df.drop(['id_analisis', 'id_partisipan', 'klasifikasi', 'mental_disorders', 'tanggal_tes', 'waktu_submit'], axis=1))
 
                 # Simpan hasil prediksi ke dalam kolom 'mental_disorders'
                 new_data_df['mental_disorders'] = predictions
@@ -116,15 +117,15 @@ def klasifikasi_data_terbaru():
                         else:
                             return 'Belum Diklasifikasikan'
 
-
                 # Prediksi klasifikasi penyakit dan simpan ke dalam kolom 'klasifikasi'
                 new_data_df['klasifikasi'] = new_data_df.apply(klasifikasi_penyakit, axis=1)
 
                 # Simpan hasil prediksi ke dalam database
-                sql_insert_data = "INSERT INTO hasil_prediksi (id_analisis, id_partisipan, points, mental_disorders, klasifikasi, tanggal_tes) VALUES (%s, %s, %s, %s, %s, %s)"
-                val = (id_analisis, id_partisipan, int(new_data_df['points'].iloc[0]), int(new_data_df['mental_disorders'].iloc[0]), new_data_df['klasifikasi'].iloc[0], new_data_df['tanggal_tes'].iloc[0])
+                sql_insert_data = "INSERT INTO hasil_prediksi (id_partisipan, points, mental_disorders, klasifikasi, tanggal_tes, id_analisis, waktu_submit) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                val = (id_partisipan, int(new_data_df['points'].iloc[0]), int(new_data_df['mental_disorders'].iloc[0]), new_data_df['klasifikasi'].iloc[0], new_data_df['tanggal_tes'].iloc[0],id_analisis, new_data_df['waktu_submit'].iloc[0].strftime('%Y-%m-%d %H:%M:%S'))
                 mycursor.execute(sql_insert_data, val)
                 mydb.commit()
+
                 print("Data untuk id analisis:", id_analisis, "telah disimpan ke dalam database.")
                 print("Proses klasifikasi data terbaru selesai.")
                 
@@ -149,50 +150,7 @@ def start_analysis_api():
     klasifikasi_data_terbaru()
     return response
 
-# Endpoint untuk mendapatkan hasil prediksi berdasarkan ID partisipan
-@app.route('/hasil-prediksi/<id_partisipan>', methods=['GET'])
-def dapatkan_hasil_prediksi(id_partisipan):
-    try:
-        # Koneksi ke database
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="mentalwell"
-        )
-        mycursor = mydb.cursor()
-
-        sql_get_prediksi = "SELECT * FROM hasil_prediksi WHERE id_partisipan = %s ORDER BY tanggal_tes DESC LIMIT 1"
-        mycursor.execute(sql_get_prediksi, (id_partisipan,))
-
-        hasil_prediksi = mycursor.fetchone()
-
-        if hasil_prediksi:
-            # Format hasil prediksi menjadi dictionary
-            hasil = {
-                'id_hasil': hasil_prediksi[0],
-                'id_partisipan': hasil_prediksi[1],
-                'points': hasil_prediksi[2],
-                'mental_disorders': hasil_prediksi[3],
-                'klasifikasi': hasil_prediksi[4],
-                'tanggal_tes': hasil_prediksi[5].strftime('%Y-%m-%d'),  # Mengubah format tanggal
-            }
-            return jsonify(hasil)
-        else:
-            return jsonify({'message': 'Data tidak ditemukan'})
-
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
-    finally:
-        # Tutup koneksi database dan kursor
-        if mycursor:
-            mycursor.close()
-        if mydb:
-            mydb.close()
-
-# Endpoint untuk mendapatkan hasil prediksi terbaru berdasarkan ID partisipan
-@app.route('/hasil-prediksi/<id_partisipan>', methods=['GET'])
+@app.route('/hasil-prediksi-terbaru/<id_partisipan>', methods=['GET'])
 def dapatkan_hasil_prediksi_terbaru(id_partisipan):
     try:
         # Koneksi ke database
@@ -204,13 +162,21 @@ def dapatkan_hasil_prediksi_terbaru(id_partisipan):
         )
         mycursor = mydb.cursor()
 
-        # Kueri database untuk mendapatkan hasil prediksi terbaru berdasarkan ID partisipan
-        sql_get_prediksi_terbaru = "SELECT * FROM hasil_prediksi WHERE id_partisipan = %s ORDER BY tanggal_tes DESC, id_hasil DESC LIMIT 1"
+        # Query untuk mendapatkan hasil prediksi terbaru berdasarkan id_partisipan
+        sql_get_prediksi_terbaru = """
+        SELECT * FROM hasil_prediksi 
+        WHERE id_partisipan = %s 
+        ORDER BY waktu_submit DESC LIMIT 1
+        """
         mycursor.execute(sql_get_prediksi_terbaru, (id_partisipan,))
 
         hasil_prediksi_terbaru = mycursor.fetchone()
 
         if hasil_prediksi_terbaru:
+            # Debugging: print types of the date fields
+            print(f"Type of id_analisis: {type(hasil_prediksi_terbaru[6])}")
+            print(f"Type of waktu_submit: {type(hasil_prediksi_terbaru[7])}")
+
             # Format hasil prediksi menjadi dictionary
             hasil = {
                 'id_hasil': hasil_prediksi_terbaru[0],
@@ -218,7 +184,9 @@ def dapatkan_hasil_prediksi_terbaru(id_partisipan):
                 'points': hasil_prediksi_terbaru[2],
                 'mental_disorders': hasil_prediksi_terbaru[3],
                 'klasifikasi': hasil_prediksi_terbaru[4],
-                'tanggal_tes': hasil_prediksi_terbaru[5].strftime('%Y-%m-%d'),  # Mengubah format tanggal
+                'tanggal_tes': hasil_prediksi_terbaru[5].strftime('%Y-%m-%d'),
+                'id_analisis': hasil_prediksi_terbaru[6],
+                'waktu_submit': hasil_prediksi_terbaru[7].strftime('%Y-%m-%d %H:%M:%S') 
             }
             return jsonify(hasil)
         else:
@@ -234,6 +202,99 @@ def dapatkan_hasil_prediksi_terbaru(id_partisipan):
         if mydb:
             mydb.close()
 
+
+# Endpoint untuk mendapatkan semua data hasil prediksi
+@app.route('/semua-hasil-prediksi', methods=['GET'])
+def dapatkan_semua_hasil_prediksi():
+    try:
+        # Koneksi ke database
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="mentalwell"
+        )
+        mycursor = mydb.cursor()
+
+        # Kueri database untuk mendapatkan semua data hasil prediksi
+        sql_get_semua_prediksi = "SELECT * FROM hasil_prediksi"
+        mycursor.execute(sql_get_semua_prediksi)
+
+        hasil_prediksi = mycursor.fetchall()
+
+        # Format hasil prediksi menjadi list of dictionaries
+        hasil = []
+        for row in hasil_prediksi:
+            hasil.append({
+                'id_hasil': row[0],
+                'id_partisipan': row[1],
+                'points': row[2],
+                'mental_disorders': row[3],
+                'klasifikasi': row[4],
+                'tanggal_tes': row[5].strftime('%Y-%m-%d'), 
+                'id_analisis': row[6], 
+                'waktu_submit': row[7].strftime('%Y-%m-%d %H:%M:%S')  # Mengubah format waktu submit
+            })
+
+        return jsonify(hasil)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Tutup koneksi database dan kursor
+        if mycursor:
+            mycursor.close()
+        if mydb:
+            mydb.close()
+
+# Endpoint untuk mendapatkan semua data berdasarkan id_partisipan
+@app.route('/hasil-prediksi-partisipan/<id_partisipan>', methods=['GET'])
+def dapatkan_hasil_prediksi_partisipan(id_partisipan):
+    try:
+        # Koneksi ke database
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="mentalwell"
+        )
+        mycursor = mydb.cursor()
+
+        # Kueri database untuk mendapatkan semua riwayat tes berdasarkan id_partisipan
+        sql_get_prediksi_partisipan = "SELECT * FROM hasil_prediksi WHERE id_partisipan = %s"
+        mycursor.execute(sql_get_prediksi_partisipan, (id_partisipan,))
+
+        hasil_prediksi_partisipan = mycursor.fetchall()
+
+        # Format hasil prediksi menjadi list of dictionaries
+        hasil = []
+        for row in hasil_prediksi_partisipan:
+            hasil.append({
+                'id_hasil': row[0],
+                'id_partisipan': row[1],
+                'points': row[2],
+                'mental_disorders': row[3],
+                'klasifikasi': row[4],
+                'tanggal_tes': row[5].strftime('%Y-%m-%d'), 
+                'id_analisis': row[6], 
+                'waktu_submit': row[7].strftime('%Y-%m-%d %H:%M:%S')  # Mengubah format waktu submit
+            })
+
+
+        return jsonify(hasil)
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+    finally:
+        # Tutup koneksi database dan kursor
+        if mycursor:
+            mycursor.close()
+        if mydb:
+            mydb.close()
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
+b 

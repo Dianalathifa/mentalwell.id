@@ -64,7 +64,7 @@ const DepresiDetail = () => {
         container: `#waveform`,
         waveColor: '#25B7D3',
         progressColor: '#C4EAF4',
-        height: 80,
+        height: 60,
         barWidth: 2,
         responsive: true
       });
@@ -87,14 +87,14 @@ const DepresiDetail = () => {
   return (
     <>
       <Navbar />
-      <Container className="mt-5">        
-        <Container style={{marginTop:"150px", padding:"50px",backgroundColor:"#C4EAF4", borderRadius:"50px"}}>
+      <Container style={{ marginTop: "140px", maxWidth: "1000px" }}>
+      <Container style={{ padding:"40px",backgroundColor:"#C4EAF4", borderRadius:"50px"}}>
           <Row className="justify-content-center">
             <Col md={5}>
-              <h6 style={{ fontSize: "20px", marginTop:"30px", fontWeight:"bold" }}>
+              <h6 style={{ fontSize: "18px", marginTop:"10px", fontWeight:"bold" }}>
                 Intervensi Depresi Ringan
               </h6>
-              <h6 style={{ fontSize: "35px",  fontWeight:"bold", marginBottom:"20px" }}>
+              <h6 style={{ fontSize: "25px",  fontWeight:"bold", marginBottom:"20px" }}>
                 Activity Therapy 
               </h6>
 
@@ -129,15 +129,15 @@ const DepresiDetail = () => {
                     marginTop:"20px",
                     borderRadius: "50px",
                     fontWeight: "bold",
-                    padding: '17px 20px',
-                    fontSize: '16px'
+                    padding: '10px 15px',
+                    fontSize: '12px'
                   }}
                 >
                   Yuk Mulai Checklist Harian!
                 </Button>
               </Link>
             </Col>
-            <Col md={4} className="d-flex align-items-center justify-content-center">
+            <Col md={5} className="d-flex align-items-center justify-content-center">
               <img src={depresiDetail} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
             </Col>
           </Row>
@@ -153,7 +153,6 @@ const DepresiDetail = () => {
           </Row>
         </div>
       </Container>
-      <Footer/>
     </>
   );
 };
@@ -161,9 +160,9 @@ const DepresiDetail = () => {
 const InterventionCard = ({ intervention }) => {
   const { image, link } = intervention;
   return (
-    <Col xs={6} sm={4} md={2} className="mb-4" style={{ paddingLeft: "15px", paddingRight: "15px", paddingBottom:"50px", marginTop:"50px" }}>
+    <Col xs={6} sm={4} md={2} className="mb-4" style={{ paddingLeft: "15px", paddingRight: "15px",  marginTop:"50px" }}>
       <Card style={{ width: '100%', margin: '0 auto' }}>
-        <Card.Img variant="top" src={image} style={{ height: '300px', objectFit: 'cover', objectPosition: 'top' }} />
+        <Card.Img variant="top" src={image} style={{ height: '230px', objectFit: 'cover', objectPosition: 'top' }} />
         <Link to={link} className="stretched-link"></Link>
       </Card>
     </Col>

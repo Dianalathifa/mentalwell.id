@@ -53,7 +53,7 @@ const ThirtyInterventions = () => {
         container: `#waveform`,
         waveColor: '#D0DEEE',
         progressColor: '#25B7D3',
-        height: 80,
+        height: 60,
         barWidth: 2,
         responsive: true
       });
@@ -114,14 +114,14 @@ const ThirtyInterventions = () => {
   return (
     <>
       <Navbar />
-      <Container style={{ marginTop: "150px" }}>
-        <Container className="mt-5" style={{ padding: "50px", backgroundColor: "#D0DEEE", borderRadius: "50px", marginBottom: "10px" }}>
+      <Container style={{ marginTop: "150px", maxWidth: "900px" }}>
+      <Container className="mt-5" style={{ padding: "30px", backgroundColor: "#D0DEEE", borderRadius: "30px", marginBottom: "10px" }}>
           <Row className="justify-content-center">
             <Col md={5}>
-              <h6 style={{ fontSize: "20px", marginTop: "30px", fontWeight: "bold" }}>
+              <h6 style={{ fontSize: "18px", marginTop: "30px", fontWeight: "bold" }}>
                 Intervensi Stress Sedang
               </h6>
-              <h6 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "20px" }}>
+              <h6 style={{ fontSize: "25px", fontWeight: "bold", marginBottom: "20px" }}>
                 30 Days Writing Challenge
               </h6>
 
@@ -150,11 +150,11 @@ const ThirtyInterventions = () => {
               )}
             </Col>
             <Col md={4} className="d-flex align-items-center justify-content-center">
-              <img src={stress} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
+              <img src={stress} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%"}} />
             </Col>
           </Row>
         </Container>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom:"50px"  }}>
           {interventions.map((intervention) => (
             <InterventionCard
               key={intervention.id_intervensi}
@@ -164,22 +164,30 @@ const ThirtyInterventions = () => {
           ))}
         </div>
       </Container>
-      <Footer />
     </>
   );
 };
-
 const InterventionCard = ({ intervention, isSubmitted }) => {
   const cardStyle = {
-    width: '10rem',
-    margin: '10px',
+    width: '10rem', // Perkecil lebar card
+    margin: '6px',
     filter: isSubmitted ? 'grayscale(100%)' : 'none'
+  };
+
+  const imageStyle = {
+    height: '180px', // Sesuaikan tinggi gambar
+    objectFit: 'cover', // Pastikan gambar berskala dengan baik
+    objectPosition: 'center' // Pastikan gambar terpusat
   };
 
   return (
     <Card style={cardStyle}>
-      <Card.Img variant="top" src={`http://localhost:8080/images/intervensi/${intervention.image_challenge}`} style={{ height: '250px' }} />
-      <Card.Body>
+      <Card.Img
+        variant="top"
+        src={`http://localhost:8080/images/intervensi/${intervention.image_challenge}`}
+        style={imageStyle}
+      />
+      <Card.Body className="text-center" style={{marginLeft:"-15px"}}>
         <Link to={`/formstress-user/${intervention.id_intervensi}`}>
           <Button variant="link" disabled={isSubmitted}>Tulis Sekarang</Button>
         </Link>
@@ -187,5 +195,4 @@ const InterventionCard = ({ intervention, isSubmitted }) => {
     </Card>
   );
 };
-
 export default ThirtyInterventions;

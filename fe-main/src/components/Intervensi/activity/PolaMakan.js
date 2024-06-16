@@ -30,6 +30,7 @@ const PolaMakan = () => {
       const response = await axios.get(`http://localhost:8080/api/pola-makan/${partisipanId}`);
       setMakanan(response.data);
     } catch (error) {
+      console.error("Gagal mengambil data pola makan:", error);
     }
   };
 
@@ -57,6 +58,7 @@ const PolaMakan = () => {
       setShowSuccessModal(true);
       fetchData(); // Fetch data after adding new entry
     } catch (error) {
+      console.error("Gagal menambahkan data pola makan:", error);
       setShowErrorModal(true);
     }
   };
@@ -244,34 +246,32 @@ const PolaMakan = () => {
 
 
       {/* Success Modal */}
-  <Modal show={showSuccessModal} backdrop={true} backdropClassName="backdrop-modal" style={{ zIndex: 1050 }} onHide={() => setShowSuccessModal(false)}>
-    <Modal.Header closeButton>
-      <Modal.Title>Succsess!</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Data pola makan berhasil ditambahkan.</Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
-        Tutup
-      </Button>
-    </Modal.Footer>
-  </Modal>
+      <Modal show={showSuccessModal} backdrop={true} backdropClassName="backdrop-modal" style={{ zIndex: 1050 }} onHide={() => setShowSuccessModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Succsess!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Data pola makan berhasil ditambahkan.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
+            Tutup
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-  {/* Error Modal */}
-  <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)} backdrop={true} backdropClassName="backdrop-modal" style={{ zIndex: 1050 }}>
-    <Modal.Header closeButton>
-      <Modal.Title>Oops!</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Gagal menambahkan data pola makan.</Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
-        Tutup
-      </Button>
-    </Modal.Footer>
-  </Modal>
-
+      {/* Error Modal */}
+      <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)} backdrop={true} backdropClassName="backdrop-modal" style={{ zIndex: 1050 }}>
+        <Modal.Header closeButton>
+          <Modal.Title>Oops!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Gagal menambahkan data pola makan.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
+            Tutup
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
 
 export default PolaMakan;
-

@@ -14,7 +14,7 @@
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .card-text {
@@ -69,6 +69,69 @@
   height: 200px;
 }
 
+.card-hover-circle {
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-hover-circle:hover {
+  transform: translateY(-10px);
+}
+
+.card-image-circle {
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eaeaea;
+  width: 100%;
+}
+
+.card-title-circle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  flex-grow: 1;
+}
+
+.card-text-circle {
+  font-size: 0.9rem;
+  color: #555;
+  flex: 1;
+}
+
+.custom-button-circle {
+  background-color: #25B7D3;
+  border: none;
+  color: white;
+  font-weight: bold;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.custom-link-circle {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-link-circle img {
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.title-container-circle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .section.before-content-detail {
   display: flex;
   justify-content: center;
@@ -76,8 +139,8 @@
   min-height: 100vh;
   background-color: white;
   color: #141313;
-  padding-top: 200px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  margin-top: 130px;
   position: relative;
   overflow: hidden;
 }
@@ -89,7 +152,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #C4EAF4;
+  background-color: #E3F7FE;
   z-index: 1;
 }
 
@@ -367,13 +430,17 @@
 
 #waveform {
   width: 100%;
-  height: 50px;
+  height: 40px; /* Ubah tinggi waveform sesuai kebutuhan Anda */
 }
 
-.card-voice{
-  width: 460px;
-  height: 70px;
+.card-voice {
+  width: 300px; /* Ubah lebar card-voice sesuai kebutuhan Anda */
+  height: 60px; /* Atur tinggi card-voice agar menyesuaikan konten di dalamnya */
+  max-width: 100%; /* Memastikan card tidak melebihi lebar parent jika diperlukan */
+  margin-top: 10px; /* Atur margin atas card sesuai keinginan */
+  margin-bottom: 10px; /* Atur margin bawah card sesuai keinginan */
 }
+
 
 /* Style for the modern table */
 .modern-table {
@@ -423,3 +490,56 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* In your Intervensi.css */
+.custom-checkbox {
+  transform: scale(1.5); /* Makes the checkbox larger */
+  margin-right: 10px; /* Adds some space between checkbox and label */
+}
+
+.custom-label {
+  font-size: 18px; /* Adjusts the font size for the labels */
+  margin-bottom: 0; /* Ensures no extra space below the label */
+}
+
+/* Additional styling to enhance the checkbox */
+.custom-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #EBBCBC; /* Custom accent color for the checkbox */
+}
+
+/* Styling for when the checkbox is checked */
+.custom-checkbox input[type="checkbox"]:checked {
+  background-color: black;
+  border-color: #EBBCBC;
+}
+
+/* Optional: Enhance the label appearance */
+.custom-label {
+  color: #fff;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.psikolog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.psikolog-card-body {
+  flex: 1;
+}
+
+.psikolog-card-img {
+  width: 80%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-left: 26px;
+}
+
+.psikolog-card-link {
+  text-decoration: none;
+}

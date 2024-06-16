@@ -10,23 +10,63 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import depresiRingan from "../images/intervensi/depresiringan1.png";
 import depresiSedang from "../images/intervensi/depresisedang1.png";
+import normalImage from '../images/depresi/d-normal.jpeg';
+import ringanImage from '../images/depresi/d-ringan.jpg';
+import sedangImage from '../images/depresi/d-sedang.jpg';
+import beratImage from '../images/depresi/d-parah.jpg';
+import sangatParahImage from '../images/depresi/d-sangat_parah.jpg';
 
 const HasilDassDepresi = () => {
   const [hasilKlasifikasi, setHasilKlasifikasi] = useState(null);
   const [error, setError] = useState(null);
+  const [psikologs, setPsikologs] = useState([]);
   const [dailyInsights, setDailyInsights] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
+      const partisipanId = localStorage.getItem("partisipan_id");
+
     const fetchHasilKlasifikasi = async () => {
       try {
         const partisipanId = localStorage.getItem("partisipan_id");
+
         const response = await axios.get(
           `http://localhost:8080/api/dass-depresi/${partisipanId}`
         );
         setHasilKlasifikasi(response.data);
+        if (response.data.klasifikasi === "Depresi Parah") {
+          fetchPsikologParah();
+        } else if (response.data.klasifikasi === "Depresi Sangat Parah") {
+          fetchPsikologSangatParah();
+        }
       } catch (error) {
         setError("Gagal mengambil hasil klasifikasi");
+      }
+    };
+    
+
+    const fetchPsikologParah = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/psikolog"
+        );
+        setPsikologs(response.data);
+      } catch (error) {
+        console.error("Error fetching psikologs for Depresi Parah:", error);
+      }
+    };
+
+    const fetchPsikologSangatParah = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/psikolog"
+        );
+        setPsikologs(response.data);
+      } catch (error) {
+        console.error(
+          "Error fetching psikologs for Depresi Sangat Parah:",
+          error
+        );
       }
     };
 
@@ -83,47 +123,85 @@ const HasilDassDepresi = () => {
       ))}
     </Row>
   );
+
+  // Fungsi untuk mengambil nama klasifikasi dan warna yang sesuai
+  const getClassNameAndColor = () => {
+    if (hasilKlasifikasi) {
+      switch (hasilKlasifikasi.klasifikasi) {
+        case 'Depresi Normal':
+          return { className: 'Depresi Normal', color: '#FFBF78', image: normalImage }; // oren muda
+        case 'Depresi Ringan':
+          return { className: 'Depresi Ringan', color: '#FFE8C8' ,  image: ringanImage }; // hijau muda
+        case 'Depresi Sedang':
+          return { className: 'Depresi Sedang', color: '#FB6D48', image: sedangImage }; // pink muda
+        case 'Depresi Parah':
+          return { className: 'Depresi Parah', color: '#A7E6FF', image: beratImage }; // merah muda
+        case 'Depresi Sangat Parah':
+          return { className: 'Depresi Sangat Parah', color: '#D04848', image: sangatParahImage  }; // merah muda
+        default:
+          return { className: '', color: '#ffffff' , image : null};
+      }
+    }
+    return { className: '', color: '#ffffff', image : null };
+  };
+
+  const points = hasilKlasifikasi ? hasilKlasifikasi.points : '';
+  const klasifikasi = hasilKlasifikasi ? hasilKlasifikasi.klasifikasi : '';
+  const { className, color, image } = getClassNameAndColor();
+
   
   return (
     <>
       <Navbar />
       <Container className="mt-5" style={{ marginBottom: "50px", paddingTop: "100px" }}>
-        <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts-2"><br />Hasil Klasifikasi<br /></h6>
-        </div>
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <Card>
-              <Card.Body>
-                {error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div>
-                    <Table bordered striped responsive className="mb-4" style={{fontSize:"18px"}}>
-                      <tbody>
-                        <tr>
-                          <td><strong>Tanggal:</strong></td>
-                          <td>{formatDate(hasilKlasifikasi && hasilKlasifikasi.tanggal_tes)}</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Points:</strong></td>
-                          <td>{hasilKlasifikasi && hasilKlasifikasi.points}</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Klasifikasi:</strong></td>
-                          <td>{hasilKlasifikasi && hasilKlasifikasi.klasifikasi}</td>
-                        </tr>
-                        <tr>
-                          
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        <Container className="text-center mt-4">
+      <h6 className="section-title mb-2 tfonts-2">
+        <br />
+        Hasil Klasifikasi Tes DASS Depresi
+        <br />
+      </h6>
+      <Row className="justify-content-center mt-4">
+        <Col md={8}>
+          <Card style={{ backgroundColor: color }}>
+            <Card.Body>
+              <Row>
+                <Col md={6} className="text-left">
+                  {/* Gambar sesuai klasifikasi */}
+                  {image && (
+                    <img
+                      src={image} // Path gambar diambil dari import
+                      alt={klasifikasi}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}
+                    />
+                  )}
+                </Col>
+                <Col md={6}>
+                <br></br><br></br><br></br><br></br>
+                  <Card style={{ backgroundColor: 'white' }}>
+                    <Card.Body>
+                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>Total Points Kamu </p>
+                      <Container style={{ backgroundColor: 'white', color: 'white', textAlign: 'center', padding: '10px' , fontWeight: 'bold', fontSize: '25px'}}>
+                        <strong>{points}</strong>
+                      </Container>
+                      <Container style={{ backgroundColor: color , color: 'black', textAlign: 'center', padding: '10px' }}>
+                        <p style={{ fontWeight: 'bold', fontSize: '20px' }}> Klasifikasi: {klasifikasi}</p>
+                      </Container>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              {error && (
+                <Row className="mt-4">
+                  <Col md={12}>
+                    <p>{error}</p>
+                  </Col>
+                </Row>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
 
         {hasilKlasifikasi && (
           <Container className="mt-3 text-center d-flex justify-content-center">
@@ -134,8 +212,8 @@ const HasilDassDepresi = () => {
                 <Container className="mt-3 text-center d-flex justify-content-center" style={{marginBottom:"10px"}}>
                   <Col md={10} >
                     <Alert variant="white" style={{ fontSize:"18px"}}>
-                      <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Kesehatanmu Sangat Baik</h4>
-                      <p style={{marginBottom:"20px"}}>Selamat, kamu memiliki mental yang sehat. Tetap jaga kesehatan mentalmu dan lanjut ke artikel harian!</p><br/>
+                    <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Dass Depresi kamu menunjukkan hasil yang normal.</h4>
+                      <p style={{marginBottom:"20px"}}>Cobalah buang hal negatif yang menghantui pikiranmu. Tetap jaga kesehatan mentalmu dan yuk lanjut ke artikel harian untuk lebih menjaga kesehatan mentalmu!</p><br/>
                       {renderDailyInsights()}
                       <Button variant="light"
                         className="custom-button"
@@ -153,10 +231,12 @@ const HasilDassDepresi = () => {
               )}
                 {hasilKlasifikasi.klasifikasi === "Depresi Ringan" && (
                     <>
-                      <p style={{ fontSize: "18px" }}>
-                        Anda dapat mencoba teknik-teknik pernapasan dan relaksasi untuk mengurangi kecemasan. Jika perlu,{" "}
-                        <Link to="/intervensiterapi-user">konsultasikan dengan psikolog atau terapis</Link> untuk bantuan tambahan.
-                      </p>
+                      Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
+                      <Link to="/intervensi-stresscoping-user">
+                        konsultasikan dengan psikolog atau terapis
+                      </Link>{" "}
+                      untuk bantuan tambahan.
                       <Row className="mt-3 justify-content-center">
                         <Col xs={6} md={3} lg={3} style={{marginBottom:"20px"}}>
                           <Card className="h-100 card-hover" style={{ height: '350px', margin: '10px' }}>
@@ -175,10 +255,12 @@ const HasilDassDepresi = () => {
                   )}
                 {hasilKlasifikasi.klasifikasi === "Depresi Sedang" && (
                   <>
-                    <p style={{ fontSize: "18px" }}>
-                      Selain mencoba teknik-teknik pernapasan dan relaksasi, pertimbangkan untuk berbicara dengan seseorang yang Anda percayai tentang perasaan Anda.{" "}
-                      <Link to="/penjelasan-cbt">Psikolog atau terapis</Link> juga dapat memberikan bantuan yang berguna.
-                    </p>
+                    Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
+                      <Link to="/intervensi-stresscoping-user">
+                        konsultasikan dengan psikolog atau terapis
+                      </Link>{" "}
+                      untuk bantuan tambahan.
                     <Row className="mt-3 text-center d-flex justify-content-center">
                       <Col xs={6} md={3} lg={3} style={{marginBottom:"20px"}}>
                         <Card className="h-100 card-hover" style={{ marginLeft: '10px', height: '250px' }}>
@@ -195,17 +277,33 @@ const HasilDassDepresi = () => {
                     </Row>
                   </>
                 )}
-                {hasilKlasifikasi.klasifikasi === "Depresi Parah" && (
-                  <p style={{ fontSize: "18px" }}>
-                    Dengan kecemasan yang parah, sangat penting untuk mendapatkan bantuan profesional.{" "}
-                    <Link to="/psikolog-list">Silakan cari bantuan dari psikolog atau terapis</Link> sesegera mungkin.
-                  </p>
-                )}
-                {hasilKlasifikasi.klasifikasi === "Depresi Sangat Parah" && (
-                  <p style={{ fontSize: "18px" }}>
-                    Segera cari bantuan profesional jika Anda mengalami kecemasan yang sangat parah.{" "}
-                    <Link to="/psikolog-list">Psikolog atau terapis</Link> akan membantu Anda menangani masalah ini dengan metode yang sesuai.
-                  </p>
+                {hasilKlasifikasi &&
+                  (hasilKlasifikasi.klasifikasi === "Depresi Parah" ||
+                    hasilKlasifikasi.klasifikasi === "Depresi Sangat Parah") && (
+                  <Container className="mt-3">
+                    <Row className="justify-content-center">
+                      <Col md={10}>
+                        <h1 className="subtitle">Oh Tidak! Kamu memiliki kondisi depresi yang sudah parah. Berikut beberapa psikolog rekomendasi kami yang dapat membantumu menghilangkan depresi yang kamu alami.</h1>
+                        <Row>
+                          {psikologs.map((psikolog) => (
+                            <Col key={psikolog.id_psikolog} xs={12} sm={6} md={4} className="mb-4">
+                              <Card className="h-100">
+                                <Card.Img variant="top" src={`http://localhost:8080/images/psikolog/${psikolog.image_psikolog}`} alt="Psikolog Image" style={{ objectFit: "cover", height: "200px" }} />
+                                <Card.Body>
+                                  <Card.Title>{psikolog.nama_psikolog}</Card.Title>
+                                  <Card.Text>
+                                    Lokasi: {psikolog.lokasi_psikolog}<br />
+                                    Telephone: {psikolog.telephone_psikolog}
+                                  </Card.Text>
+                                  <Button variant="light" className="custom-button" href={psikolog.url_psikolog}>Lihat Profil</Button>
+                                </Card.Body>
+                              </Card>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Container>
                 )}
               </div>
             </Col>
@@ -221,7 +319,7 @@ const HasilDassDepresi = () => {
                       </h5>
                       <p style={{ fontSize: "16px" }}>
                         <br /> Psikotes ini bukan milik atau buatan penulis sendiri, namun berdasarkan referensi yang biasa digunakan di praktek klinis dan sudah divalidasi.
-                        Hasil tes ini sangat bersifat obyektif, untuk diagnosis diperlukan langsung dengan psikiater.
+                        Hasil tes ini sangat bersifat objektif, untuk diagnosis diperlukan langsung dengan psikiater.
                       </p><br />
                     </Card.Body>
                   </Card>

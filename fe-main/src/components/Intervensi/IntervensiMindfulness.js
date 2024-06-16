@@ -62,7 +62,7 @@ const Mindfulness = () => {
                 container: `#waveform`,
                 waveColor: '#C6BCCA',
                 progressColor: '#DFE1E6',
-                height: 80,
+                height: 60,
                 barWidth: 2,
                 responsive: true
             });
@@ -86,14 +86,14 @@ const Mindfulness = () => {
   return (
     <>
       <Navbar />
-      <Container style={{ marginTop: "150px" }}>
-                <Container className="mt-5" style={{ padding: "50px", backgroundColor: "#C6BCCA", borderRadius: "50px", marginBottom:"20px" }}>
+      <Container style={{ marginTop: "130px", maxWidth: "900px" }}>
+                <Container className="mt-5" style={{ padding: "40px", backgroundColor: "#C6BCCA", borderRadius: "30px", marginBottom:"5px" }}>
                     <Row className="justify-content-center">
                         <Col md={6}>
-                            <h6 style={{ fontSize: "20px", marginTop: "30px", fontWeight: "bold" }}>
+                            <h6 style={{ fontSize: "18px", marginTop: "20px", fontWeight: "bold" }}>
                                 Intervensi Cemas Sedang
                             </h6>
-                            <h6 style={{ fontSize: "35px", fontWeight: "bold", marginBottom:"20px" }}>
+                            <h6 style={{ fontSize: "30px", fontWeight: "bold", marginBottom:"20px" }}>
                             Mindfulness-Based Stress Reduction.
                             </h6>
 
@@ -122,25 +122,20 @@ const Mindfulness = () => {
                             )}
 
                         </Col>
-                        <Col md={4} className="d-flex align-items-center justify-content-center">
+                        <Col md={5} className="d-flex align-items-center justify-content-center">
                             <img src={cemas} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
                         </Col>
                     </Row>
                 </Container>
-      <div className=" text-center mt-5">
-        <h6 className="section-title mb-2 tfonts-2" style={{marginTop:"30px"}}><br />Mindfulness-Based Stress Reduction<br /><br /></h6>
-      </div>
+     
       <div className="container">
         <div className="row">
           {interventions.map((intervention) => (
             <InterventionCard key={intervention.id} intervention={intervention} />
           ))}
         </div>
-      <br/>
-      <br/>
       </div>
       </Container>
-      <Footer />
     </>
   );
 };
@@ -150,7 +145,7 @@ const InterventionCard = ({ intervention }) => {
   return (
     <div className="col-md-3 mb-3 justify-content-center">
       <Card style={{ width: '17rem', margin:"15px",borderRadius:"15px"}}>
-        <Card.Img variant="top" src={image} style={{ height: '300px' }} />
+        <Card.Img variant="top" src={image} style={{ height: '250px' }} />
           <Link to={link} className="stretched-link"></Link>
       </Card>
     </div>

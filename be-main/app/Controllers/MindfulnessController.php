@@ -21,33 +21,82 @@ class MindfulnessController extends BaseController
 
     public function saveDailyStatus()
     {
-        $data = $this->request->getJSON();
+        $dailyStatusModel = new DailyStatusModel();
+        $idPartisipan = $this->request->getVar('id_partisipan');
+        $interventionCategory = $this->request->getVar('intervention_category');
+        $interventionWeek = $this->request->getVar('intervention_week');
+        $interventionDay = $this->request->getVar('intervention_day');
+        $isCompleted = $this->request->getVar('is_completed') ? 1 : 0; // defaul
 
         // Get the current date
         $currentDate = date('Y-m-d');
 
-        // Check if an entry for the current day already exists
-        $existingEntry = $this->dailyStatusModel
-            ->where('id_partisipan', $data->id_partisipan)
-            ->where('DATE(created_at)', $currentDate)
-            ->first();
+         // Check if checklist already exists for today or earlier this week
+        $existingChecklist = $dailyStatusModel->where('id_partisipan', $idPartisipan)
+                ->where('intervention_category', $interventionCategory)
+                ->where('intervention_week', $interventionWeek)
+                ->where('DATE(created_at) <=', $currentDate)
+                ->first();
 
-        if ($existingEntry) {
-            return $this->failValidationError('You have already submitted your daily status for today.');
-        }
+        // If checklist already exists for today or earlier this week, return error response
+    if ($existingChecklist) {
+        return $this->fail('Kamu hari ini sudah melakukan checklist pada intervensimu. Lakukan kembali besok ya!');
+    }
 
-        $dataToInsert = [
-            'id_partisipan' => $data->id_partisipan,
-            'intervention_category' => 'mindfulness',
-            'intervention_week' => $data->intervention_week,
-            'intervention_day' => $data->intervention_day,
-            'is_completed' => $data->is_completed
+        // If it's week 1, create the checklist without further validation
+    if ($interventionWeek == 1) {
+        // Create new checklist entry
+        $data = [
+            'id_partisipan' => $idPartisipan,
+            'intervention_category' => $interventionCategory,
+            'intervention_week' => $interventionWeek,
+            'intervention_day' => $interventionDay,
+            'is_completed' => $isCompleted
         ];
 
-        $this->dailyStatusModel->insert($dataToInsert);
+        $dailyStatusModel->insert($data);
 
-        return $this->respondCreated(['message' => 'Daily status saved successfully']);
+        return $this->respondCreated('Checklist created successfully');
     }
+
+    // Check if all days of the current week are completed
+    $completedChecklist = $dailyStatusModel->where('id_partisipan', $idPartisipan)
+        ->where('intervention_category', $interventionCategory)
+        ->where('intervention_week', $interventionWeek)
+        ->where('is_completed', 1)
+        ->findAll();
+    
+    // If not all days of the current week are completed, return error response
+    if (count($completedChecklist) < 7 && $interventionDay < 7) {
+        return $this->fail('Kamu tidak bisa melakukan checklist pada minggu ini, karena minggu sebelumnya belum selesai');
+    }
+
+    // Check if there are incomplete checklists for the previous week
+    $previousWeek = $interventionWeek - 1;
+    $completedChecklist = $dailyStatusModel->where('id_partisipan', $idPartisipan)
+        ->where('intervention_category', $interventionCategory)
+        ->where('intervention_week', $previousWeek)
+        ->where('is_completed', 1)
+        ->findAll();
+    
+    // If not all days of the previous week are completed, return error response
+    if (count($completedChecklist) != 7) {
+        return $this->fail('Kamu tidak bisa melakukan checklist pada minggu ini, karena minggu sebelumnya belum selesai');
+    }
+
+    // Create new checklist entry
+    $data = [
+        'id_partisipan' => $idPartisipan,
+        'intervention_category' => $interventionCategory,
+        'intervention_week' => $interventionWeek,
+        'intervention_day' => $interventionDay,
+        'is_completed' => $isCompleted
+    ];
+
+    $dailyStatusModel->insert($data);
+    
+    return $this->respondCreated('Checklist created successfully');
+}
 
     public function saveMeditationExperience()
     {

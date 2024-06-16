@@ -16,54 +16,82 @@ class CbtResponsesController extends ResourceController
     public function create()
 {
     $model = new CbtTaskResponses();
-    $data = $this->request->getJSON(true);
+
+    // Ambil data dari body request
+    $id_task = $this->request->getVar('id_task');
+    $id_partisipan = $this->request->getVar('id_partisipan');
+    $jawaban = $this->request->getVar('jawaban');
+    $submission_date = date('Y-m-d'); 
 
     // Validasi input
-    if (!isset($data['id_task']) || !isset($data['id_partisipan']) || !isset($data['jawaban'])) {
-        return $this->fail('Task ID, participant ID, and jawaban are required.', 400);
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'id_task' => 'required|integer',
+        'id_partisipan' => 'required|integer',
+        'jawaban' => 'required',
+    ]);
+
+    if (!$validation->withRequest($this->request)->run()) {
+        return $this->fail($validation->getErrors(), 422); // Menggunakan fail() untuk menangani validasi yang gagal
     }
 
     // Memeriksa apakah pengguna telah mengisi respons untuk session dan day yang sama pada tanggal yang sama sebelumnya
-    $existingResponse = $model->where('id_task', $data['id_task'])
-                             ->where('id_partisipan', $data['id_partisipan'])
-                             ->where('DATE(submission_date)', date('Y-m-d'))
+    $existingResponse = $model->where('id_partisipan',$id_partisipan)
+                             ->where('submission_date', $submission_date)
                              ->first();
 
     if ($existingResponse) {
-        return $this->fail('You cannot submit a jawaban for this session and day today.', 300);
+        return $this->fail('Tidak bisa mengisi karena hari ini sudah melakukan intervensi', 300);
     }
 
-    // Memeriksa apakah tanggal pengisian sesuai dengan aturan yang telah ditetapkan
+    // Mendapatkan informasi task saat ini
     $dailyTaskModel = new \App\Models\CbtDailyTask();
-    $dailyTask = $dailyTaskModel->find($data['id_task']);
+    $currentTask = $dailyTaskModel->find($id_task);
 
-    if (!$dailyTask) {
-        return $this->failNotFound('Daily task not found.');
+    if (!$currentTask) {
+        return $this->failNotFound('Task tidak ditemukan.');
     }
 
-    // Mendapatkan tanggal sekarang
-    $currentDate = date('Y-m-d');
+    // Mendapatkan informasi session saat ini
+    $currentSessionId = $currentTask['id_session'];
+    $sessionModel = new \App\Models\CbtSession();
+    $currentSession = $sessionModel->find($currentSessionId);
 
-    // Memeriksa apakah tanggal pengisian sesuai dengan aturan yang telah ditetapkan
-    if ($dailyTask['no_hari'] > 7 || $dailyTask['no_hari'] > 1 && $currentDate == date('Y-m-d')) {
-        return $this->fail('Maaf, kamu hari ini sudah melakukan intervensi. Yuk lakukan kembali besok.', 300);
+    if (!$currentSession) {
+        return $this->failNotFound('Session tidak ditemukan.');
     }
 
-    // Menyimpan respons
-    $jawabanData = [
-        'id_task' => $data['id_task'],
-        'id_partisipan' => $data['id_partisipan'],
-        'jawaban' => $data['jawaban'],
-        'submission_date' => $currentDate
-    ];
+    // Memeriksa apakah ini adalah session pertama
+    if ($currentSessionId > 1) {
+        // Mendapatkan session sebelumnya
+        $previousSessionId = $currentSessionId - 1;
+        $previousSession = $sessionModel->find($previousSessionId);
 
-    if ($model->insert($jawabanData)) {
-        return $this->respondCreated($jawabanData, 'CBT jawaban created');
-    } else {
-        return $this->fail('Failed to create CBT jawaban');
+        if ($previousSession) {
+            // Mendapatkan semua task dari session sebelumnya
+            $previousTasks = $dailyTaskModel->where('id_session', $previousSessionId)->findAll();
+
+            foreach ($previousTasks as $previousTask) {
+                $response = $model->where('id_task', $previousTask['id_task'])
+                                  ->where('id_partisipan', $id_partisipan)
+                                  ->first();
+                if (!$response) {
+                    return $this->fail('Tidak bisa melanjutkan ke sesi berikutnya sebelum menyelesaikan semua task di sesi sebelumnya.', 400);
+                }
+            }
+        }
     }
+
+    // Simpan data ke database
+    $model->insert([
+        'id_task' => $id_task,
+        'id_partisipan' => $id_partisipan,
+        'jawaban' => $jawaban,
+        'submission_date' => $submission_date, // Simpan tanggal submit
+    ]);
+
+    return $this->respondCreated(['message' => 'Data Created']);
 }
-
 
 
 
@@ -73,7 +101,7 @@ class CbtResponsesController extends ResourceController
         $data = $this->request->getJSON(true);
 
         // Validasi input
-        if (!isset($data['id_task']) || !isset($data['id_partisipan']) || !isset($data['response'])) {
+        if (!isset($data['id_task']) || !isset($data['id_partisipan']) || !isset($data['jawaban'])) {
             return $this->fail('Task ID, participant ID, and response are required.');
         }
 

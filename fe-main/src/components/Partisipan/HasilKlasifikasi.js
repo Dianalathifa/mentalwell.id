@@ -7,8 +7,6 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import "../style/Intervensi.css";
 import Navbar from "../landing/Navbar";
 import cemasImage from "../images/dass42-cemas.jpg"; // Import image for anxiety
-import depresiImage from "../images/dass42-depresi.jpg"; // Import image for depression
-import stressImage from "../images/dass42-stress.jpg"; // Import image for stress
 import happy from "../images/hasilKlasifikasi/happy.jpg"; // Import gambar untuk mental_disorders === 0
 import sad from "../images/hasilKlasifikasi/sad.jpg"; // Import gambar untuk mental_disorders !== 0
 
@@ -24,7 +22,7 @@ const HasilKlasifikasi = () => {
 
     const ambilHasilKlasifikasi = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/hasil-prediksi/${partisipanId}`);
+        const response = await axios.get(`http://localhost:5000/hasil-prediksi-terbaru/${partisipanId}`);
         setHasilKlasifikasi(response.data);
       } catch (error) {
         console.error('Gagal mengambil hasil klasifikasi:', error);
@@ -230,7 +228,7 @@ const HasilKlasifikasi = () => {
                 </h5>
                 <p style={{ fontSize: "16px" }}>
                   <br></br>Psikotes ini bukan milik atau buatan penulis sendiri, namun berdasarkan referensi yang biasa digunakan di praktek klinis dan sudah divalidasi. 
-                  Hasil tes ini sangat bersifat obyektif, untuk diagnosis diperlukan langsung dengan psikiater.
+                  Hasil tes ini sangat bersifat objektif, untuk diagnosis diperlukan langsung dengan psikiater.
                 </p><br/>
               </Card.Body>
             </Card>

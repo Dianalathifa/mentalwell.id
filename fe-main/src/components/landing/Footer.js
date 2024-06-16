@@ -8,65 +8,47 @@ import tiktok from "../images/tiktok.png";
 
 const Footer = () => {
   return (
-    <div className="bg footer" style={{ backgroundColor: "#C4EAF4"}}>
-      <div className="sb__footer section__padding">
-        <div className="sb__footer-links">
-          <div className="sb__footer-link-div" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <img src={Logo} alt="logo" style={{ width: "40%", marginTop: "0px" }} />
-            <h4 className="font-weight-bold" style={{ color: "black" }}>MENTALWELL</h4>
+    <footer className="footer" style={{ backgroundColor: "#E3F7FE", paddingTop: "30px", paddingBottom: "30px", maxWidth: "1800px" }}>
+      <div className="container">
+        <div className="row" style={{ marginLeft: "70px" }}>
+          <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <img src={Logo} alt="logo" className="img-fluid mb-3" style={{ maxWidth: "90px", marginLeft: "70px" }} />
+            <p className="text-muted" style={{ fontSize: "12px" }}>MENTALWELL adalah platform kesehatan mental yang dirancang sebagai solusi inovatif dalam meningkatkan kesehatan mental mahasiswa.</p>
           </div>
-
-          <div className="sb__footer-links_div">
-            <h4 className="font-weight-bold" style={{ color: "black" }}>Tentang Kami</h4>
-            <a href="/about-us"> 
-              <p style={{ color: "black" }}>MentalWell adalah platform kesehatan mental 
-              yang dirancang sebagai solusi inovatif dalam 
-              meningkatkan kesehatan mental mahasiswa melalui 
-              test dan pemahaman lebih dalam tentang kesejahteraan mental </p>
-              <p style={{ color: "blue" }}>Selengkapnya</p>
-            </a>
+          <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <h4 className="mb-4" style={{color:"black", marginLeft: "65px"}}>Tentang Kami</h4>
+            <p className="text-muted" style={{ fontSize: "12px", marginLeft: "70px" }}>MentalWell menyediakan berbagai layanan untuk membantu meningkatkan kesehatan mental melalui tes dan pemahaman lebih dalam.</p>
+            <a href="/about-us" className="text-decoration-none text-muted" style={{ fontSize: "12px", marginLeft: "70px" }}>Baca Selengkapnya <i className="bi bi-arrow-right"></i></a>
           </div>
-          <div className="sb__footer-links_div">
-            <h4 className="font-weight-bold" style={{ color: "black" }}>Contact</h4>
-            <a href="/about">
-              <p style={{ color: "black" }}>MentalWell</p>
-            </a>
-            <a href="/career">
-              <p style={{ color: "black" }}>mentalwell@gmail.com</p>
-            </a>
+          <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <h4 className=" mb-4" style={{color:"black", marginLeft: "65px"}}>Hubungi Kami</h4>
+            <ul className="list-unstyled" style={{ marginLeft: "70px" }}>
+              <li><a href="/about" className="text-decoration-none text-muted" style={{ fontSize: "12px" }}>MentalWell</a></li>
+              <li><a href="/career" className="text-decoration-none text-muted" style={{ fontSize: "12px" }}>mentalwell@gmail.com</a></li>
+            </ul>
           </div>
-          <div className="sb__footer-links_div">
-            <h4 className="font-weight-bold" style={{ color: "black" }}>Check Our Social Media on</h4>
-            <div className="socialmedia">
-              <p>
-                <img src={fb} alt="" />
-              </p>
-              <p>
-                <img src={twitter} alt="" />
-              </p>
-              <p>
-                <img src={insta} alt="" />
-              </p>
-              <p>
-                <img src={tiktok} alt="" />
-              </p>
+          <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <h4 className=" mb-4" style={{color:"black", marginLeft: "5px"}}>Temukan Kami di Sosial Media</h4>
+            <div className="social-icons">
+              <a href="#!"><img src={fb} alt="Facebook" className="img-fluid mr-3" style={{ maxWidth: "30px" }} /></a>
+              <a href="#!"><img src={twitter} alt="Twitter" className="img-fluid mr-3" style={{ maxWidth: "30px" }} /></a>
+              <a href="#!"><img src={insta} alt="Instagram" className="img-fluid mr-3" style={{ maxWidth: "30px" }} /></a>
+              <a href="#!"><img src={tiktok} alt="TikTok" className="img-fluid" style={{ maxWidth: "30px" }} /></a>
             </div>
           </div>
         </div>
       </div>
 
+      <hr className="my-4" style={{ borderTop: "2px solid #ccc", width: "95%", margin: "0 auto" }} />
 
-      <br/>
-
-      <div className="sb__footer-below">
-        <div className="sb__footer-copyright">
-          <p style={{ color: "black" }}>
-            @{new Date().getFullYear()} © Copyright - MentalWell | Platform
-            Kesehatan Mental.
-          </p>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <p className="text-muted mb-0" style={{ fontSize: "12px" }}>&copy; {new Date().getFullYear()} MentalWell. Hak Cipta Dilindungi.</p>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

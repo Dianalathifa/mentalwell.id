@@ -51,7 +51,7 @@ const Teknik54321 = () => {
                 container: `#waveform`,
                 waveColor: 'violet',
                 progressColor: 'purple',
-                height: 80,
+                height: 60,
                 barWidth: 2,
                 responsive: true
             });
@@ -74,14 +74,14 @@ const Teknik54321 = () => {
     return (
         <>
             <Navbar />
-            <Container style={{ marginTop: "150px" }}>
-                <Container className="mt-5" style={{ padding: "50px", backgroundColor: "#C5C0FC", borderRadius: "50px", marginBottom:"10px" }}>
+            <Container style={{ marginTop: "150px", maxWidth: "1000px" }}>
+                <Container className="mt-5" style={{ padding: "30px", backgroundColor: "#C5C0FC", borderRadius: "30px", marginBottom:"10px" }}>
                     <Row className="justify-content-center">
                         <Col md={5}>
-                            <h6 style={{ fontSize: "20px", marginTop: "30px", fontWeight: "bold" }}>
+                            <h6 style={{ fontSize: "18px", marginTop: "20px", fontWeight: "bold" }}>
                                 Intervensi Cemas Ringan
                             </h6>
-                            <h6 style={{ fontSize: "35px", fontWeight: "bold", marginBottom:"20px" }}>
+                            <h6 style={{ fontSize: "30px", fontWeight: "bold", marginBottom:"20px" }}>
                                 5-4-3-2-1 Method
                             </h6>
 
@@ -117,24 +117,24 @@ const Teknik54321 = () => {
                                         marginTop: "20px",
                                         borderRadius: "50px",
                                         fontWeight: "bold",
-                                        padding: '17px 20px',
-                                        fontSize: '16px'
+                                        padding: '10px 15px',
+                                        fontSize: '12px'
                                     }}
                                 >
                                     Yuk Ikuti Langkah-langkahnya!
                                 </Button>
                             </Link>
                         </Col>
-                        <Col md={4} className="d-flex align-items-center justify-content-center">
+                        <Col md={5} className="d-flex align-items-center justify-content-center">
                             <img src={cemas} alt="Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
                         </Col>
                     </Row>
                 </Container>
 
                 <Container className="my-5">
-                    <Row style={{ marginTop: "40px", marginLeft: "55px", marginBottom:"150px" }}>
+                    <Row style={{ marginTop: "40px", marginLeft: "5px", marginBottom:"10px" }}>
                         <Col md={4} style={{ backgroundColor: "#7F91D8", borderRadius: "20px", padding: "20px", marginLeft: "10px" }}>
-                            <p style={{ fontSize: "20px", marginTop: "30px", paddingLeft: "20px" }}>
+                            <p style={{ fontSize: "13px", marginTop: "30px", paddingLeft: "20px" }}>
                                 Jika Anda kesulitan mengatasi gejala kecemasan Anda, Anda tidak sendirian.
                                 Kecemasan adalah salah satu masalah kesehatan mental yang paling umum saat ini.
                                 Orang-orang mengalami berbagai jenis kecemasan mulai dari yang ringan hingga yang sangat melemahkan.
@@ -142,7 +142,7 @@ const Teknik54321 = () => {
                         </Col>
 
                         <Col md={3} style={{ backgroundColor: "#BCE5EB", borderRadius: "20px", padding: "20px", marginLeft: "10px" }}>
-                            <p style={{ fontSize: "20px", marginTop: "10px", marginLeft: "20px" }}>
+                            <p style={{ fontSize: "13px", marginTop: "10px", marginLeft: "20px" }}>
                                 Kecemasan dikaitkan dengan banyak keadaan emosi intens yang berbeda.
                                 Sulit untuk fokus atau merasa terkendali ketika Anda mengalami gelombang panik atau perasaan cemas yang luar biasa.
                                 Seringkali segala sesuatunya terasa kabur.
@@ -150,7 +150,7 @@ const Teknik54321 = () => {
                         </Col>
 
                         <Col md={4} style={{ backgroundColor: "#F5A5AD", borderRadius: "20px", paddingleft: "20px", marginLeft: "10px" }}>
-                            <p style={{ fontSize: "20px", marginTop: "45px", paddingLeft: "20px" }}>
+                            <p style={{ fontSize: "13px", marginTop: "45px", paddingLeft: "20px" }}>
                                 Kabar baiknya adalah ada banyak cara efektif untuk mengurangi gejala kecemasan.
                                 Salah satu teknik yang sangat efektif yang dapat Anda terapkan kapan saja, di mana saja,
                                 adalah grounding, yang menggunakan praktik sederhana untuk mengaktifkan indra Anda sedemikian rupa
@@ -160,7 +160,6 @@ const Teknik54321 = () => {
                     </Row>
                 </Container>
             </Container>
-            <Footer />
         </>
     );
 };

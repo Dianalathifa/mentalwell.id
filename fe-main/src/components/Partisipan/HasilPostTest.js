@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, Alert, Button, Table } from "react-bootstrap";
+import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,7 @@ import Footer from "../landing/Footer";
 
 const HasilPrediksi = () => {
   const [hasilPrediksi, setHasilPrediksi] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [srqPoints, setSrqPoints] = useState(null);
   const history = useHistory();
 
   const partisipanNama = localStorage.getItem('partisipan_nama') || 'Nama Partisipan';
@@ -21,8 +21,11 @@ const HasilPrediksi = () => {
       try {
         const response = await axios.get(`http://localhost:8080/hasil-prediksi/partisipan/${partisipanId}`);
         setHasilPrediksi(response.data);
+
+        const srqResponse = await axios.get(`http://localhost:5000/hasil-prediksi/${partisipanId}`);
+        setSrqPoints(srqResponse.data.points);
       } catch (error) {
-        console.error('Gagal mengambil hasil prediksi:', error);
+        console.error('Gagal mengambil hasil prediksi atau poin SRQ:', error);
       }
     };
 
@@ -33,23 +36,35 @@ const HasilPrediksi = () => {
     history.push(url);
   };
 
-
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('id-ID', options);
   };
 
+  const compareResults = () => {
+    if (hasilPrediksi && srqPoints !== null) {
+      if (hasilPrediksi.points < srqPoints) {
+        return 'Kondisimu sudah membaik.';
+      } else if (hasilPrediksi.points > srqPoints) {
+        return 'Kondisimu lagi memburuk.';
+      } else {
+        return 'Kondisimu masih sama';
+      }
+    }
+    return 'Tidak ada data';
+  };
+
   return (
     <>
       <Navbar />
-      <Container className="mt-5" style={{marginBottom:"50px"}}>
+      <Container style={{ marginBottom: "50px", marginTop: "150px" }}>
         <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts">
+          <h6 className="section-title mb-2 tfonts-2">
             Hasil Post Test
           </h6>
         </div>
         <Row className="justify-content-center">
-          <Col md={8}>
+          <Col md={10}>
             <Card>
               <Card.Body>
                 {hasilPrediksi ? (
@@ -76,6 +91,10 @@ const HasilPrediksi = () => {
                           <td><strong>Klasifikasi:</strong></td>
                           <td>{hasilPrediksi.klasifikasi}</td>
                         </tr>
+                        <tr>
+                          <td><strong>Perbandingan dengan Tes SRQ:</strong></td>
+                          <td>{compareResults()}</td>
+                        </tr>
                       </tbody>
                     </Table>
                   </>
@@ -89,16 +108,20 @@ const HasilPrediksi = () => {
       </Container>
 
       <Container>
-      <Row className="justify-content-center">
-          <Col md={8}>
-            <Card className="about-us-card" style={{ backgroundColor: "#FFD2DD", marginBottom:"50px"}}>
+        <Row className="justify-content-center">
+          <Col md={10}>
+            <Card className="about-us-card" style={{ backgroundColor: "#FFD2DD", marginBottom: "50px" }}>
               <Card.Body>
-              <h5 style={{ fontSize: "25px", color: "red", fontWeight: "bold" }}>
-                <FontAwesomeIcon icon={faExclamationTriangle} /> Disclaimer
-              </h5>
-                  <p style={{ fontSize: "20px" }}>
-                  <br></br>Hasil prediksi ini hanya sebagai informasi awal saja. Untuk diagnosis yang akurat, konsultasikan dengan psikolog atau psikiater.
-                  </p><br/>
+                <h5 style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
+                  <FontAwesomeIcon icon={faExclamationTriangle} /> Disclaimer
+                </h5>
+                <p style={{ fontSize: "18px" }}>
+                  <br></br>Psikotes ini bukan milik atau buatan penulis sendiri,
+                    namun berdasarkan referensi yang biasa digunakan di praktek
+                    klinis dan sudah divalidasi. Hasil tes ini sangat bersifat
+                    objektif, untuk diagnosis diperlukan langsung dengan
+                    psikiater.
+                </p><br />
               </Card.Body>
             </Card>
           </Col>

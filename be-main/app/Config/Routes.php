@@ -134,14 +134,20 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
 
 });
 
-$routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->get('pola-makan', 'PolaMakan::index');
-    $routes->post('pola-makan', 'PolaMakan::create');
-    $routes->put('pola-makan/(:num)', 'PolaMakan::update/$1');
-    $routes->delete('pola-makan/(:num)', 'PolaMakan::delete/$1');
-    $routes->get('pola-makan/(:num)', 'PolaMakan::getByPartisipan/$1');
+// $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
+//     $routes->get('pola-makan', 'PolaMakan::index');
+//     $routes->post('pola-makan', 'PolaMakan::create');
+//     $routes->put('pola-makan/(:num)', 'PolaMakan::update/$1');
+//     $routes->delete('pola-makan/(:num)', 'PolaMakan::delete/$1');
+//     $routes->get('pola-makan/(:num)', 'PolaMakan::getByPartisipan/$1');
 
-});
+// });
+
+$routes->get('/pola-makan', 'PolaMakan::index');
+$routes->post('/pola-makan', 'PolaMakan::create');
+$routes->put('/pola-makan(:num)', 'PolaMakan::update/$1');
+$routes->delete('/pola-makan(:num)', 'PolaMakan::delete/$1');
+$routes->get('pola-makan/(:num)', 'PolaMakan::getByPartisipanId/$1');
 
 $routes->group('api/mindfulness', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->post('save-daily-status', 'MindfulnessController::saveDailyStatus');

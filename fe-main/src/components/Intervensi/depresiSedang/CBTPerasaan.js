@@ -11,6 +11,8 @@ import CBT5 from '../../images/CBT/CBT2.png';
 import CBT6 from '../../images/CBT/CBT2.png';
 import CBT7 from '../../images/CBT/CBT2.png';
 import Footer from '../../landing/Footer.js';
+import "../../style/Intervensi.css";
+
 
 const CBTPerasaan = () => {
     const [tasks, setTasks] = useState([]);
@@ -57,16 +59,13 @@ const CBTPerasaan = () => {
             </div>
                                      
         </div>
-        
-        <br></br><br></br><br></br><br></br>
-    
-      <div className="container">
+            
+      <div className="container justify-content-center" style={{marginLeft:"100px", marginBottom:"100px", marginTop:"30px"}}>
         <div className="row">
         {tasks.map((task) => (
             <TaskCard key={task.id_task} task={task} />
           ))}
         </div>
-      <br/><br/><br/><br/>
       </div>
       
 
@@ -75,20 +74,6 @@ const CBTPerasaan = () => {
   );
 };
 
-const InterventionCard = ({ intervention }) => {
-  const { image, text, link } = intervention;
-  return (
-    <div className="col-md-3 mb-4" style={{marginLeft:"80px"}}>
-      <Card style={{ width: '16rem', margin:"15px" }}>
-        <Card.Img variant="top" src={image} style={{ height: '300px' }} />
-        <Card.Body>
-          <Link to={link} className="stretched-link"></Link>
-          <Card.Text className="text-center" style={{ height: '50px' }}>{text}</Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
-  );
-};
 
 const TaskCard = ({ task }) => {
   const { no_hari, judul_task, id_task } = task;
@@ -104,12 +89,12 @@ const TaskCard = ({ task }) => {
   const imageSrc = imageMap[no_hari] || CBT2; 
 
   return (
-    <div className="col-md-3 mb-4" style={{ marginLeft: "80px" }}>
-      <Card style={{ width: '16rem', margin:"15px" }}>
-        <Card.Img variant="top" src={imageSrc} style={{ height: '300px' }} />
+    <div className="col-md-auto mb-4" style={{ margin:"5px" }}>
+      <Card style={{ width: '9rem', height: '18rem' }}>
+        <Card.Img variant="top" src={imageSrc} style={{ height: '60%', objectFit: 'cover' }} />
         <Card.Body>
           <Link to={`/daily-task-detail/${id_task}`} className="stretched-link"></Link>
-          <Card.Text className="text-center" style={{ height: '50px' }}>{judul_task}</Card.Text>
+          <Card.Text className="text-center" style={{ height: '50px', fontSize: '12px' }}> {judul_task}</Card.Text>
         </Card.Body>
       </Card>
     </div>

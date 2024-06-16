@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Image, Nav, Tab, Card, Table } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { Container, Row, Col, Image, Tab, Card, Tabs } from 'react-bootstrap';
+import { useHistory, Link } from 'react-router-dom';
 import Navbar from '../landing/Navbar';
 import Footer from '../landing/Footer';
 import profileImage from '../images/partisipan.jpg';
-import SRQ from '../images/SRQ.jpg';
-import StressImage from '../images/Stress.jpg';
-import Suicide from '../images/Suicide.jpg';
-import Depresi from '../images/Depresi.jpg';
-import Cemas from '../images/Cemas.jpg';
+import test from '../images/profil/test.jpg';
+import posttest from '../images/profil/post-test.jpg';
+import cemas from '../images/profil/cemas.png';
+import depresi from '../images/profil/depresi.png';
+import stress from '../images/profil/stress.png';
+import suicide from '../images/profil/suicide.png';
+import method54 from '../images/profil/54321-.png';
+import mindfulnessgb from '../images/profil/mindfulness.png';
+import copingbg from '../images/profil/stresscoping.png';
+import writingbg from '../images/profil/30days.png';
+import activity from '../images/profil/medical-care.png';
+import cbtbg from '../images/profil/cbt-.jpg';
 import '../style/Profile.css';
 
 const Profile = () => {
@@ -21,28 +28,27 @@ const Profile = () => {
     foto_profile: localStorage.getItem('partisipan_foto_profile') || profileImage,
   });
 
-  const [klasifikasiHistory, setKlasifikasiHistory] = useState(null);
-  const [cemasHistory, setCemasHistory] = useState(null);
-  const [depresiHistory, setDepresiHistory] = useState(null);
-  const [stressHistory, setStressHistory] = useState(null);
-  const [suicideHistory, setSuicideHistory] = useState(null);
+  const [klasifikasiHistory, setKlasifikasiHistory] = useState([]);
+  const [cemasHistory, setCemasHistory] = useState([]);
+  const [depresiHistory, setDepresiHistory] = useState([]);
+  const [stressHistory, setStressHistory] = useState([]);
+  const [suicideHistory, setSuicideHistory] = useState([]);
   const [postTestResult, setPostTestResult] = useState(null);
   const [initialSRQResult, setInitialSRQResult] = useState(null);
-  const [method54321, setMethod54321] = useState(null);
-  const [mindfulness, setMindfulness] = useState(null);
-  const [coping, setCoping] = useState(null);
-  const [writing, setWriting] = useState(null);
-  const [jadwal, setJadwal] = useState(null);
-  const [cbt, setCBT] = useState(null);
+  const [method54321, setMethod54321] = useState([]);
+  const [mindfulness, setMindfulness] = useState([]);
+  const [coping, setCoping] = useState([]);
+  const [writing, setWriting] = useState([]);
+  const [jadwal, setJadwal] = useState([]);
+  const [cbt, setCBT] = useState([]);
   const history = useHistory();
-
 
   useEffect(() => {
     const fetchKlasifikasiHistory = async () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
-        const response = await axios.get(`http://localhost:5000/hasil-prediksi/${partisipanId}`);
-        setKlasifikasiHistory(response.data);
+        const response = await axios.get(`http://localhost:5000/hasil-prediksi-terbaru/${partisipanId}`);
+        setKlasifikasiHistory(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil riwayat tes:', error);
       }
@@ -56,7 +62,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/dass-cemas/${partisipanId}`);
-        setCemasHistory(response.data);
+        setCemasHistory(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil riwayat tes:', error);
       }
@@ -70,7 +76,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/dass-depresi/${partisipanId}`);
-        setDepresiHistory(response.data);
+        setDepresiHistory(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil riwayat tes:', error);
       }
@@ -84,7 +90,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/dass-stress/${partisipanId}`);
-        setStressHistory(response.data);
+        setStressHistory(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil riwayat tes:', error);
       }
@@ -98,7 +104,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/suicide/${partisipanId}`);
-        setSuicideHistory(response.data);
+        setSuicideHistory(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil riwayat tes:', error);
       }
@@ -112,7 +118,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/hasil-prediksi/partisipan/${partisipanId}`);
-        setPostTestResult(response.data);
+        setPostTestResult(response.data || null);
       } catch (error) {
         console.error('Gagal mengambil hasil prediksi post-test SRQ:', error);
       }
@@ -125,7 +131,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/cemas/checklist/participant/${partisipanId}`);
-        setMethod54321(response.data);
+        setMethod54321(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil hasil intervensi 54321 Method:', error);
       }
@@ -138,7 +144,7 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/mindfulness/daily-statuses/${partisipanId}`);
-        setMindfulness(response.data);
+        setMindfulness(response.data || []);
       } catch (error) {
         console.error('Gagal mengambil hasil intervensi Mindfulness Method:', error);
       }
@@ -151,9 +157,9 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/stress/checklist/participant/${partisipanId}`);
-        setCoping(response.data);
+        setCoping(response.data || []);
       } catch (error) {
-        console.error('Gagal mengambil hasil intervensi Mindfulness Method:', error);
+        console.error('Gagal mengambil hasil intervensi Coping Stress:', error);
       }
     };
     fetchCoping();
@@ -164,9 +170,9 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/api/jawaban-intervensi/${partisipanId}`);
-        setWriting(response.data);
+        setWriting(response.data || []);
       } catch (error) {
-        console.error('Gagal mengambil hasil intervensi Mindfulness Method:', error);
+        console.error('Gagal mengambil hasil intervensi Writing and Jurnal:', error);
       }
     };
     fetchWriting();
@@ -177,9 +183,9 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/depresi/checklist/participant/${partisipanId}`);
-        setJadwal(response.data);
+        setJadwal(response.data || []);
       } catch (error) {
-        console.error('Gagal mengambil hasil intervensi Mindfulness Method:', error);
+        console.error('Gagal mengambil hasil intervensi Jadwal Kegiatan Positif:', error);
       }
     };
     fetchJadwal();
@@ -190,9 +196,9 @@ const Profile = () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
         const response = await axios.get(`http://localhost:8080/cbt-responses/${partisipanId}`);
-        setCBT(response.data);
+        setCBT(response.data || []);
       } catch (error) {
-        console.error('Gagal mengambil hasil intervensi Mindfulness Method:', error);
+        console.error('Gagal mengambil hasil intervensi CBT:', error);
       }
     };
     fetchCBT();
@@ -202,8 +208,8 @@ const Profile = () => {
     const fetchInitialSRQResult = async () => {
       try {
         const partisipanId = localStorage.getItem('partisipan_id');
-        const response = await axios.get(`http://localhost:5000/hasil-prediksi/${partisipanId}`);
-        setInitialSRQResult(response.data);
+        const response = await axios.get(`http://localhost:5000/hasil-prediksi-terbaru/${partisipanId}`);
+        setInitialSRQResult(response.data || null);
       } catch (error) {
         console.error('Gagal mengambil hasil tes SRQ awal:', error);
       }
@@ -211,509 +217,560 @@ const Profile = () => {
     fetchInitialSRQResult();
   }, []);
 
-  // Function to compare initial SRQ result with post-test SRQ result
-  const compareSRQResults = (initialResult, postTestResult) => {
-    if (initialResult && postTestResult) {
-      // Compare the points
-      if (postTestResult.points < initialResult.points) {
-        return 'Kondisi pasien membaik.';
-      } else if (postTestResult.points > initialResult.points) {
-        return 'Kondisi pasien memburuk.';
-      } else {
-        return 'Kondisi pasien tetap.';
-      }
+ // Function to compare initial SRQ result with post-test SRQ result
+const compareSRQResults = (initialResult, postTestResult) => {
+  if (initialResult && postTestResult) {
+    // Compare the points
+    if (postTestResult.points < initialResult.points) {
+      return 'Selamat! Kondisi kesehatan mentalmu menunjukkan kondisi yang semakin membaik. Teruskan usaha baik ini dan jaga mentalmu dengan baik.';
+    } else if (postTestResult.points > initialResult.points) {
+      return 'Perhatian! Kondisi kesehatan mentalmu menunjukkan adanya peningkatan points pada tesmu. Jangan ragu untuk mengikuti tes lanjutan dan intervensi agar bisa segera mengatasinya.';
     } else {
-      return 'Belum ada hasil tes.';
+      return 'Kondisi kesehatan mentalmu belum mengalami perubahan. Teruslah menjaga diri dan berusaha untuk menemukan strategi baru yang bisa membantumu merasa lebih baik.';
     }
+  } else {
+    return 'Belum ada hasil tes untuk dibandingkan. Silakan lakukan tes terlebih dahulu untuk memantau kondisi kesehatan mentalmu.';
+  }
+};
+
+
+  const renderHistory = (history) => {
+    if (!Array.isArray(history)) return null;
+    return history.map((item, index) => (
+      <Card key={index} className="mb-2">
+        <Card.Body>
+          <Card.Title>{item.title}</Card.Title>
+          <Card.Text>Points: {item.points}</Card.Text>
+          <Card.Text>Tanggal Tes: {item.tanggal}</Card.Text>
+        </Card.Body>
+      </Card>
+    ));
   };
+
+  const renderSection = (title, history) => (
+    <>
+      <h5>{title}</h5>
+      {renderHistory(history)}
+    </>
+  );
 
   return (
     <>
       <Navbar />
-      <Container className="profile-container" style={{ marginTop: "150px" }}>
-        <Row className="profile-header">
-          <Col xs={12} md={3}>
-            <Image src={partisipan.foto_profile} roundedCircle className="profile-avatar" />
-          </Col>
-          <Col xs={12} md={6}>
-            <h2>Username: {partisipan.nama_partisipan}</h2>
-            <p>Email: {partisipan.email_partisipan}</p>
-            <p>Usia: {partisipan.usia}</p>
-            <p>Telephone: {partisipan.no_telp}</p>
-          </Col>
-          <Col xs={6} md={3} style={{ marginLeft: "-350px" }}>
-            <Card>
-              <Card.Body style={{ backgroundColor: '#f8f9fa' }}>
-                <h5 style={{ marginBottom: '20px' }}>Evaluasi</h5>
-                <Table bordered striped responsive style={{ borderColor: '#25B7D3' }}>
-                  <tbody>
-                  {postTestResult && initialSRQResult && (
-                      <>
-                        <tr>
-                          <td><strong>Perubahan:</strong></td>
-                          <td>{compareSRQResults(initialSRQResult, postTestResult)}</td>
-                        </tr>
-                      </>
-                    )}  
-                      <tr>
-                        <td colSpan="2">Maaf, belum ada evaluasi untukmu. Segera selesaikan intervensinya!</td>
-                      </tr>
-                    
-                  </tbody>
-                </Table>
+      <Container className="profile-container" style={{marginBottom:"70px"}}>
+        <Row>
+          <Col md={4} className="text-center">
+            <Card className="mb-3">
+              <Card.Body>
+                <Image
+                  src={partisipan.foto_profile || profileImage}
+                  roundedCircle
+                  className="profile-image mb-3"
+                />
+                <Card.Title>{partisipan.nama_partisipan}</Card.Title>
+                <Card.Text>Email: {partisipan.email_partisipan}</Card.Text>
+                <Card.Text>Usia: {partisipan.usia} tahun</Card.Text>
+                <Card.Text>No Telp: {partisipan.no_telp}</Card.Text>
               </Card.Body>
-
+            </Card>
+            <Card>
+              <Card.Body>
+                <h3><strong>Evaluasi Diri</strong></h3>
+                <br></br>
+                {postTestResult && initialSRQResult ? (
+                  <h4>{compareSRQResults(initialSRQResult, postTestResult)}</h4>
+                ) : (
+                  <h4>Maaf, belum ada evaluasi untukmu. Segera selesaikan intervensinya!</h4>
+                )}
+              </Card.Body>
             </Card>
           </Col>
+          <Col md={8}>
+            <Tabs defaultActiveKey="srq20" id="profile-tabs">
+              <Tab eventKey="srq20" title="Hasil Tes Screening">
+                {renderSection('', klasifikasiHistory)}
+
+                {klasifikasiHistory && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Screening SRQ-20</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan Tes Screening Kesehatan Mental <br></br>pada tanggal {new Date(klasifikasiHistory.tanggal_tes).toLocaleDateString('id-ID')}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{klasifikasiHistory.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Status</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'red', fontWeight: 'bold' }}>
+                                    {klasifikasiHistory.mental_disorders === 1 ? "Mengidap gangguan kesehatan mental" : "Kamu tidak memiliki gangguan kesehatan mental"}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'red', fontWeight: 'bold' }}>{klasifikasiHistory.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={test} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+
+                {postTestResult && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Post-Test Screening SRQ-20</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan Post-Test Screening Kesehatan Mental <br></br>pada tanggal {new Date(postTestResult.tanggal_tes).toLocaleDateString('id-ID')}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{postTestResult.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Status</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'blue', fontWeight: 'bold' }}>
+                                    {postTestResult.mental_disorders === 1 ? "Mengidap gangguan kesehatan mental" : "Kamu tidak memiliki gangguan kesehatan mental"}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'blue', fontWeight: 'bold' }}>{postTestResult.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={posttest} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+              </Tab>
+
+
+              <Tab eventKey="teslanjutan" title="Hasil Tes Lanjutan Gangguan Kesehatan Mental">
+                {cemasHistory && Object.keys(cemasHistory).length > 0 && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Tes DASS Cemas</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan tes ini pada tanggal {new Date(cemasHistory.tanggal_tes).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{cemasHistory.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'Red', fontWeight: 'bold' }}>{cemasHistory.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={cemas} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+                {stressHistory && Object.keys(stressHistory).length > 0 && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Tes DASS Stress</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan tes ini pada tanggal {new Date(stressHistory.tanggal_tes).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{stressHistory.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'Red', fontWeight: 'bold' }}>{stressHistory.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={stress} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+                {depresiHistory && Object.keys(depresiHistory).length > 0 && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Tes DASS Depresi</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan tes ini pada tanggal {new Date(depresiHistory.tanggal_tes).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{depresiHistory.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'Red', fontWeight: 'bold' }}>{depresiHistory.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={depresi} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+                {suicideHistory && Object.keys(suicideHistory).length > 0 && (
+                  <Card className="mb-2">
+                    <Card.Body>
+                      <Row>
+                        <Col md={8}>
+                          <Card.Title><h4><strong>Hasil Tes Suicide</strong></h4></Card.Title>
+                          <br></br>
+                          <Card.Text>
+                            Kamu sudah melakukan tes ini pada tanggal {new Date(suicideHistory.tanggal_tes).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                          </Card.Text>
+                          <br></br>
+                          <Card.Text>
+                            <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                              <tbody>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Total Points</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey' }}>{suicideHistory.points}</td>
+                                </tr>
+                                <tr>
+                                  <td style={{ borderBottom: '1px solid grey', paddingRight: '20px' }}><strong>Klasifikasi</strong></td>
+                                  <td style={{ borderBottom: '1px solid grey', color: 'Red', fontWeight: 'bold' }}>{suicideHistory.klasifikasi}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </Card.Text>
+                        </Col>
+                        <Col md={4}>
+                          <img src={suicide} alt="Screening" className="img-fluid" />
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+              </Tab>
+
+
+              <Tab eventKey="riwayatintervensi" title="Riwayat Intervensi">
+                {/* 54321 Method */}
+                {method54321 && method54321.length > 0 && (
+                  <Card className="outer-card">
+                    <Card.Body className="text-center">
+                      <Card.Title>
+                        <h4><strong>54321 Method</strong></h4>
+                      </Card.Title>
+                      <img
+                        src={method54}
+                        alt="Intervensi Gambar"
+                        className="centered-image"
+                        style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                      />
+                    </Card.Body>
+                    <Card.Body>
+                      <Row className="intervention-row">
+                        {method54321.map((item, index) => (
+                          <Col key={index} className="intervention-card">
+                            <Card>
+                              <Card.Body>
+                                <Card.Title>Hari ke-{item.hari}</Card.Title>
+                                <Card.Text>
+                                  Kamu {item.status === 1 ? "sudah melakukan" : "sudah melakukan"} intervensi pada tanggal <br></br>{new Date(item.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                </Card.Text>
+                                {index === method54321.length - 1 && (
+                                  <div className="intervention-button">
+                                    <Link to="/groundingdetail-user">
+                                    <button className="btn btn-light">
+                                      Yuk lanjutkan intervensimu sampai selesai
+                                    </button>
+                                    </Link>
+                                  </div>
+                                )}
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                )}
+
+                {/* Mindfulness */}
+                {mindfulness && mindfulness.length > 0 && (
+                 <Card className="outer-card">
+                 <Card.Body className="text-center">
+                   <Card.Title>
+                     <h4><strong>Mindfulness Based Stress Reduction</strong></h4>
+                   </Card.Title>
+                   <img
+                     src={mindfulnessgb}
+                     alt="Intervensi Gambar"
+                     className="centered-image"
+                     style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                   />
+                 </Card.Body>
+                 <Card.Body>
+                   <Row className="intervention-row">
+                     {mindfulness.map((item, index) => (
+                       <Col key={index} className="intervention-card">
+                         <Card>
+                           <Card.Body>
+                             <Card.Title>Minggu Ke-{item.intervention_week}</Card.Title>
+                             <Card.Text>
+                               Kamu {item.is_completed === 1 ? "sudah melakukan" : "belum melakukan"} intervensi hari ke - {item.intervention_day}<br></br> pada tanggal {new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                             </Card.Text>
+                             {index === mindfulness.length - 1 && (
+                               <div className="intervention-button">
+                               <Link to="/intervensimindfulness-user">
+                               <button className="btn btn-light">
+                                 Yuk lanjutkan intervensimu sampai selesai
+                               </button>
+                               </Link>
+                             </div>
+                             )}
+                           </Card.Body>
+                         </Card>
+                       </Col>
+                     ))}
+                   </Row>
+                 </Card.Body>
+               </Card>
+             )}
+
+                {coping && coping.length > 0 && (
+                <Card className="outer-card">
+                 <Card.Body className="text-center">
+                   <Card.Title>
+                     <h4><strong>Stress Coping Strategies</strong></h4>
+                   </Card.Title>
+                   <img
+                     src={copingbg}
+                     alt="Intervensi Gambar"
+                     className="centered-image"
+                     style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                   />
+                 </Card.Body>
+                 <Card.Body>
+                   <Row className="intervention-row">
+                     {coping.map((item, index) => (
+                       <Col key={index} className="intervention-card">
+                         <Card>
+                           <Card.Body>
+                             <Card.Title>Hari Ke-{item.hari}</Card.Title>
+                             <Card.Text>
+                               Kamu {item.status === 1 ? "sudah melakukan" : "sudah melakukan"} pada tanggal {new Date(item.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                             </Card.Text>
+                             {index === coping.length - 1 && (
+                               <div className="intervention-button">
+                               <Link to="/stress-detail">
+                               <button className="btn btn-light">
+                                 Yuk lanjutkan intervensimu sampai selesai
+                               </button>
+                               </Link>
+                             </div>
+                             )}
+                           </Card.Body>
+                         </Card>
+                       </Col>
+                     ))}
+                   </Row>
+                 </Card.Body>
+               </Card>
+             )}
+
+                {/* 30 Days Writing */}
+                {writing && writing.length > 0 && (
+                   <Card className="outer-card">
+                   <Card.Body className="text-center">
+                     <Card.Title>
+                       <h4><strong>30 Days Writing Challenge</strong></h4>
+                     </Card.Title>
+                     <img
+                       src={writingbg}
+                       alt="Intervensi Gambar"
+                       className="centered-image"
+                       style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                     />
+                   </Card.Body>
+                   <Card.Body>
+                     <Row className="intervention-row">
+                       {writing.map((item, index) => (
+                         <Col key={index} className="intervention-card">
+                           <Card>
+                             <Card.Body>
+                               <Card.Title>Hari Ke-{item.id_intervensi}</Card.Title>
+                               <Card.Text>
+                                 Kamu sudah melakukan intervesi pada tanggal {new Date(item.tanggal_submit).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                               </Card.Text>
+                               <Card.Text>
+                                 Dengan memberikan tanggapan <strong>"{item.respon}"</strong> 
+                               </Card.Text>
+                               {index === writing.length - 1 && (
+                                <div className="intervention-button">
+                                <Link to="/intervensi30days-user">
+                                <button className="btn btn-light">
+                                  Yuk lanjutkan intervensimu sampai selesai
+                                </button>
+                                </Link>
+                              </div>
+                               )}
+                             </Card.Body>
+                           </Card>
+                         </Col>
+                       ))}
+                     </Row>
+                   </Card.Body>
+                 </Card>
+               )}
+
+                {/* Activity Therapy */}
+                {jadwal && jadwal.length > 0 && (
+                   <Card className="outer-card">
+                   <Card.Body className="text-center">
+                     <Card.Title>
+                       <h4><strong>Activity Therapy</strong></h4>
+                     </Card.Title>
+                     <img
+                       src={activity}
+                       alt="Intervensi Gambar"
+                       className="centered-image"
+                       style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                     />
+                   </Card.Body>
+                   <Card.Body>
+                     <Row className="intervention-row">
+                       {jadwal.map((item, index) => (
+                         <Col key={index} className="intervention-card">
+                           <Card>
+                             <Card.Body>
+                               <Card.Title>Hari Ke-{item.hari}</Card.Title>
+                               <Card.Text>
+                                 Kamu {item.status === 1 ? "sudah melakukan" : "sudah melakukan"} intervensi ini pada tanggal {new Date(item.tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                               </Card.Text>
+                               {index === jadwal.length - 1 && (
+                                 <div className="intervention-button">
+                                 <Link to="/detail-terapi">
+                                 <button className="btn btn-light">
+                                   Yuk lanjutkan intervensimu sampai selesai
+                                 </button>
+                                 </Link>
+                               </div>
+                               )}
+                             </Card.Body>
+                           </Card>
+                         </Col>
+                       ))}
+                     </Row>
+                   </Card.Body>
+                 </Card>
+               )}
+
+                {/* CBT */}
+                {cbt && cbt.length > 0 && (
+                   <Card className="outer-card">
+                   <Card.Body className="text-center">
+                     <Card.Title>
+                       <h4><strong>Cognitive Behaviour Therapy</strong></h4>
+                     </Card.Title>
+                     <img
+                       src={cbtbg}
+                       alt="Intervensi Gambar"
+                       className="centered-image"
+                       style={{ width: '100%', maxWidth: '200px', margin: '20px auto' }}
+                     />
+                   </Card.Body>
+                   <Card.Body>
+                     <Row className="intervention-row">
+                       {cbt.map((item, index) => (
+                         <Col key={index} className="intervention-card">
+                           <Card>
+                             <Card.Body>
+                             <Card.Title>{item.judul_session}</Card.Title>
+                             <Card.Text>
+                                 Kamu sudah melakukan intervesi hari ke - {item.no_hari} pada tanggal {new Date(item.submission_date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                               </Card.Text>
+                               <Card.Text>
+                                 Dengan memberikan tanggapan <strong>"{item.jawaban}"</strong> 
+                               </Card.Text>
+                               {index === cbt.length - 1 && (
+                                 <div className="intervention-button">
+                                 <Link to="/cbt">
+                                 <button className="btn btn-light">
+                                   Yuk lanjutkan intervensimu sampai selesai
+                                 </button>
+                                 </Link>
+                               </div>
+                               )}
+                             </Card.Body>
+                           </Card>
+                         </Col>
+                       ))}
+                     </Row>
+                   </Card.Body>
+                 </Card>
+               )}
+
+              </Tab>
+            </Tabs>
+          </Col>
         </Row>
-        <Row xs={2} md={5} style={{ marginBottom: "50px" }}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Hasil Skrining SRQ-20</Card.Title>
-              <Table bordered striped responsive>
-                <tbody>
-                  {klasifikasiHistory ? (
-                    <>
-                      <tr>
-                        <td><strong>Points:</strong></td>
-                        <td>{klasifikasiHistory.points}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Mental Disorders:</strong></td>
-                        <td>{klasifikasiHistory.mental_disorders}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Klasifikasi:</strong></td>
-                        <td>{klasifikasiHistory.klasifikasi}</td>
-                      </tr>
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">Belum ada riwayat tes.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Hasil Dass Depresi</Card.Title>
-              <Table bordered striped responsive>
-                <tbody>
-                  {depresiHistory ? (
-                    <>
-                      <tr>
-                        <td><strong>Points:</strong></td>
-                        <td>{depresiHistory.points}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Klasifikasi:</strong></td>
-                        <td>{depresiHistory.klasifikasi}</td>
-                      </tr>
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">Belum ada riwayat tes depresi.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Hasil Tes Suicide</Card.Title>
-              <Table bordered striped responsive>
-                <tbody>
-                  {suicideHistory ? (
-                    <>
-                      <tr>
-                        <td><strong>Points:</strong></td>
-                        <td>{suicideHistory.points}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Klasifikasi:</strong></td>
-                        <td>{suicideHistory.klasifikasi}</td>
-                      </tr>
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">Belum ada riwayat tes suicide.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Hasil Tes Dass Cemas</Card.Title>
-              <Table bordered striped responsive>
-                <tbody>
-                  {cemasHistory ? (
-                    <>
-                      <tr>
-                        <td><strong>Points:</strong></td>
-                        <td>{cemasHistory.points}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Klasifikasi:</strong></td>
-                        <td>{cemasHistory.klasifikasi}</td>
-                      </tr>
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">Belum ada riwayat tes cemas.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-          <Card>
-            <Card.Body>
-              <Card.Title>Hasil Tes Dass Stress</Card.Title>
-              <Table bordered striped responsive>
-                <tbody>
-                  {stressHistory ? (
-                    <>
-                      <tr>
-                        <td><strong>Points:</strong></td>
-                        <td>{stressHistory.points}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Klasifikasi:</strong></td>
-                        <td>{stressHistory.klasifikasi}</td>
-                      </tr>
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">Belum ada riwayat tes stress.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Row>
-        <Tab.Container id="left-tabs-example" defaultActiveKey="home">
-          <Nav variant="tabs" className="profile-tabs">
-            <Nav.Item>
-              <Nav.Link eventKey="Cemas Ringan">Cemas Ringan</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Cemas Sedang">Cemas Sedang</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Stress Ringan">Stress Ringan</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Stress Sedang">Stress Sedang</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Depresi Ringan">Depresi Ringan</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="Depresi Sedang">Depresi Sedang</Nav.Link>
-            </Nav.Item>
-          </Nav>
-
-          <Tab.Content>
-  <Tab.Pane eventKey="Cemas Ringan">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi Teknik Grounding 5-4-3-2-1</h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {method54321 && method54321.length > 0 ? (
-          method54321.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>54321 Method - Hari ke-{item.hari}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Tanggal Intervensi:</strong></td>
-                        <td>{item.tanggal}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Status:</strong></td>
-                        <td>{item.status === 1 ? "Sudah dilakukan" : "Sudah dilakukan"}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (method54321 && method54321.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-<Tab.Content>
-  <Tab.Pane eventKey="Cemas Sedang">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi Mindfulness-Based Stress Reduction</h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {mindfulness && mindfulness.length > 0 ? (
-          mindfulness.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>Mindfulness - Week ke {item.intervention_week}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Hari ke :</strong></td>
-                        <td>{item.intervention_day}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Tanggal Intervensi:</strong></td>
-                        <td>{item.created_at}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Status:</strong></td>
-                        <td>{item.is_completed === 1 ? "Sudah dilakukan" : "Sudah dilakukan"}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (mindfulness && mindfulness.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-<Tab.Content>
-  <Tab.Pane eventKey="Stress Ringan">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi Coping Strategis</h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {coping && coping.length > 0 ? (
-          coping.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>Mindfulness - Hari ke {item.hari}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Tanggal Intervensi:</strong></td>
-                        <td>{item.tanggal}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Status:</strong></td>
-                        <td>{item.status === 1 ? "Sudah dilakukan" : "Sudah dilakukan"}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (coping && coping.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-<Tab.Content>
-  <Tab.Pane eventKey="Stress Sedang">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi 30 Days Writing Challenge</h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {writing && writing.length > 0 ? (
-          writing.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>30 Days Writing - Hari ke {item.id_intervensi}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Tanggal Intervensi:</strong></td>
-                        <td>{item.tanggal_submit}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Tanggapan :</strong></td>
-                        <td>{item.respon}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (writing && writing.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-<Tab.Content>
-  <Tab.Pane eventKey="Depresi Ringan">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi Activity Therapy</h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {jadwal && jadwal.length > 0 ? (
-          jadwal.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>Activity Therapy - Hari ke {item.hari}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Tanggal Intervensi:</strong></td>
-                        <td>{item.tanggal}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Tanggapan :</strong></td>
-                        <td>{item.status === 1 ? "Sudah dilakukan" : "Sudah dilakukan"}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (jadwal && jadwal.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-<Tab.Content>
-  <Tab.Pane eventKey="Depresi Sedang">
-    <Row className="profile-content">
-      <h5 style={{ fontSize: "35px", fontWeight: "bold", marginBottom: "50px" }}>Perjalanan Intervensi Cognitive Behavior Therapy (CBT) </h5>
-      <Row xs={10} md={10} style={{ marginBottom: "100px" }}>
-        {cbt && cbt.length > 0 ? (
-          cbt.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-3">
-              <Card>
-                <Card.Body>
-                  <Card.Title>CBT - {item.judul_session}</Card.Title>
-                  <Table bordered striped responsive>
-                    <tbody>
-                      <tr>
-                        <td><strong>Hari Ke-:</strong></td>
-                        <td>{item.no_hari}</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Tangal Intervensi:</strong></td>
-                        <td>{item.submission_date}</td>
-                      </tr>
-                      <tr>
-                      <td><strong>Tanggapan :</strong></td>
-                        <td>{item.jawaban}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-              {/* Add button for the last day */}
-              {index === (cbt && cbt.length - 1) && (
-                <div className="mt-3">
-                  <button className="btn btn-primary">
-                    Yuk lanjutkan intervensimu sampai selesai
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))
-        ) : (
-          <Card>
-            <Card.Body>
-              <p>Oops! Sepertinya kamu tidak melakukan intervensi ini.</p>
-            </Card.Body>
-          </Card>
-        )}
-      </Row>
-    </Row>
-  </Tab.Pane>
-</Tab.Content>
-
-
-
-        </Tab.Container>
       </Container>
-      <Footer />
     </>
   );
 };

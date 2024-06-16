@@ -9,6 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import stressSedang from "../images/intervensi/streesringan1.png";
 import stressRingan from "../images/intervensi/streessedang1.png";
+import normalImage from '../images/stress/normal.jpg';
+import ringanImage from '../images/stress/ringan.jpg';
+import sedangImage from '../images/stress/sedang.jpg';
+import beratImage from '../images/stress/parah.jpg';
+import sangatParahImage from '../images/stress/sangat_parah.jpg';
 
 const HasilDassStress = () => {
   const [hasilKlasifikasi, setHasilKlasifikasi] = useState(null);
@@ -96,6 +101,28 @@ const HasilDassStress = () => {
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
+
+    // Fungsi untuk mengambil nama klasifikasi dan warna yang sesuai
+    const getClassNameAndColor = () => {
+      if (hasilKlasifikasi) {
+        switch (hasilKlasifikasi.klasifikasi) {
+          case 'Stress Normal':
+            return { className: 'Stress Normal', color: '#FFBF78', image: normalImage }; // oren muda
+          case 'Stress Ringan':
+            return { className: 'Stress Ringan', color: '#A7D397' ,  image: ringanImage }; // hijau muda
+          case 'Stress Sedang':
+            return { className: 'Stress Sedang', color: '#ffb6c1', image: sedangImage }; // pink muda
+          case 'Stress Parah':
+            return { className: 'Stress Parah', color: '#FD9B63', image: beratImage }; // merah muda
+          case 'Stress Sangat Parah':
+            return { className: 'Stress Sangat Parah', color: '#FF7F3E', image: sangatParahImage  }; // merah muda
+          default:
+            return { className: '', color: '#ffffff' , image : null};
+        }
+      }
+      return { className: '', color: '#ffffff', image : null };
+    };
+
   const renderDailyInsights = () => (
     <Row className="justify-content-center" style={{marginBottom:"50px"}}>
       {dailyInsights.map((daily_insight) => (
@@ -126,62 +153,63 @@ const HasilDassStress = () => {
       ))}
     </Row>
   );
+
+  const points = hasilKlasifikasi ? hasilKlasifikasi.points : '';
+  const klasifikasi = hasilKlasifikasi ? hasilKlasifikasi.klasifikasi : '';
+  const { className, color, image } = getClassNameAndColor();
+
   return (
     <>
       <Navbar />
       <Container className="mt-5" style={{ marginBottom: "50px", paddingTop: "100px" }}>
-        <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts-2">
-            <br />
-            Hasil Klasifikasi
-            <br />
-          </h6>
-        </div>
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <Card>
-              <Card.Body>
-                {error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div>
-                    <Table bordered striped responsive className="mb-4" style={{fontSize:"18px"}}>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <strong>Tanggal:</strong>
-                          </td>
-                          <td>
-                            {formatDate(
-                              hasilKlasifikasi && hasilKlasifikasi.tanggal_tes
-                            )}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Points:</strong>
-                          </td>
-                          <td>{hasilKlasifikasi && hasilKlasifikasi.points}</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Klasifikasi:</strong>
-                          </td>
-                          <td>
-                            {hasilKlasifikasi && hasilKlasifikasi.klasifikasi}
-                          </td>
-                        </tr>
-                        <tr>
-                          
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        <Container className="text-center mt-4">
+      <h6 className="section-title mb-2 tfonts-2">
+        <br />
+        Hasil Klasifikasi Tes DASS Stress
+        <br />
+      </h6>
+      <Row className="justify-content-center mt-4">
+        <Col md={8}>
+          <Card style={{ backgroundColor: color }}>
+            <Card.Body>
+              <Row>
+                <Col md={6} className="text-left">
+                  {/* Gambar sesuai klasifikasi */}
+                  {image && (
+                    <img
+                      src={image} // Path gambar diambil dari import
+                      alt={klasifikasi}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}
+                    />
+                  )}
+                </Col>
+                <Col md={6}>
+                <br></br><br></br><br></br><br></br>
+                  <Card style={{ backgroundColor: 'white' }}>
+                    <Card.Body>
+                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>Total Points Kamu </p>
+                      <Container style={{ backgroundColor: 'white', color: 'white', textAlign: 'center', padding: '10px' , fontWeight: 'bold', fontSize: '25px'}}>
+                        <strong>{points}</strong>
+                      </Container>
+                      <Container style={{ backgroundColor: color , color: 'black', textAlign: 'center', padding: '10px' }}>
+                        <p style={{ fontWeight: 'bold', fontSize: '20px' }}> Klasifikasi: {klasifikasi}</p>
+                      </Container>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              {error && (
+                <Row className="mt-4">
+                  <Col md={12}>
+                    <p>{error}</p>
+                  </Col>
+                </Row>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
 
         <Container
           className="mt-3 text-center d-flex justify-content-center"
@@ -196,8 +224,8 @@ const HasilDassStress = () => {
                 <Container className="mt-3 text-center d-flex justify-content-center" style={{marginBottom:"10px"}}>
                   <Col md={10} >
                     <Alert variant="white" style={{ fontSize:"18px"}}>
-                      <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Kesehatanmu Sangat Baik</h4>
-                      <p style={{marginBottom:"20px"}}>Selamat, kamu memiliki mental yang sehat. Tetap jaga kesehatan mentalmu dan lanjut ke artikel harian!</p><br/>
+                      <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Dass Stress kamu menunjukkan hasil yang normal.</h4>
+                      <p style={{marginBottom:"20px"}}>Cobalah buang hal negatif yang menghantui pikiranmu. Tetap jaga kesehatan mentalmu dan yuk lanjut ke artikel harian untuk lebih menjaga kesehatan mentalmu!</p><br/>
                       {renderDailyInsights()}
                       <Button variant="light"
                         className="custom-button"
@@ -215,8 +243,8 @@ const HasilDassStress = () => {
               )}
                   {hasilKlasifikasi.klasifikasi === "Stress Ringan" && (
                     <>
-                      Anda dapat mencoba teknik-teknik pernapasan dan relaksasi
-                      untuk mengurangi kecemasan. Jika perlu,{" "}
+                      Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
                       <Link to="/intervensi-stresscoping-user">
                         konsultasikan dengan psikolog atau terapis
                       </Link>{" "}
@@ -237,13 +265,12 @@ const HasilDassStress = () => {
                   )}
                   {hasilKlasifikasi.klasifikasi === "Stress Sedang" && (
                     <>
-                      Selain mencoba teknik-teknik pernapasan dan relaksasi,
-                      pertimbangkan untuk <br/> berbicara dengan seseorang yang Anda
-                      percayai tentang perasaan Anda.{" "}
-                      <Link to="/intervensi30days-user">
-                        <br/>Psikolog atau terapis
+                      Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
+                      <Link to="/intervensi-stresscoping-user">
+                        konsultasikan dengan psikolog atau terapis
                       </Link>{" "}
-                      juga dapat memberikan bantuan yang berguna.
+                      untuk bantuan tambahan.
                       <Col xs={6} md={3} lg={3} style={{marginLeft:"380px", marginTop:"50px"}}>
                         <Card className="h-100 card-hover" style={{ marginLeft: '10px', height: '250px' }}>
                             <Card.Body className="d-flex align-items-center justify-content-center flex-column">
@@ -264,7 +291,7 @@ const HasilDassStress = () => {
                   <Container className="mt-3">
                     <Row className="justify-content-center">
                       <Col md={10}>
-                        <h1 className="subtitle">Oh Tidak! Kamu memiliki kondisi stress yang kurang baik. Berikut beberapa psikolog rekomendasi kami yang dapat membantumu menghilangkan stress berlebih.</h1>
+                        <h1 className="subtitle">Oh Tidak! Kamu memiliki kondisi stress yang sudah parah. Berikut beberapa psikolog rekomendasi kami yang dapat membantumu menghilangkan stress berlebih.</h1>
                         <Row>
                           {psikologs.map((psikolog) => (
                             <Col key={psikolog.id_psikolog} xs={12} sm={6} md={4} className="mb-4">
@@ -312,7 +339,7 @@ const HasilDassStress = () => {
                     <br /> Psikotes ini bukan milik atau buatan penulis sendiri,
                     namun berdasarkan referensi yang biasa digunakan di praktek
                     klinis dan sudah divalidasi. Hasil tes ini sangat bersifat
-                    obyektif, untuk diagnosis diperlukan langsung dengan
+                    objektif, untuk diagnosis diperlukan langsung dengan
                     psikiater.
                   </p>
                   <br />

@@ -169,14 +169,14 @@ const KuisionerPage = () => {
       <Container style={{marginLeft:"200px"}}>
         {renderQuestionsSection(0, 10)}
         {renderQuestionsSection(10, 20)}
-        <div style={{ marginTop: '10px', marginBottom:"100px" }}>
+        <div style={{ marginTop: '10px', marginBottom:"100px", marginLeft:"450px" }}>
           <Button
             variant="light"
             className="custom-button"
             style={{
               borderRadius: "50px",
               fontWeight: "bold",
-              padding: '15px 25px',
+              padding: '12px 20px',
               fontSize: '17px'
             }}
             onClick={handleSubmit}
@@ -188,18 +188,18 @@ const KuisionerPage = () => {
       </Container>
       <Footer />
 
-      {/* Modal untuk Jalankan Klasifikasi */}
-      <Modal show={showModal} onHide={handleCloseModal} centered backdrop keyboard={false} style={{ zIndex: 1050 }}>
+       {/* Modal untuk Jalankan Klasifikasi */}
+       <Modal show={showModal} onHide={handleCloseModal} centered backdrop keyboard={false} style={{ zIndex: 1050 }}>
         <Modal.Header closeButton>
-          <Modal.Title>Jalankan Klasifikasi</Modal.Title>
+          <Modal.Title>Klasifikasi Gangguan Kesehatan Mental</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Apakah Anda ingin menjalankan klasifikasi sekarang?</p>
+          <p>Apakah kamu ingin mengetahui hasil klasifikasi gangguan kesehatan mental?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>Tutup</Button>
           <Button variant="primary" onClick={handleRunPython} disabled={isSubmitting}>
-            Jalankan Klasifikasi
+            Ya, Saya ingin tahu
           </Button>
         </Modal.Footer>
       </Modal>

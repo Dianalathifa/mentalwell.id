@@ -203,7 +203,6 @@ const JadwalTujuan = () => {
         </Row>
       </Container>
       <br/><br/><br/>
-      <Footer/>
     </>
   );
 };

@@ -115,6 +115,13 @@
   color: white;
   font-weight: bold;
 }
+.background{
+  background-color: #E3F7FE;
+}
+
+.margin-top{
+  margin-top: -50px;
+}
 
 /* Global styles */
 body {
@@ -478,4 +485,15 @@ body {
 .scrollable-cards-container .card {
   min-width: 300px;
   margin-right: 20px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #2F3E88;
+  text-align: left;
+  line-height: 1.75;
+  margin: 15px 0;
+  padding: 0 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }

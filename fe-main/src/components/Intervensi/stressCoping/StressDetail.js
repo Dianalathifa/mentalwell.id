@@ -61,7 +61,7 @@ const StressDetail = () => {
                 container: `#waveform`,
                 waveColor: '#F5A5AD',
                 progressColor: '#FFD5DF',
-                height: 80,
+                height: 60,
                 barWidth: 2,
                 responsive: true
             });
@@ -83,14 +83,14 @@ const StressDetail = () => {
 return (
     <>
     <Navbar />
-    <div style={{marginTop:"150px"}}>
-    <Container className="mt-5" style={{padding:"50px",backgroundColor:"#F5A5AD", borderRadius:"50px"}}>
-      <Row className="justify-content-center">
+    <Container style={{ marginTop: "140px", maxWidth: "900px" }}>
+    <Container className="mt-5" style={{padding:"30px",backgroundColor:"#F5A5AD", borderRadius:"50px"}}>
+      <Row className="justify-content-center" >
         <Col md={5}>
-              <h6 style={{ fontSize: "20px", marginTop:"45px", fontWeight:"bold" }}>
+              <h6 style={{ fontSize: "18px", marginTop:"5px", fontWeight:"bold" }}>
                 Intervensi Stress Ringan
                 </h6>
-              <h6 style={{ fontSize: "35px",  fontWeight:"bold", marginBottom:"20px" }}>
+              <h6 style={{ fontSize: "30px",  fontWeight:"bold", marginBottom:"20px" }}>
                 Stress Coping Strategies 
                  </h6>
                  {/* Display Voice Over */}
@@ -121,12 +121,12 @@ return (
             variant="light"
             className="custom-button" // Tambahkan kelas custom-button di sini
             style={{
-              marginTop:"25px",
+              marginTop:"5px",
               borderRadius: "50px",
               backgroundColor:"#7F91D8",
               fontWeight: "bold",
-              padding: '17px 20px', // Atur padding untuk mengatur ukuran tombol
-              fontSize: '16px' // Atur ukuran font teks tombol
+              padding: '10px 15px', // Atur padding untuk mengatur ukuran tombol
+              fontSize: '13px' // Atur ukuran font teks tombol
             }}
           >
           Mulai Checklist Harian
@@ -138,19 +138,15 @@ return (
         </Col>
       </Row>
     </Container>
-    </div>
+    </Container>
 
-    <div className="container text-center" style={{marginTop:"55px"}}>
-      </div>
-      <div className="container">
+      <div className="container"style={{marginTop:"35px",maxWidth: "900px"}}>
         <div className="row">
           {stressCoping.map((stressCoping) => (
             <InterventionCard key={stressCoping.id} intervention={stressCoping} />
           ))}
         </div>
-      <br/><br/><br/><br/>
       </div>
-      <Footer/>
         
       </>
     );
@@ -159,9 +155,9 @@ return (
 const InterventionCard = ({ intervention }) => {
   const { image,  link } = intervention;
   return (
-    <div className="col-md-3 mb-3">
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={image} style={{ height: '300px' }} />
+    <div className="col-md-3 mb-3 justify-content-center">
+      <Card style={{ width: '15rem', margin:"10px",borderRadius:"15px"}}>
+      <Card.Img variant="top" src={image} style={{ height: '210px' }} />
           <Link to={link} className="stretched-link"></Link>
       </Card>
     </div>

@@ -55,7 +55,7 @@ const CBT = () => {
                 container: `#waveform`,
                 waveColor: '#F5A5AD',
                 progressColor: '#F5A5AD80',
-                height: 80,
+                height: 60,
                 barWidth: 2,
                 responsive: true
             });
@@ -98,14 +98,14 @@ const CBT = () => {
   return (
     <>
       <Navbar />
-      <div style={{ marginTop: "150px" }}>
-        <Container className="mt-5" style={{ padding: "60px", backgroundColor: "#F5A5AD80", borderRadius: "50px" }}>
+      <Container style={{ marginTop: "150px", maxWidth: "900px"}}>
+        <Container className="mt-5" style={{ padding: "30px", backgroundColor: "#F5A5AD80", borderRadius: "30px" }}>
           <Row className="justify-content-center">
-            <Col md={6}>
-              <h6 style={{ fontSize: "25px", marginTop: "30px", fontWeight: "bold" }}>
+            <Col md={7}>
+              <h6 style={{ fontSize: "18px", marginTop: "10px", fontWeight: "bold" }}>
                 Intervensi Depresi Sedang
               </h6>
-              <h6 style={{ fontSize: "35px", fontWeight: "bold", marginBottom:"30px" }}>
+              <h6 style={{ fontSize: "25px", fontWeight: "bold", marginBottom:"30px" }}>
                 CBT (Cognitive Behavior Therapy)
               </h6>
                {/* Display Voice Over */}
@@ -138,12 +138,8 @@ const CBT = () => {
             </Col>
           </Row>
         </Container>
-      </div>
-      <div className="container text-center mt-5">
-        <h6 className="section-title mb-2 tfonts-2">
-          {/* <br />Lathan Mem Depresi<br /><br /> */}
-        </h6>
-      </div>
+      </Container>
+      
       <div className="container">
         <div className="row">
           {CBTSections.map((CBT) => (
@@ -151,22 +147,25 @@ const CBT = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 };
 
 const InterventionCard = ({ intervention }) => {
-  const { image, text, link } = intervention;
+  const { image, link } = intervention;
   return (
-    <div className="col-md-3 mb-4" style={{ marginLeft: "80px" }}>
-      <Card style={{ width: '17rem', margin:"30px" }}>
-        <Card.Img variant="top" src={image} style={{ height: '300px', objectFit: 'cover', objectPosition: 'center' }} />
-          <Link to={link} className="stretched-link"></Link>
-        
+    <div className="col-md-3 mb-3 d-flex justify-content-center" style={{ marginLeft:"80px",marginTop: '20px' }}>
+      <Card style={{ width: '15rem' }}>
+        <Card.Img 
+          variant="top" 
+          src={image} 
+          style={{ height: '250px', objectFit: 'cover', objectPosition: 'center' }} 
+        />
+        <Link to={link} className="stretched-link"></Link>
       </Card>
     </div>
   );
 };
+
 
 export default CBT;

@@ -128,7 +128,6 @@ const Checklist = () => {
                 </Toast>
             </ToastContainer>
         </Container>
-        <Footer/>
         </>
     );
 };

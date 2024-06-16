@@ -48,7 +48,6 @@ const Puzzle = () => {
             Rasakan betapa menyenangkannya kegiatan  ini dan bagaimana hal tersebut dapat menghilangkan stres dalam  sekejap."</p>
           </div>
         </Col>
-        <br /><br /><br />
       </Container>
 
       <Container className="mt-3">
@@ -65,8 +64,7 @@ const Puzzle = () => {
           ))}
         </Row>
       </Container>
-      <br /><br /><br /><br />
-      <Footer />
+     
     </>
   );
 };

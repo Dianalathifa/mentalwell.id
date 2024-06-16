@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AdminAuthProvider } from './components/admin/AdminAuthContext';
 import { PartisipanAuthProvider } from './components/Partisipan/PartisipanAuthContext';
 import HasilSRQ from "./components/jawaban/HasilSRQ";
+
 import Mindfulness from "./components/Intervensi/IntervensiMindfulness";
 
 const Landing = lazy(() => import("./components/Home"));
@@ -20,8 +21,8 @@ const EditKategori = lazy(() => import("./components/kategoritest/EditKategori")
 const Kuisioner = lazy(() => import("./components/Kuisioner/Kuisioner"));
 const AddKuisioner = lazy(() => import("./components/Kuisioner/AddKuisioner"));
 const EditKuisioner = lazy(() => import("./components/Kuisioner/EditKuisioner"));
-const Jawaban = lazy(() => import ("./components/jawaban/Jawaban"))
-const JawabanSRQ = lazy(() => import ("./components/jawaban/JawabanSRQ"))
+const Jawaban = lazy(() => import("./components/jawaban/Jawaban"))
+const JawabanSRQ = lazy(() => import("./components/jawaban/JawabanSRQ"))
 const PsikologList = lazy(() => import("./components/psikolog/PsikologList"));
 const DailyInsight = lazy(() => import("./components/dailyinsight/DailyInsight"));
 const AddDailyInsight = lazy(() => import("./components/dailyinsight/AddDailyInsight"));
@@ -38,11 +39,9 @@ const PartisipanLogin = lazy(() => import("./components/Partisipan/PartisipanLog
 const PartisipanRegister = lazy(() => import("./components/Partisipan/PartisipanRegister"));
 const PartisipanProfile = lazy(() => import("./components/Partisipan/PartisipanProfile"));
 const EditPartisipan = lazy(() => import("./components/Partisipan/EditPartisipan"));
-const DASS42Cemas = lazy(() => import ("./components/mentalTest/DASS42Cemas"));
-const DASS42Depresi = lazy(() => import ("./components/mentalTest/DASS42Depresi"));
-const DASS42Stress = lazy(() => import ("./components/mentalTest/DASS42Stress"));
-const DASS42Detail = lazy(() => import ("./components/mentalTest/DASS42Detail"));
-// const KategoriDASS42 = lazy(() => import ("./components/mentalTest/KategoriDass42"));
+const DASS42Cemas = lazy(() => import("./components/mentalTest/DASS42Cemas"));
+const DASS42Depresi = lazy(() => import("./components/mentalTest/DASS42Depresi"));
+const DASS42Stress = lazy(() => import("./components/mentalTest/DASS42Stress"));
 const SRQTest = lazy(() => import("./components/mentalTest/SRQTest"));
 const SRQDetail = lazy(() => import("./components/mentalTest/SRQDetail"));
 const Suicide = lazy(() => import("./components/mentalTest/Suicide"));
@@ -50,64 +49,57 @@ const SuicideTest = lazy(() => import("./components/mentalTest/SuicideTest"));
 const MentalWellTest = lazy(() => import("./components/mentalTest/MentalWellTest"));
 const PostTest = lazy(() => import("./components/mentalTest/PostTest"));
 
-const EditIntervensi =lazy(() =>  import ("./components/Intervensi/EditIntervensi"));
-const IntervensiAdmin = lazy (() => import ("./components/Intervensi/Intervensi"));
-const IntervensiDetail = lazy (() => import ("./components/Intervensi/IntervensiDetail"));
-const AddIntervensi = lazy (() => import ("./components/Intervensi/AddIntervensi"));
-const IntervensiTerapi = lazy (() => import ("./components/Intervensi/depresiRingan/IntervensiTerapi"));
-const DetailTerapi = lazy (() => import ("./components/Intervensi/depresiRingan/DetailTerapi"));
-const Intervensi30Days = lazy (() => import ("./components/Intervensi/30dayChallenge/Intervensi30Days"));
-const ChallengeDetail = lazy (() => import ("./components/Intervensi/30dayChallenge/30DaysDetail"));
-const IntervensiStressCoping = lazy (() => import ("./components/Intervensi/stressCoping/IntervensiStressCoping"));
-const IntervensiTeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/IntervensiTeknikGrounding"));
-const TeknikGroundingDetail = lazy (() => import ("./components/Intervensi/teknik54321/Detail"));
-const TeknikGrounding = lazy (() => import ("./components/Intervensi/teknik54321/54321"));
-const IntervensiMindfulness = lazy (() => import ("./components/Intervensi/IntervensiMindfulness"));
+const EditIntervensi = lazy(() => import("./components/Intervensi/EditIntervensi"));
+const IntervensiAdmin = lazy(() => import("./components/Intervensi/Intervensi"));
+const IntervensiDetail = lazy(() => import("./components/Intervensi/IntervensiDetail"));
+const AddIntervensi = lazy(() => import("./components/Intervensi/AddIntervensi"));
+const DetailTerapi = lazy(() => import("./components/Intervensi/depresiRingan/DetailTerapi"));
+const Intervensi30Days = lazy(() => import("./components/Intervensi/30dayChallenge/Intervensi30Days"));
+const IntervensiStressCoping = lazy(() => import("./components/Intervensi/stressCoping/IntervensiStressCoping"));
+const IntervensiTeknikGrounding = lazy(() => import("./components/Intervensi/teknik54321/IntervensiTeknikGrounding"));
+const TeknikGroundingDetail = lazy(() => import("./components/Intervensi/teknik54321/Detail"));
+const TeknikGrounding = lazy(() => import("./components/Intervensi/teknik54321/54321"));
+const IntervensiMindfulness = lazy(() => import("./components/Intervensi/IntervensiMindfulness"));
 
-const Cemas = lazy (() => import ("./components/Intervensi/Cemas"));
-const Stress = lazy (() => import ("./components/Intervensi/Stress"));
-const Depresi = lazy (() => import ("./components/Intervensi/Depresi"));
+const Cemas = lazy(() => import("./components/Intervensi/Cemas"));
+const Stress = lazy(() => import("./components/Intervensi/Stress"));
+const Depresi = lazy(() => import("./components/Intervensi/Depresi"));
 
-const PenjelasanCBT = lazy (() => import ("./components/Intervensi/depresiSedang/Penjelasan"));
-const MBSR = lazy (() => import ("./components/Intervensi/mindfulness/MBSR"));
-const LatihanMindfulness = lazy (() => import ("./components/Intervensi/mindfulness/LatihanMindfulness"));
-const BodyScan = lazy (() => import ("./components/Intervensi/mindfulness/BodyScan"));
-const MBSRImplementation = lazy (() => import ("./components/Intervensi/mindfulness/MBSRImplementation"));
-const FormStress = lazy (() => import ("./components/Intervensi/30dayChallenge/FormStress"));
+const MBSR = lazy(() => import("./components/Intervensi/mindfulness/MBSR"));
+const LatihanMindfulness = lazy(() => import("./components/Intervensi/mindfulness/LatihanMindfulness"));
+const BodyScan = lazy(() => import("./components/Intervensi/mindfulness/BodyScan"));
+const MBSRImplementation = lazy(() => import("./components/Intervensi/mindfulness/MBSRImplementation"));
+const FormStress = lazy(() => import("./components/Intervensi/30dayChallenge/FormStress"));
 
-const HasilKlasifikasi = lazy (() => import ("./components/Partisipan/HasilKlasifikasi"));
-const HasilDASSDepresi = lazy (() => import ("./components/Partisipan/HasilDassDepresi"));
-const HasilDASSCemas = lazy (() => import ("./components/Partisipan/HasilDassCemas"));
-const HasilDASSStress = lazy (() => import ("./components/Partisipan/HasilDassStress"));
-const HasilSuicide = lazy (() => import ("./components/Partisipan/HasilSuicide"));
-const HasilPostTest = lazy (() => import ("./components/Partisipan/HasilPostTest"));
+const HasilKlasifikasi = lazy(() => import("./components/Partisipan/HasilKlasifikasi"));
+const HasilDASSDepresi = lazy(() => import("./components/Partisipan/HasilDassDepresi"));
+const HasilDASSCemas = lazy(() => import("./components/Partisipan/HasilDassCemas"));
+const HasilDASSStress = lazy(() => import("./components/Partisipan/HasilDassStress"));
+const HasilSuicide = lazy(() => import("./components/Partisipan/HasilSuicide"));
+const HasilPostTest = lazy(() => import("./components/Partisipan/HasilPostTest"));
 
-const JadwalTidur = lazy (() => import ("./components/Intervensi/activity/JadwalTidur"));
-const JadwalOlahraga = lazy (() => import ("./components/Intervensi/activity/JadwalOlahraga"));
-const JadwalKegiatan = lazy (() => import ("./components/Intervensi/activity/JadwalKegiatan"));
-const JadwalTujuan = lazy (() => import ("./components/Intervensi/activity/JadwalTujuan"));
-const PolaMakan = lazy (() => import ("./components/Intervensi/activity/PolaMakan"));
-const Mindfulness1 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness1"));
-const Mindfulness2 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness2"));
-const Mindfulness3 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness3"));
-const Mindfulness4 = lazy (() => import ("./components/Intervensi/mindfulness/Mindfulness4"));
+const JadwalTidur = lazy(() => import("./components/Intervensi/activity/JadwalTidur"));
+const JadwalOlahraga = lazy(() => import("./components/Intervensi/activity/JadwalOlahraga"));
+const JadwalKegiatan = lazy(() => import("./components/Intervensi/activity/JadwalKegiatan"));
+const JadwalTujuan = lazy(() => import("./components/Intervensi/activity/JadwalTujuan"));
+const PolaMakan = lazy(() => import("./components/Intervensi/activity/PolaMakan"));
 
-const Nothing2mnt = lazy (() => import ("./components/Intervensi/stressCoping/Nothing2Mnt"));
-const Grateful = lazy (() => import ("./components/Intervensi/stressCoping/Grateful"));
-const Coloring = lazy (() => import ("./components/Intervensi/stressCoping/Coloring"));
-const Puzzle = lazy (() => import ("./components/Intervensi/stressCoping/Puzzle"));
-const VideoStressAdmin = lazy (() => import ("./components/admin/VideoStress"));
-const StressDetail = lazy (() => import ("./components/Intervensi/stressCoping/StressDetail"));
+const Nothing2mnt = lazy(() => import("./components/Intervensi/stressCoping/Nothing2Mnt"));
+const Grateful = lazy(() => import("./components/Intervensi/stressCoping/Grateful"));
+const Coloring = lazy(() => import("./components/Intervensi/stressCoping/Coloring"));
+const Puzzle = lazy(() => import("./components/Intervensi/stressCoping/Puzzle"));
+const VideoStressAdmin = lazy(() => import("./components/admin/VideoStress"));
+const StressDetail = lazy(() => import("./components/Intervensi/stressCoping/StressDetail"));
 
-const CBT = lazy (() => import ("./components/Intervensi/depresiSedang/CBT"));
-const CBTPikiran = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPikiran"));
-const CBTPerasaan = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPerasaan"));
-const CBTPercayaDiri = lazy (() => import ("./components/Intervensi/depresiSedang/CBTPercayaDiri"));
+const CBT = lazy(() => import("./components/Intervensi/depresiSedang/CBT"));
+const CBTPikiran = lazy(() => import("./components/Intervensi/depresiSedang/CBTPikiran"));
+const CBTPerasaan = lazy(() => import("./components/Intervensi/depresiSedang/CBTPerasaan"));
+const CBTPercayaDiri = lazy(() => import("./components/Intervensi/depresiSedang/CBTPercayaDiri"));
 
-const CBTSession = lazy (() => import ("./components/Intervensi/depresiSedang/CbtSession"));
+const CBTSession = lazy(() => import("./components/Intervensi/depresiSedang/CbtSession"));
 
-const DailyTask = lazy (() => import ("./components/Intervensi/depresiSedang/DailyTask"));
-const DetailDailyTask = lazy (() => import ("./components/Intervensi/depresiSedang/DetailDailyTask"));
+const DailyTask = lazy(() => import("./components/Intervensi/depresiSedang/DailyTask"));
+const DetailDailyTask = lazy(() => import("./components/Intervensi/depresiSedang/DetailDailyTask"));
 
 const CBTSessionAdmin = lazy(() => import("./components/admin/CBTSession"));
 const DailyTaskAdmin = lazy(() => import("./components/admin/DailyTask"));
@@ -116,7 +108,7 @@ const CemasRinganChecklist = lazy(() => import("./components/Intervensi/teknik54
 const StressRinganChecklist = lazy(() => import("./components/Intervensi/stressCoping/StressDailyChecklist"));
 const DepresiRinganChecklist = lazy(() => import("./components/Intervensi/activity/DepresiDailyChecklist"));
 
-const VoiceOverAdmin = lazy (() => import ("./components/admin/VoiceOvers"));
+const VoiceOverAdmin = lazy(() => import("./components/admin/VoiceOvers"));
 
 
 
@@ -129,15 +121,14 @@ function App() {
         <AdminAuthProvider>
           <PartisipanAuthProvider>
             <Switch>
-               {/* HOME */}
+              {/* HOME */}
               <Route exact path="/" component={Landing} />
               <Route path="/about-us" component={AboutUs} />
 
-               {/* KATEGORI TEST */}
+              {/* KATEGORI TEST */}
               <Route exact path="/dass42cemas-user" component={DASS42Cemas} />
               <Route exact path="/dass42depresi-user" component={DASS42Depresi} />
               <Route exact path="/dass42stress-user" component={DASS42Stress} />
-              <Route exact path="/dass42detail-user" component={DASS42Detail} />
               <Route exact path="/suicide-user" component={Suicide} />
               <Route exact path="/suicidetest-user" component={SuicideTest} />
               {/* <Route exact path="/dass42kategori-user" component={KategoriDASS42} /> */}
@@ -152,13 +143,11 @@ function App() {
               <Route exact path="/hasil-test-suicide" component={HasilSuicide} />
               <Route exact path="/hasil-post-test" component={HasilPostTest} />
 
-               {/* INTERVENSI */}
+              {/* INTERVENSI */}
               <Route exact path="/intervensidetail-user" component={IntervensiDetail} />
-              <Route exact path="/intervensiterapi-user" component={IntervensiTerapi} />
               <Route exact path="/detail-terapi" component={DetailTerapi} />
               <Route exact path="/intervensimindfulness-user" component={IntervensiMindfulness} />
               <Route exact path="/intervensi30days-user" component={Intervensi30Days} />
-              <Route exact path="/30daysdetail-user" component={ChallengeDetail} />
               <Route exact path="/intervensi-stresscoping-user" component={IntervensiStressCoping} />
               <Route exact path="/intervensigrounding-user" component={IntervensiTeknikGrounding} />
               <Route exact path="/groundingdetail-user" component={TeknikGroundingDetail} />
@@ -168,7 +157,6 @@ function App() {
               <Route exact path="/puzzle&game" component={Puzzle} />
               <Route exact path="/stress-detail" component={StressDetail} />
 
-              <Route exact path="/penjelasan-cbt" component={PenjelasanCBT} />
               <Route exact path="/cbt" component={CBT} />
               <Route exact path="/cbt-pikiran" component={CBTPikiran} />
               <Route exact path="/cbt-perasaan" component={CBTPerasaan} />
@@ -185,10 +173,7 @@ function App() {
               <Route exact path="/jadwal-tujuan" component={JadwalTujuan} />
               <Route exact path="/pola-makan" component={PolaMakan} />
               <Route exact path="/depresi-daily-checklist" component={DepresiRinganChecklist} />
-              <Route exact path="/mindfulness-1" component={Mindfulness1} />
-              <Route exact path="/mindfulness-2" component={Mindfulness2} />
-              <Route exact path="/mindfulness-3" component={Mindfulness3} />
-              <Route exact path="/mindfulness-4" component={Mindfulness4} />
+
 
               <Route exact path="/stress-coping-nothing-2minutes" component={Nothing2mnt} />
               <Route exact path="/stress-coping-grateful" component={Grateful} />
@@ -203,7 +188,7 @@ function App() {
               <Route exact path="/stress-user" component={Stress} />
               <Route exact path="/depresi-user" component={Depresi} />
 
-               {/* PSIKOLOG */}
+              {/* PSIKOLOG */}
               <Route exact path="/psikolog" component={Psikolog} />
               <Route exact path="/psikolog/add" component={AddPsikolog} />
               <Route exact path="/psikolog/edit/:id" component={EditPsikolog} />
@@ -216,7 +201,7 @@ function App() {
               <Route exact path="/srq" component={JawabanSRQ} />
               <Route exact path="/hasil-srq" component={HasilSRQ} />
               <Route exact path="/psikolog-list" component={PsikologList} />
-              
+
               {/* DAILY INSIGHT */}
               <Route exact path="/dailyinsight" component={DailyInsight} />
               <Route exact path="/dailyinsight/add" component={AddDailyInsight} />
@@ -224,7 +209,7 @@ function App() {
               <Route exact path="/dailyinsight-user" component={DailyInsightUser} />
               <Route exact path="/dailyinsight-detail-user/:id" component={DailyInsightDetail} />
 
-               {/* PARTISIPAN */}
+              {/* PARTISIPAN */}
               <Route exact path="/partisipan" component={Partisipan} />
               <Route exact path="/partisipan-register" component={PartisipanRegister} />
               <Route exact path="/partisipan-login" component={PartisipanLogin} />

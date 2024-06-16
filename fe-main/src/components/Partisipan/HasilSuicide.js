@@ -7,6 +7,10 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../landing/Navbar";
 import Footer from "../landing/Footer";
 import "../style/Intervensi.css";
+import rendahImage from '../images/suicide/d-ada.jpg';
+import sedangImage from '../images/suicide/d-ada.jpg';
+import tinggiImage from '../images/suicide/d-ada.jpg';
+import tidakImage from '../images/suicide/d-tidak ada.jpg';
 
 const HasilSuicide = () => {
   const [hasilSuicide, setHasilSuicide] = useState(null);
@@ -45,52 +49,84 @@ const HasilSuicide = () => {
     return new Date(dateString).toLocaleDateString('id-ID', options);
   };
 
+  const getClassNameAndColor = () => {
+    if (hasilSuicide) {
+      switch (hasilSuicide.klasifikasi) {
+        case 'Resiko Bunuh Diri Rendah':
+          return { className: 'Resiko Bunuh Diri Rendah', color: '#B5C0D0', image: rendahImage }; // oren muda
+        case 'Resiko Bunuh Diri Sedang':
+          return { className: 'Resiko Bunuh Diri Sedang', color: '#B5C0D0' ,  image: sedangImage }; // hijau muda
+        case 'Resiko Bunuh Diri Tinggi':
+          return { className: 'Resiko Bunuh Diri Tinggi', color: '#B5C0D0', image: tinggiImage }; // pink muda
+        case 'Tidak Ada Resiko Bunuh Diri':
+          return { className: 'Tidak Ada Resiko Bunuh Diri', color: '#BFA2DB', image: tidakImage }; // merah muda
+        default:
+          return { className: '', color: '#ffffff' , image : null};
+      }
+    }
+    return { className: '', color: '#ffffff', image : null };
+  };
+
+
+  const klasifikasi = hasilSuicide ? hasilSuicide.klasifikasi : '';
+  const { className, color, image } = getClassNameAndColor();
+
+
   return (
     <>
       <Navbar />
       <Container className="mt-5" style={{ marginBottom: "50px", paddingTop:"100px" }}>
-        <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts-2">
-            <br />
-            Hasil Suicide
-            <br />
-          </h6>
-        </div>
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <Card>
-              <Card.Body>
-                {error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div>
-                    <Table bordered striped responsive className="mb-4" style={{fontSize:"18px"}}>
-                      <tbody>
-                        <tr>
-                          <td><strong>Tanggal Tes:</strong></td>
-                          <td>{formatDate(hasilSuicide && hasilSuicide.tanggal_tes)}</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Klasifikasi:</strong></td>
-                          <td>{hasilSuicide && hasilSuicide.klasifikasi}</td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            {hasilSuicide &&
+      <Container className="text-center mt-4">
+      <h6 className="section-title mb-2 tfonts-2">
+        <br />
+        Hasil Tes Suicide
+        <br />
+      </h6>
+      <Row className="justify-content-center mt-4">
+        <Col md={8}>
+          <Card style={{ backgroundColor: color }}>
+            <Card.Body>
+              <Row>
+                <Col md={6} className="text-left">
+                  {/* Gambar sesuai klasifikasi */}
+                  {image && (
+                    <img
+                      src={image} // Path gambar diambil dari import
+                      alt={klasifikasi}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}
+                    />
+                  )}
+                </Col>
+                <Col md={6}>
+                <br></br><br></br><br></br><br></br>
+                  <Card style={{ backgroundColor: 'white' }}>
+                    <Card.Body>
+                      <Container style={{ backgroundColor: color , color: 'black', textAlign: 'center', padding: '10px' }}>
+                        <p style={{ fontWeight: 'bold', fontSize: '20px' }}> 
+                            {klasifikasi &&
                               (hasilSuicide.klasifikasi === "Resiko Bunuh Diri Rendah" ||
                                 hasilSuicide.klasifikasi === "Tidak Ada Resiko Bunuh Diri"
                                 ? "Anda tidak memiliki resiko bunuh diri. Namun tingkatan anda sudah parah."
                                   : "Anda memiliki resiko bunuh diri.")}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+                        </p>
+                      </Container>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              {error && (
+                <Row className="mt-4">
+                  <Col md={12}>
+                    <p>{error}</p>
+                  </Col>
+                </Row>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+
       </Container>
 
       <Container className="mt-3 text-center d-flex justify-content-center" style={{ marginBottom: "50px" }}>
@@ -160,7 +196,7 @@ const HasilSuicide = () => {
                     <br /> Psikotes ini bukan milik atau buatan penulis sendiri,
                     namun berdasarkan referensi yang biasa digunakan di praktek
                     klinis dan sudah divalidasi. Hasil tes ini sangat bersifat
-                    obyektif, untuk diagnosis diperlukan langsung dengan
+                    objektif, untuk diagnosis diperlukan langsung dengan
                     psikiater.
                   </p>
                   <br />

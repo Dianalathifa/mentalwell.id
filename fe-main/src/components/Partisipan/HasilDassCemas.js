@@ -9,6 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import cemasSedang from "../images/intervensi/cemassedang1.png"; 
 import cemasRingan from "../images/intervensi/cemasringan1.png";
+import normalImage from '../images/cemas/c-normal.jpg';
+import ringanImage from '../images/cemas/c-ringan.jpg';
+import sedangImage from '../images/cemas/c-sedang.jpg';
+import beratImage from '../images/cemas/c-parah.jpg';
+import sangatParahImage from '../images/cemas/c-sangat_parah.jpg';
 
 const HasilDassCemas = () => {
   const [hasilKlasifikasi, setHasilKlasifikasi] = useState(null);
@@ -128,63 +133,83 @@ const HasilDassCemas = () => {
       ))}
     </Row>
   );
+  const getClassNameAndColor = () => {
+    if (hasilKlasifikasi) {
+      switch (hasilKlasifikasi.klasifikasi) {
+        case 'Kecemasan Normal':
+          return { className: 'Kecemasan Normal', color: '#E88D67', image: normalImage }; // oren muda
+        case 'Kecemasan Ringan':
+          return { className: 'Kecemasan Ringan', color: '#FD9B63' ,  image: ringanImage }; // hijau muda
+        case 'Kecemasan Sedang':
+          return { className: 'Kecemasan Sedang', color: '#A7E6FF', image: sedangImage }; // pink muda
+        case 'Kecemasan Parah':
+          return { className: 'Kecemasan Parah', color: '#EE4E4E', image: beratImage }; // merah muda
+        case 'Kecemasan Sangat Parah':
+          return { className: 'Kecemasan Sangat Parah', color: '#FF9F66', image: sangatParahImage  }; // merah muda
+        default:
+          return { className: '', color: '#ffffff' , image : null};
+      }
+    }
+    return { className: '', color: '#ffffff', image : null };
+  };
+
+  const points = hasilKlasifikasi ? hasilKlasifikasi.points : '';
+  const klasifikasi = hasilKlasifikasi ? hasilKlasifikasi.klasifikasi : '';
+  const { className, color, image } = getClassNameAndColor();
+
 
   return (
     <>
       <Navbar />
       <Container className="mt-5" style={{ marginBottom: "50px", paddingTop: "100px" }}>
-        <div className="container text-center">
-          <h6 className="section-title mb-2 tfonts-2">
-            <br />
-            Hasil Klasifikasi
-            <br />
-          </h6>
-        </div>
-        <Row className="justify-content-center">
-          <Col md={10}>
-            <Card>
-              <Card.Body>
-                {error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div>
-                    <Table bordered striped responsive className="mb-4" style={{fontSize:"18px"}}>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <strong>Tanggal:</strong>
-                          </td>
-                          <td>
-                            {formatDate(
-                              hasilKlasifikasi && hasilKlasifikasi.tanggal_tes
-                            )}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Points:</strong>
-                          </td>
-                          <td>{hasilKlasifikasi && hasilKlasifikasi.points}</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <strong>Klasifikasi:</strong>
-                          </td>
-                          <td>
-                            {hasilKlasifikasi && hasilKlasifikasi.klasifikasi}
-                          </td>
-                        </tr>
-                        <tr>
-                          
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        <Container className="text-center mt-4">
+      <h6 className="section-title mb-2 tfonts-2">
+        <br />
+        Hasil Klasifikasi Tes DASS Kecemasan
+        <br />
+      </h6>
+      <Row className="justify-content-center mt-4">
+        <Col md={8}>
+          <Card style={{ backgroundColor: color }}>
+            <Card.Body>
+              <Row>
+                <Col md={6} className="text-left">
+                  {/* Gambar sesuai klasifikasi */}
+                  {image && (
+                    <img
+                      src={image} // Path gambar diambil dari import
+                      alt={klasifikasi}
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}
+                    />
+                  )}
+                </Col>
+                <Col md={6}>
+                <br></br><br></br><br></br><br></br>
+                  <Card style={{ backgroundColor: 'white' }}>
+                    <Card.Body>
+                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>Total Points Kamu </p>
+                      <Container style={{ backgroundColor: 'white', color: 'white', textAlign: 'center', padding: '10px' , fontWeight: 'bold', fontSize: '25px'}}>
+                        <strong>{points}</strong>
+                      </Container>
+                      <Container style={{ backgroundColor: color , color: 'black', textAlign: 'center', padding: '10px' }}>
+                        <p style={{ fontWeight: 'bold', fontSize: '20px' }}> Klasifikasi: {klasifikasi}</p>
+                      </Container>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              {error && (
+                <Row className="mt-4">
+                  <Col md={12}>
+                    <p>{error}</p>
+                  </Col>
+                </Row>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
 
         <Container
           className="mt-3 text-center d-flex justify-content-center"
@@ -201,9 +226,9 @@ const HasilDassCemas = () => {
                     <Container className="mt-3 text-center d-flex justify-content-center" style={{marginBottom:"10px"}}>
                       <Col md={10} >
                         <Alert variant="white" style={{ fontSize:"18px"}}>
-                          <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Kesehatanmu Sangat Baik</h4>
-                          <p style={{marginBottom:"20px"}}>Selamat, kamu memiliki mental yang sehat. Tetap jaga kesehatan mentalmu dan lanjut ke artikel harian!</p><br/>
-                          {renderDailyInsights()}
+                        <h4 style={{fontWeight:"bold"}}>WAH! Hasil Tes Dass Kecemasan kamu menunjukkan hasil yang normal.</h4>
+                      <p style={{marginBottom:"20px"}}>Cobalah buang hal negatif yang menghantui pikiranmu. Tetap jaga kesehatan mentalmu dan yuk lanjut ke artikel harian untuk lebih menjaga kesehatan mentalmu!</p><br/>
+                      {renderDailyInsights()}
                           <Button variant="light"
                             className="custom-button"
                             style={{
@@ -211,7 +236,7 @@ const HasilDassCemas = () => {
                               fontWeight: "bold",
                               padding: '15px 25px',
                               fontSize: '17px'}}
-                            onClick={() => handleNavigation('/dailyinsight-user')}>
+                            onClick={() => handleNavigation('/daily-insight')}>
                             Temukan Lebih Banyak Artikel Harian
                           </Button>
                         </Alert>
@@ -220,14 +245,12 @@ const HasilDassCemas = () => {
                   )}
                     {hasilKlasifikasi.klasifikasi === "Kecemasan Ringan" && (
                       <>
-                        <p style={{ fontSize: "18px" }}>
-                          Anda dapat mencoba teknik-teknik pernapasan dan relaksasi
-                          untuk mengurangi kecemasan. Jika perlu,{" "}
-                          <Link to="/intervensigrounding-user">
-                            konsultasikan dengan psikolog atau terapis
-                          </Link>{" "}
-                          untuk bantuan tambahan.
-                        </p>
+                       Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
+                      <Link to="/intervensi-stresscoping-user">
+                        konsultasikan dengan psikolog atau terapis
+                      </Link>{" "}
+                      untuk bantuan tambahan.
                         <Row className="mt-3">
                           <Col xs={6} md={3} lg={3}>
                             <Card className="h-100 card-hover" style={{ height: '350px', marginTop: '10px'}}>
@@ -246,15 +269,12 @@ const HasilDassCemas = () => {
                     )}
                     {hasilKlasifikasi.klasifikasi === "Kecemasan Sedang" && (
                       <>
-                        <p style={{ fontSize: "18px" }}>
-                          Selain mencoba teknik-teknik pernapasan dan relaksasi,
-                          pertimbangkan untuk berbicara dengan seseorang yang Anda
-                          percayai tentang perasaan Anda.{" "}
-                          <Link to="/intervensimindfulness-user">
-                            Psikolog atau terapis
-                          </Link>{" "}
-                          juga dapat memberikan bantuan yang berguna.
-                        </p>
+                        Tetap tenang dan jangan panik. Apapun itu hasilnya, MentalWell hadir untuk membantumu. 
+                      Yuk ikuti langkah berikutnya yaitu intervensi. Jika perlu,{" "}
+                      <Link to="/intervensi-stresscoping-user">
+                        konsultasikan dengan psikolog atau terapis
+                      </Link>{" "}
+                      untuk bantuan tambahan.
                         <Row className="mt-3">
                           <Col xs={6} md={3} lg={3} style={{marginLeft:"380px", marginTop:"10px"}}>
                             <Card className="h-100 card-hover" style={{ height: '350px', margin: '10px' }}>
@@ -278,8 +298,8 @@ const HasilDassCemas = () => {
                           <Row className="justify-content-center">
                             <Col md={10}>
                               <h1 className="subtitle">
-                                Oh Tidak! Kamu memiliki kondisi kecemasan yang kurang
-                                baik. Berikut beberapa psikolog rekomendasi kami yang
+                                Oh Tidak! Kamu memiliki kondisi kecemasan yang sudah parah. 
+                                Berikut beberapa psikolog rekomendasi kami yang
                                 dapat membantumu mengatasi kecemasan berlebih.
                               </h1>
                               <Row>
@@ -312,7 +332,8 @@ const HasilDassCemas = () => {
                                           {psikolog.telephone_psikolog}
                                         </Card.Text>
                                         <Button
-                                          variant="primary"
+                                          variant="light"
+                                          className="custom-button"
                                           href={psikolog.url_psikolog}
                                         >
                                           Lihat Profil
@@ -353,7 +374,7 @@ const HasilDassCemas = () => {
                     <br /> Psikotes ini bukan milik atau buatan penulis sendiri,
                     namun berdasarkan referensi yang biasa digunakan di praktek
                     klinis dan sudah divalidasi. Hasil tes ini sangat bersifat
-                    obyektif, untuk diagnosis diperlukan langsung dengan
+                    objektif, untuk diagnosis diperlukan langsung dengan
                     psikiater.
                   </p>
                   <br />
